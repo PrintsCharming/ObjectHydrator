@@ -29,7 +29,7 @@ namespace SampleWebApplication
             //    .FromList("Company", System.Linq.Enumerable.Cast<object>((IList<Company>)Application["companies"]))
             //    .WithChildEntityList("Companies",typeof(Company),args);
             Hydrator<Customer> hydrator = new Hydrator<Customer>()
-            .With(x => x.Company, new FromListGenerator<Company>((IList<Company>)Application["companies"]))
+            .With(x => x.Company, new FromListGetSingleGenerator<Company>((IList<Company>)Application["companies"]))
             .With(x => x.Companies, new ListGenerator<Company>(listSize));
             Application["customers"] = hydrator.GetList(50);
             

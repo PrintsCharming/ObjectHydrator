@@ -19,7 +19,7 @@ namespace SampleWebApplication
         protected void Button1_Click(object sender, EventArgs e)
         {
             Foundation.ObjectHydrator.Hydrator<Customer> hydrator = new Foundation.ObjectHydrator.Hydrator<Customer>()
-            .With(x => x.Company, new FromListGenerator<Company>((IList<Company>)Application["companies"]))
+            .With(x => x.Company, new FromListGetSingleGenerator<Company>((IList<Company>)Application["companies"]))
             .With(x => x.LastName, txtLastName.Text);
             GridView1.DataSource = hydrator.GetList(30);
             GridView1.DataBind();

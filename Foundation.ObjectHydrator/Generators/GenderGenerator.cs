@@ -14,7 +14,7 @@ namespace Foundation.ObjectHydrator.Generators
 
         public string Generate()
         {
-            return ((IGenerator<string>)new FromListGenerator<string>(new List<string> { "Male", "Female" })).Generate();
+            return ((IGenerator<string>)new FromListGetSingleGenerator<string>(new List<string> { "Male", "Female" })).Generate();
         }
     }
 }

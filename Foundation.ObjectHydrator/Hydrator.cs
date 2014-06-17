@@ -439,7 +439,7 @@ namespace Foundation.ObjectHydrator
         /// <returns>This instance of the Hydrator for type T.</returns>
         public Hydrator<T> FromList<TProperty>(Expression<Func<T, TProperty>> expression, IEnumerable<TProperty> list)
         {
-            IGenerator<TProperty> gen = (IGenerator<TProperty>)new FromListGenerator<TProperty>(list);
+            IGenerator<TProperty> gen = (IGenerator<TProperty>)new FromListGetSingleGenerator<TProperty>(list);
             SetPropertyMap(expression, gen);
             return this;
         }

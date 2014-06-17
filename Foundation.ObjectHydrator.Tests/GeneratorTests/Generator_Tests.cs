@@ -116,7 +116,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             testlist.Add("hey");
             testlist.Add("yay");
             testlist.Add("nay");
-            IGenerator<string> listgen = new FromListGenerator<string>(testlist);
+            IGenerator<string> listgen = new FromListGetSingleGenerator<string>(testlist);
             string checkme = (string)listgen.Generate();
             Assert.IsNotNull(checkme);
             Assert.IsTrue(testlist.Contains(checkme));

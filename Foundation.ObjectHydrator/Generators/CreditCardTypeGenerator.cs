@@ -13,7 +13,7 @@ namespace Foundation.ObjectHydrator.Generators
         public string Generate()
         {
             return
-                new FromListGenerator<string>(new List<string>
+                new FromListGetSingleGenerator<string>(new List<string>
                                                   {
                                                       "MasterCard",
                                                       "Visa",

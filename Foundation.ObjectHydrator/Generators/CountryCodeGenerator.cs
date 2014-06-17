@@ -20,7 +20,7 @@ namespace Foundation.ObjectHydrator.Generators
 
         public string Generate()
         {
-            return new FromListGenerator<string>(countrycodes).Generate();
+            return new FromListGetSingleGenerator<string>(countrycodes).Generate();
         }
 
         private void LoadCountryCodes()
