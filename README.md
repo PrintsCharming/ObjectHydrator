@@ -5,6 +5,8 @@ This project allows you to pass custom POCO's to it, and have it return an insta
 
 Current version 0.6.1
 
+Version 0.6.1 is a breaking change as FromListGenerator's name has been changed to FromListGetSingleGenerator
+
 You can install with NuGet: Install-Package objecthydrator
 
 This version is for Visual Studio 2010 .Net 4
