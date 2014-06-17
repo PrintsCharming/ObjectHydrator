@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.ObjectHydrator", "Foundation.ObjectHydrator\Foundation.ObjectHydrator.csproj", "{8B60029E-DC22-4019-8AD6-E6A6A0CAEBFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.ObjectHydrator.Tests", "Foundation.ObjectHydrator.Tests\Foundation.ObjectHydrator.Tests.csproj", "{44E61D49-4DA0-448C-928E-2907951DD381}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWebApplication", "SampleWebApplication\SampleWebApplication.csproj", "{D43EF567-08DE-479D-9D03-1820595911CF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B60029E-DC22-4019-8AD6-E6A6A0CAEBFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B60029E-DC22-4019-8AD6-E6A6A0CAEBFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B60029E-DC22-4019-8AD6-E6A6A0CAEBFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B60029E-DC22-4019-8AD6-E6A6A0CAEBFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44E61D49-4DA0-448C-928E-2907951DD381}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44E61D49-4DA0-448C-928E-2907951DD381}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44E61D49-4DA0-448C-928E-2907951DD381}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44E61D49-4DA0-448C-928E-2907951DD381}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D43EF567-08DE-479D-9D03-1820595911CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D43EF567-08DE-479D-9D03-1820595911CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D43EF567-08DE-479D-9D03-1820595911CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D43EF567-08DE-479D-9D03-1820595911CF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+EndGlobal
