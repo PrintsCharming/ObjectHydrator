@@ -336,5 +336,13 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             Assert.IsNotNull(alphaNumeric);
             Assert.AreEqual(10, alphaNumeric.Length);
         }
+
+        [Test]
+        public void UnitedKingdomCityGeneratorTest()
+        {
+            IGenerator<string> americancity = new UnitedKingdomCityGenerator();
+            var city = (string)americancity.Generate();
+            Assert.IsNotNull(city);
+        }
     }
 }

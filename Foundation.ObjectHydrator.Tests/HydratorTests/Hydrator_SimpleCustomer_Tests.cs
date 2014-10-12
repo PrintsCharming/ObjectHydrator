@@ -581,6 +581,15 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             Assert.AreEqual(10, customer.placeholderstring.Length);
         }
 
+        [Test]
+        public void WithUnitedKingdomCityTest()
+        {
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithUnitedKingdomCity(x => x.placeholderstring);
+            var customer = hydrator.GetSingle();
+            Assert.IsNotNull(customer.placeholderstring);
+        }
+
         private void DumpCustomers(IList<SimpleCustomer> customers)
         {
             foreach (SimpleCustomer customer in customers)

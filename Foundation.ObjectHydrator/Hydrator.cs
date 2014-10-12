@@ -275,6 +275,13 @@ namespace Foundation.ObjectHydrator
             return this;
         }
 
+        public Hydrator<T> WithUnitedKingdomCity<TProperty>(Expression<Func<T, TProperty>> expression)
+        {
+            IGenerator<TProperty> gen = (IGenerator<TProperty>)new UnitedKingdomCityGenerator();
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+
         /// <summary>
         /// Returns a CCV based on the type. {Presently just returns a 000-999 ignoring the type}
         /// </summary>
