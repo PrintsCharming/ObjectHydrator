@@ -352,5 +352,13 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             var county = (string)unitedKingdomCountyGenerator.Generate();
             Assert.IsNotNull(county);
         }
+
+        [Test]
+        public void UnitedKingdomPostCodeGeneratorTest()
+        {
+            IGenerator<string> unitedKingdomCountyGenerator = new UnitedKingdomPostCodeGenerator();
+            var county = (string)unitedKingdomCountyGenerator.Generate();
+            Assert.IsNotNull(county);
+        }
     }
 }
