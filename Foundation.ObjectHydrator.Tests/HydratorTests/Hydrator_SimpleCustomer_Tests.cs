@@ -590,6 +590,15 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             Assert.IsNotNull(customer.placeholderstring);
         }
 
+        [Test]
+        public void WithUnitedKingdomCountyTest()
+        {
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithUnitedKingdomCounty(x => x.placeholderstring);
+            var customer = hydrator.GetSingle();
+            Assert.IsNotNull(customer.placeholderstring);
+        }
+
         private void DumpCustomers(IList<SimpleCustomer> customers)
         {
             foreach (SimpleCustomer customer in customers)

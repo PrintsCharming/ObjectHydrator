@@ -340,9 +340,17 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         [Test]
         public void UnitedKingdomCityGeneratorTest()
         {
-            IGenerator<string> americancity = new UnitedKingdomCityGenerator();
-            var city = (string)americancity.Generate();
+            IGenerator<string> unitedKingdomCityGenerator = new UnitedKingdomCityGenerator();
+            var city = (string)unitedKingdomCityGenerator.Generate();
             Assert.IsNotNull(city);
+        }
+
+        [Test]
+        public void UnitedKingdomCountyGeneratorTest()
+        {
+            IGenerator<string> unitedKingdomCountyGenerator = new UnitedKingdomCountyGenerator();
+            var county = (string)unitedKingdomCountyGenerator.Generate();
+            Assert.IsNotNull(county);
         }
     }
 }
