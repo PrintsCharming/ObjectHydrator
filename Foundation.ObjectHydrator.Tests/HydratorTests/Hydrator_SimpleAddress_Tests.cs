@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using MbUnit.Framework;
-using Foundation.ObjectHydrator.Tests.POCOs;
-using Foundation.ObjectHydrator.Interfaces;
-using Foundation.ObjectHydrator.Generators;
+﻿using Foundation.ObjectHydrator.Tests.POCOs;
+using NUnit.Framework;
 
 namespace Foundation.ObjectHydrator.Tests.HydratorTests
 {
@@ -15,33 +9,28 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void SimpleTest()
         {
-            
-            Hydrator<Address> hydrator = new Hydrator<Address>();
-            
-            Address checkme = hydrator.GetSingle();
+            var hydrator = new Hydrator<Address>();
+
+            var checkme = hydrator.GetSingle();
             Assert.IsNotNull(checkme);
         }
 
         [Test]
         public void CityTest()
         {
-            Hydrator<Address> hydrator = new Hydrator<Address>();
+            var hydrator = new Hydrator<Address>();
 
-            Address checkme = hydrator.GetSingle();
+            var checkme = hydrator.GetSingle();
             Assert.IsNotNull(checkme);
-
         }
 
         [Test]
         public void StateTest()
         {
-            Hydrator<Address> hydrator = new Hydrator<Address>();
+            var hydrator = new Hydrator<Address>();
 
-            Address checkme = hydrator.GetSingle();
+            var checkme = hydrator.GetSingle();
             Assert.IsNotNull(checkme);
-
         }
-        
-            
     }
 }

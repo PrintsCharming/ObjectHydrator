@@ -412,10 +412,21 @@ namespace Foundation.ObjectHydrator
             return this;
         }
 
+        /// <summary>
+        /// Applies a random alphanumeric string of a specified length
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="expression"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public Hydrator<T> WithAlphaNumeric<TProperty>(Expression<Func<T, TProperty>> expression, int length)
+        {
+            IGenerator<TProperty> gen = (IGenerator<TProperty>)new AlphaNumericGenerator(length);
+            SetPropertyMap(expression, gen);
+            return this;
 
-
-
-
+        }
+        
 
 
         

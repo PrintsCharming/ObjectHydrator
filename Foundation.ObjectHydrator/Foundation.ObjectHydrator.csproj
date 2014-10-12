@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="DefaultTypeMap.cs" />
     <Compile Include="EnumMap.cs" />
+    <Compile Include="Generators\AlphaNumericGenerator.cs" />
     <Compile Include="Generators\AmericanAddressGenerator.cs" />
     <Compile Include="Generators\AmericanCityGenerator.cs" />
     <Compile Include="Generators\AmericanPhoneGenerator.cs" />

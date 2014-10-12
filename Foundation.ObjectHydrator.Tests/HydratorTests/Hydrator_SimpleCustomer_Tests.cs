@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using MbUnit.Framework;
 using System.Diagnostics;
 using System.Reflection;
-using Foundation.ObjectHydrator.Tests.POCOs;
-using Foundation.ObjectHydrator.Generators;
 using System.Text.RegularExpressions;
-
+using Foundation.ObjectHydrator.Generators;
+using Foundation.ObjectHydrator.Tests.POCOs;
+using NUnit.Framework;
 
 namespace Foundation.ObjectHydrator.Tests.HydratorTests
 {
@@ -18,8 +15,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void CanGetSingleSimpleCustomer()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>();
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>();
+            var customer = hydrator.GetSingle();
 
             Assert.IsTrue(!String.IsNullOrEmpty(customer.Description), "Customer Description should exist.");
 
@@ -29,9 +26,9 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void CanGetList()
         {
-            int listCount = 50;
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>();
-            IList<SimpleCustomer> customers = hydrator.GetList(listCount);
+            var listCount = 50;
+            var hydrator = new Hydrator<SimpleCustomer>();
+            var customers = hydrator.GetList(listCount);
 
             Assert.IsTrue(customers.Count == listCount, "Customer count is wrong.");
 
@@ -41,8 +38,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void CanGetDescription()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>();
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>();
+            var customer = hydrator.GetSingle();
 
             Assert.IsTrue(!String.IsNullOrEmpty(customer.Description), "Customer Description should exist.");
 
@@ -52,29 +49,27 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void CanConstrainIntegers()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
+            var hydrator = new Hydrator<SimpleCustomer>()
                 .WithInteger(x => x.Locations, 5, 10);
 
-            SimpleCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
 
-            Assert.IsTrue(customer.Locations >= 5 && customer.Locations <= 10, String.Format("Customer Locations [{0}] is outside expected range.", customer.Locations));
+            Assert.IsTrue(customer.Locations >= 5 && customer.Locations <= 10,
+                String.Format("Customer Locations [{0}] is outside expected range.", customer.Locations));
 
             DumpSimpleCustomer(customer);
         }
 
-  
-
-  
 
         [Test]
         public void CanDefaultString()
         {
-            string defaultValue = "Testing123";
+            var defaultValue = "Testing123";
 
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
+            var hydrator = new Hydrator<SimpleCustomer>()
                 .With(x => x.Description, defaultValue);
 
-            SimpleCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
 
             Assert.IsTrue(defaultValue == customer.Description, String.Format("Default value is not as expected[{0}]", defaultValue));
 
@@ -84,9 +79,9 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void CanOverrideGenerator()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
-            .With(x => x.FirstName, "Bob");
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .With(x => x.FirstName, "Bob");
+            var customer = hydrator.GetSingle();
 
             Assert.IsNotNull(customer);
             Assert.IsTrue(customer.FirstName == "Bob");
@@ -95,9 +90,9 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void CanGetInteger()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>();
+            var hydrator = new Hydrator<SimpleCustomer>();
 
-            SimpleCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
 
             Assert.IsTrue(customer.Locations >= 0, String.Format("Customer Locations is expected."));
 
@@ -107,9 +102,9 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void CanGetDouble()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>();
+            var hydrator = new Hydrator<SimpleCustomer>();
 
-            SimpleCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
 
             Assert.IsTrue(customer.Revenue >= 0, String.Format("Customer Revenue is expected."));
 
@@ -119,13 +114,13 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void CanConstrainDoubleDecimalPlaces()
         {
-            int decimalPlaces = 3;
+            var decimalPlaces = 3;
 
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
+            var hydrator = new Hydrator<SimpleCustomer>()
                 .WithDouble(x => x.Revenue, decimalPlaces);
-            SimpleCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
 
-            double decimalPart = customer.Revenue - (int)customer.Revenue;
+            var decimalPart = customer.Revenue - (int) customer.Revenue;
             Assert.IsTrue(decimalPart >= 0, String.Format("Customer Revenue decimal part is expected."));
 
             DumpSimpleCustomer(customer);
@@ -134,34 +129,33 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void CanConstrainDoubleRange()
         {
-            double minimum = 15.76;
-            double maximum = 76.43;
+            var minimum = 15.76;
+            var maximum = 76.43;
 
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
+            var hydrator = new Hydrator<SimpleCustomer>()
                 .WithDouble(x => x.Revenue, minimum, maximum);
 
-            SimpleCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
 
-
-            Assert.Between<double>(customer.Revenue, minimum, maximum);
+            Assert.That(customer.Revenue, Is.InRange(minimum, maximum));
             DumpSimpleCustomer(customer);
         }
 
         [Test]
         public void CanConstrainDoubleRangeAndDecimals()
         {
-            double minimum = 15.76;
-            double maximum = 76.43;
-            int decimalPlaces = 3;
+            var minimum = 15.76;
+            var maximum = 76.43;
+            var decimalPlaces = 3;
 
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
+            var hydrator = new Hydrator<SimpleCustomer>()
                 .WithDouble(x => x.Revenue, minimum, maximum, decimalPlaces);
 
-            SimpleCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
 
-            double decimalPart = customer.Revenue - (int)customer.Revenue;
+            var decimalPart = customer.Revenue - (int) customer.Revenue;
 
-            Assert.Between<double>(customer.Revenue, minimum, maximum);
+            Assert.That(customer.Revenue, Is.InRange(minimum, maximum));
             Assert.IsTrue(decimalPart >= 0, String.Format("Customer Revenue decimal part is expected."));
 
             DumpSimpleCustomer(customer);
@@ -170,12 +164,12 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void CanDefaultInteger()
         {
-            int defaultValue = 73;
+            var defaultValue = 73;
 
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
+            var hydrator = new Hydrator<SimpleCustomer>()
                 .With(x => x.Locations, defaultValue);
 
-            SimpleCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
 
             Assert.IsTrue(defaultValue == customer.Locations, String.Format("Default value is not as expected[{0}]", defaultValue));
 
@@ -185,13 +179,13 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void CanDefaultDateTime()
         {
-            DateTime defaultValue = new DateTime(2009, 01, 01);
+            var defaultValue = new DateTime(2009, 01, 01);
 
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
+            var hydrator = new Hydrator<SimpleCustomer>()
                 .With(x => x.IncorporatedOn, defaultValue);
 
 
-            SimpleCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
 
             Assert.IsTrue(defaultValue == customer.IncorporatedOn, String.Format("Default value is not as expected[{0}]", defaultValue));
 
@@ -201,64 +195,68 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void CanChainWithDefaultDescription()
         {
-            string defaultValue = "Testing123";
-            int minimumValue = 65;
-            int maximumValue = 75;
+            var defaultValue = "Testing123";
+            var minimumValue = 65;
+            var maximumValue = 75;
 
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
+            var hydrator = new Hydrator<SimpleCustomer>()
                 .With(x => x.Description, defaultValue)
-                .With(x => x.Locations, new IntegerGenerator(minimumValue,maximumValue));
+                .With(x => x.Locations, new IntegerGenerator(minimumValue, maximumValue));
 
-            SimpleCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
 
             Assert.IsTrue(defaultValue == customer.Description, String.Format("Default value is not as expected[{0}]", defaultValue));
 
-            Assert.Between<int>(customer.Locations, minimumValue, maximumValue, String.Format("Customer Locations [{0}] is outside expected range [{1},{2}].", customer.Locations, minimumValue, maximumValue));
+            Assert.That(customer.Locations, Is.InRange(minimumValue, maximumValue),
+                String.Format("Customer Locations [{0}] is outside expected range [{1},{2}].", customer.Locations, minimumValue,
+                    maximumValue));
             DumpSimpleCustomer(customer);
         }
 
         [Test]
         public void CanConstrainWithDates()
         {
-            DateTime minimumValue = new DateTime(2009, 01, 01);
-            DateTime maximumValue = new DateTime(2009, 01, 10);
+            var minimumValue = new DateTime(2009, 01, 01);
+            var maximumValue = new DateTime(2009, 01, 10);
 
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
+            var hydrator = new Hydrator<SimpleCustomer>()
                 .WithDate(x => x.IncorporatedOn, minimumValue, maximumValue);
 
-            SimpleCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
 
 
-            Assert.Between<DateTime>(customer.IncorporatedOn, minimumValue, maximumValue, String.Format("Customer IncorporatedOn [{0}] is outside expected range [{1}, {2}].", customer.IncorporatedOn, minimumValue, maximumValue));
+            Assert.That(customer.IncorporatedOn, Is.InRange(minimumValue, maximumValue),
+                String.Format("Customer IncorporatedOn [{0}] is outside expected range [{1}, {2}].", customer.IncorporatedOn,
+                    minimumValue, maximumValue));
             DumpSimpleCustomer(customer);
-
         }
 
         [Test]
         public void CanConstrainDates()
         {
-            DateTime minimumValue = new DateTime(2009, 01, 01);
-            DateTime maximumValue = new DateTime(2009, 01, 10);
+            var minimumValue = new DateTime(2009, 01, 01);
+            var maximumValue = new DateTime(2009, 01, 10);
 
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
+            var hydrator = new Hydrator<SimpleCustomer>()
                 .With(x => x.IncorporatedOn, new DateTimeGenerator(minimumValue, maximumValue));
 
-            SimpleCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
 
 
-            Assert.Between<DateTime>(customer.IncorporatedOn, minimumValue, maximumValue, String.Format("Customer IncorporatedOn [{0}] is outside expected range [{1}, {2}].", customer.IncorporatedOn, minimumValue, maximumValue));
+            Assert.That(customer.IncorporatedOn, Is.InRange(minimumValue, maximumValue),
+                String.Format("Customer IncorporatedOn [{0}] is outside expected range [{1}, {2}].", customer.IncorporatedOn,
+                    minimumValue, maximumValue));
             DumpSimpleCustomer(customer);
-
         }
 
         [Test]
         public void CanGetByteArray()
         {
-            int length = 10;
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
-                                .WithByteArray(x => x.Version, length);
+            var length = 10;
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithByteArray(x => x.Version, length);
 
-            SimpleCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
 
             Assert.IsTrue(customer.Version.Length == length, String.Format("Customer Version Length is expected to be {0}.", length));
 
@@ -268,48 +266,49 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void CanGetCreditCardNumber()
         {
-            int length = 16;
+            var length = 16;
 
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
+            var hydrator = new Hydrator<SimpleCustomer>()
                 .WithCreditCardNumber(x => x.CreditCardNumber, length);
 
-            SimpleCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
 
             Assert.IsNotEmpty(customer.CreditCardNumber, String.Format("Credit Card Number is expected."));
             Assert.IsTrue(customer.CreditCardNumber.Length == length,
-                          String.Format("Credit Card Number [{0}] should be {1} long.", customer.CreditCardNumber,
-                                        length));
+                String.Format("Credit Card Number [{0}] should be {1} long.", customer.CreditCardNumber,
+                    length));
 
             DumpSimpleCustomer(customer);
-
         }
 
         private bool IsWebsiteAddressValid(string webaddy)
         {
-            Regex testpattern = new Regex("((mailto\\:|(news|(ht|f)tp(s?))\\://){1}\\S+)");
+            var testpattern = new Regex("((mailto\\:|(news|(ht|f)tp(s?))\\://){1}\\S+)");
             return testpattern.IsMatch(webaddy);
         }
 
         [Test]
         public void TestWebsiteAddress()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>();
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>();
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.homepage);
             Assert.IsTrue(IsWebsiteAddressValid(customer.homepage));
         }
 
         public bool IsValidIPAddress(string ipaddress)
         {
-            Regex testpattern = new Regex("^(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])$");
+            var testpattern =
+                new Regex(
+                    "^(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])$");
             return testpattern.IsMatch(ipaddress);
         }
 
         [Test]
         public void IPAddressTest()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>();
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>();
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.ipaddress);
             Assert.IsTrue(IsValidIPAddress(customer.ipaddress));
         }
@@ -317,9 +316,9 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void WithIPAddressTest()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
+            var hydrator = new Hydrator<SimpleCustomer>()
                 .WithIPAddress(x => x.placeholderstring);
-            SimpleCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.placeholderstring);
             Assert.IsTrue(IsValidIPAddress(customer.placeholderstring));
         }
@@ -327,52 +326,53 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void GenderTest()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>();
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>();
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.gender);
-
         }
 
         [Test]
         public void WithGenderTest()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
-            .WithGender(x => x.placeholderstring);
-            
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithGender(x => x.placeholderstring);
+
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.placeholderstring);
-            Assert.IsTrue(customer.placeholderstring.ToLower().Contains("male")||customer.placeholderstring.ToLower().Contains("female"));
+            Assert.IsTrue(customer.placeholderstring.ToLower().Contains("male") ||
+                          customer.placeholderstring.ToLower().Contains("female"));
         }
 
         [Test]
         public void CreditCardTypeTest()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>();
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>();
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.creditcardtype);
-
         }
 
         [Test]
         public void CountryCodeTest()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>();
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>();
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.Country);
             Assert.IsTrue(customer.Country.Length == 2);
         }
 
         private bool IsEmailAddressValid(string emailaddress)
         {
-            Regex emailpattern = new Regex("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
+            var emailpattern =
+                new Regex(
+                    "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
             return emailpattern.IsMatch(emailaddress);
         }
 
         [Test]
         public void EmailAddressTest()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>();
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>();
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.EmailAddress);
             Assert.IsTrue(IsEmailAddressValid(customer.EmailAddress));
         }
@@ -380,71 +380,71 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void BooleanGenerator()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>();
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>();
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.IsActive);
-            Assert.IsInstanceOfType(typeof(bool), customer.IsActive);
+            Assert.IsInstanceOfType(typeof (bool), customer.IsActive);
             DumpSimpleCustomer(customer);
         }
 
         [Test]
         public void CanGetTrackingNumberByInference()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>();
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>();
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.TrackingNumber);
-
         }
 
         [Test]
         public void CanGetTrackingNumberBySpecification()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
+            var hydrator = new Hydrator<SimpleCustomer>()
                 .WithTrackingNumber(x => x.TrackingNumber, "usps");
-            SimpleCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.TrackingNumber);
-
         }
 
         [Test]
         public void CanGetCCV()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
-            .WithCCV(x => x.CCV, "visa");
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithCCV(x => x.CCV, "visa");
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.CCV);
             Assert.IsTrue(customer.CCV.Length == 3);
         }
 
         private bool CheckPhone(string phonetocheck)
         {
-            Regex phonepattern = new Regex("^[\\(]{0,1}([0-9]){3}[\\)]{0,1}[ ]?([^0-1]){1}([0-9]){2}[ ]?[-]?[ ]?([0-9]){4}[ ]*((x){0,1}([0-9]){1,5}){0,1}$");
-            bool boolval = phonepattern.IsMatch(phonetocheck);
+            var phonepattern =
+                new Regex(
+                    "^[\\(]{0,1}([0-9]){3}[\\)]{0,1}[ ]?([^0-1]){1}([0-9]){2}[ ]?[-]?[ ]?([0-9]){4}[ ]*((x){0,1}([0-9]){1,5}){0,1}$");
+            var boolval = phonepattern.IsMatch(phonetocheck);
             return boolval;
         }
 
         [Test]
         public void WithPhoneTest()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
+            var hydrator = new Hydrator<SimpleCustomer>()
                 .WithAmericanPhone(x => x.placeholderstring);
-            SimpleCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.placeholderstring);
             Assert.IsTrue(CheckPhone(customer.placeholderstring));
         }
 
         private bool IsAmericanPostalCodeValid(string postalcode)
         {
-            Regex postalcodepattern = new Regex("^\\d{5}$|^\\d{5}-\\d{4}$");
+            var postalcodepattern = new Regex("^\\d{5}$|^\\d{5}-\\d{4}$");
             return postalcodepattern.IsMatch(postalcode);
         }
 
         [Test]
         public void WithPostalCodeTest()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
-            .WithAmericanPostalCode(x => x.placeholderstring, 1);
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithAmericanPostalCode(x => x.placeholderstring, 1);
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.placeholderstring);
             Assert.IsTrue(IsAmericanPostalCodeValid(customer.placeholderstring));
         }
@@ -452,10 +452,10 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void FromListTest()
         {
-            IList<string> mylist = new List<string>() { "red", "green", "blue", "orange" };
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
-            .FromList(x => x.placeholderstring, mylist);
-            SimpleCustomer customer = hydrator.GetSingle();
+            IList<string> mylist = new List<string>() {"red", "green", "blue", "orange"};
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .FromList(x => x.placeholderstring, mylist);
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.placeholderstring);
             Assert.IsTrue(mylist.Contains(customer.placeholderstring));
         }
@@ -463,92 +463,89 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void WithAmericanAddressTest()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
-            .WithAmericanAddress(x=>x.placeholderstring);
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithAmericanAddress(x => x.placeholderstring);
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.placeholderstring);
         }
 
         [Test]
         public void WithAmericanCityTest()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
-            .WithAmericanCity(x => x.placeholderstring);
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithAmericanCity(x => x.placeholderstring);
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.placeholderstring);
         }
 
         [Test]
         public void WithAmericanState()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
-            .WithAmericanState(x => x.placeholderstring);
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithAmericanState(x => x.placeholderstring);
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.placeholderstring);
         }
 
         [Test]
         public void WithCompanyName()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
-            .WithCompanyName(x => x.placeholderstring);
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithCompanyName(x => x.placeholderstring);
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.placeholderstring);
-
         }
 
         [Test]
         public void WithCreditCardType()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
-            .WithCreditCardType(x => x.placeholderstring);
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithCreditCardType(x => x.placeholderstring);
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.placeholderstring);
-
         }
 
         [Test]
         public void WithEmailAddress()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
-            .WithEmailAddress(x => x.placeholderstring);
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithEmailAddress(x => x.placeholderstring);
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.placeholderstring);
-
         }
 
         [Test]
         public void WithFirstName()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
-.WithFirstName(x => x.placeholderstring);
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithFirstName(x => x.placeholderstring);
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.placeholderstring);
         }
 
         [Test]
         public void WithLastName()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
-.WithLastName(x => x.placeholderstring);
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithLastName(x => x.placeholderstring);
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.placeholderstring);
         }
 
         [Test]
         public void WithWebsite()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
-.WithWebsite(x => x.placeholderstring);
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithWebsite(x => x.placeholderstring);
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.placeholderstring);
         }
 
         [Test]
         public void PasswordWithInferenceDefaultLength()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>();
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>();
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.Password);
             Assert.AreEqual(10, customer.Password.Length);
         }
@@ -556,9 +553,9 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void PasswordUsingWithAndDefaultLength()
         {
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
-            .WithPassword(x => x.placeholderstring);
-            SimpleCustomer customer = hydrator.GetSingle();
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithPassword(x => x.placeholderstring);
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.placeholderstring);
             Assert.AreEqual(10, customer.placeholderstring.Length);
         }
@@ -566,13 +563,22 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void PasswordUsingWithAndCustomLength()
         {
-            int pwlen = 15;
-            Hydrator<SimpleCustomer> hydrator = new Hydrator<SimpleCustomer>()
-            .WithPassword(x => x.placeholderstring, pwlen);
-            SimpleCustomer customer = hydrator.GetSingle();
+            var pwlen = 15;
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithPassword(x => x.placeholderstring, pwlen);
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.placeholderstring);
             Assert.AreEqual(pwlen, customer.placeholderstring.Length);
+        }
 
+        [Test]
+        public void AlphaNumericWithLength()
+        {
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithAlphaNumeric(x => x.placeholderstring, 10);
+            var customer = hydrator.GetSingle();
+            Assert.IsNotNull(customer.placeholderstring);
+            Assert.AreEqual(10, customer.placeholderstring.Length);
         }
 
         private void DumpCustomers(IList<SimpleCustomer> customers)
@@ -590,23 +596,20 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             {
                 Trace.WriteLine(String.Format("{0} [{1}]", propertyInfo.Name, propertyInfo.GetValue(theObject, null)));
 
-                if (propertyInfo.PropertyType == typeof(byte[]))
+                if (propertyInfo.PropertyType == typeof (byte[]))
                 {
                     var theArray = propertyInfo.GetValue(theObject, null) as byte[];
                     if (theArray != null)
                     {
                         Trace.Write("  byte[] ");
-                        for (int i = 0; i < theArray.Length; i++)
+                        for (var i = 0; i < theArray.Length; i++)
                         {
-                            Trace.Write(String.Format("[{0}]",theArray[i]));
+                            Trace.Write(String.Format("[{0}]", theArray[i]));
                         }
                         Trace.WriteLine(String.Empty);
                     }
                 }
             }
-
         }
-
     }
-
 }
