@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MbUnit.Framework;
 using System.Diagnostics;
 using System.Reflection;
 using Foundation.ObjectHydrator.Tests.POCOs;
 using Foundation.ObjectHydrator.Generators;
 using System.Text.RegularExpressions;
+using NUnit.Framework;
 
 
 namespace Foundation.ObjectHydrator.Tests.HydratorTests
@@ -142,8 +142,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             SimpleCustomer customer = hydrator.GetSingle();
 
-
-            Assert.Between<double>(customer.Revenue, minimum, maximum);
+            Assert.IsTrue(customer.Revenue >= minimum && customer.Revenue <= maximum);
+            //Assert.Between<double>(customer.Revenue, minimum, maximum);
             DumpSimpleCustomer(customer);
         }
 
@@ -160,8 +160,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             SimpleCustomer customer = hydrator.GetSingle();
 
             double decimalPart = customer.Revenue - (int)customer.Revenue;
-
-            Assert.Between<double>(customer.Revenue, minimum, maximum);
+            Assert.IsTrue(customer.Revenue >= minimum && customer.Revenue <= maximum);
+            //Assert.Between<double>(customer.Revenue, minimum, maximum);
             Assert.IsTrue(decimalPart >= 0, String.Format("Customer Revenue decimal part is expected."));
 
             DumpSimpleCustomer(customer);
@@ -212,8 +212,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             SimpleCustomer customer = hydrator.GetSingle();
 
             Assert.IsTrue(defaultValue == customer.Description, String.Format("Default value is not as expected[{0}]", defaultValue));
-
-            Assert.Between<int>(customer.Locations, minimumValue, maximumValue, String.Format("Customer Locations [{0}] is outside expected range [{1},{2}].", customer.Locations, minimumValue, maximumValue));
+            Assert.IsTrue(customer.Locations >= minimumValue && customer.Locations <= maximumValue);
+            //Assert.Between<int>(customer.Locations, minimumValue, maximumValue, String.Format("Customer Locations [{0}] is outside expected range [{1},{2}].", customer.Locations, minimumValue, maximumValue));
             DumpSimpleCustomer(customer);
         }
 
@@ -228,8 +228,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             SimpleCustomer customer = hydrator.GetSingle();
 
-
-            Assert.Between<DateTime>(customer.IncorporatedOn, minimumValue, maximumValue, String.Format("Customer IncorporatedOn [{0}] is outside expected range [{1}, {2}].", customer.IncorporatedOn, minimumValue, maximumValue));
+            Assert.IsTrue(customer.IncorporatedOn >= minimumValue && customer.IncorporatedOn <= maximumValue);
+            //Assert.Between<DateTime>(customer.IncorporatedOn, minimumValue, maximumValue, String.Format("Customer IncorporatedOn [{0}] is outside expected range [{1}, {2}].", customer.IncorporatedOn, minimumValue, maximumValue));
             DumpSimpleCustomer(customer);
 
         }
@@ -245,8 +245,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             SimpleCustomer customer = hydrator.GetSingle();
 
-
-            Assert.Between<DateTime>(customer.IncorporatedOn, minimumValue, maximumValue, String.Format("Customer IncorporatedOn [{0}] is outside expected range [{1}, {2}].", customer.IncorporatedOn, minimumValue, maximumValue));
+            Assert.IsTrue(customer.IncorporatedOn >= minimumValue && customer.IncorporatedOn <= maximumValue);
+            //Assert.Between<DateTime>(customer.IncorporatedOn, minimumValue, maximumValue, String.Format("Customer IncorporatedOn [{0}] is outside expected range [{1}, {2}].", customer.IncorporatedOn, minimumValue, maximumValue));
             DumpSimpleCustomer(customer);
 
         }

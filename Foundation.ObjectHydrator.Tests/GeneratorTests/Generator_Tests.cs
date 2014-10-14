@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MbUnit.Framework;
+
 using Foundation.ObjectHydrator.Interfaces;
 using Foundation.ObjectHydrator.Generators;
 using System.Text.RegularExpressions;
 using System.Xml;
+using NUnit.Framework;
 
 
 namespace Foundation.ObjectHydrator.Tests.GeneratorTests
@@ -45,7 +46,8 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             DateTime checkme = (DateTime)dtg.Generate();
             DateTime current=DateTime.Now;
             Assert.IsNotNull(checkme);
-            Assert.Between<DateTime>(checkme, current.AddYears(-10), current.AddYears(10));
+            Assert.IsTrue(checkme >= current.AddYears(-1) && checkme <= current.AddYears(10));
+            //Assert.Between<DateTime>(checkme, current.AddYears(-10), current.AddYears(10));
         }
 
         [Test]
@@ -58,7 +60,8 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             IGenerator<DateTime> dtg = new DateTimeGenerator(mymin,mymax);
             DateTime checkme = (DateTime)dtg.Generate();
             Assert.IsNotNull(checkme);
-            Assert.Between<DateTime>(checkme, mymin, mymax);
+            Assert.IsTrue(checkme >= mymin && checkme <= mymax);
+            //Assert.Between<DateTime>(checkme, mymin, mymax);
         }
 
         [Test]
@@ -78,7 +81,8 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             IGenerator<double> doublegen = new DoubleGenerator();
             double checkme = (double)doublegen.Generate();
             Assert.IsNotNull(checkme);
-            Assert.Between<double>(checkme, 0.00, 100.00);
+            Assert.IsTrue(checkme >= 0.00 && checkme <= 100.00);
+            //Assert.Between<double>(checkme, 0.00, 100.00);
         }
 
         [Test]
@@ -94,7 +98,8 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             IGenerator<int> intgen = new IntegerGenerator();
             int checkme = (int)intgen.Generate();
             Assert.IsNotNull(checkme);
-            Assert.Between<int>(checkme, 0, 100);
+            Assert.IsTrue(checkme >= 0 && checkme <= 100);
+            //Assert.Between<int>(checkme, 0, 100);
         }
 
         [Test]
@@ -105,7 +110,8 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             IGenerator<int> intgen = new IntegerGenerator(min,max);
             int checkme = (int)intgen.Generate();
             Assert.IsNotNull(checkme);
-            Assert.Between<int>(checkme, min, max);
+            Assert.IsTrue(checkme >= min && checkme <= max);
+            //Assert.Between<int>(checkme, min, max);
 
         }
 
@@ -284,7 +290,8 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             string tracknumber = (string)trackingnumbergenerator.Generate();
             Assert.IsNotNull(tracknumber);
             Assert.IsTrue(tracknumber.Length == 15);
-            Assert.StartsWith(tracknumber, "4");
+            Assert.IsTrue(tracknumber.StartsWith("4"));
+            //Assert.StartsWith(tracknumber, "4");
 
         }
         [Test]
@@ -294,7 +301,8 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             string tracknumber = (string)trackingnumbergenerator.Generate();
             Assert.IsNotNull(tracknumber);
             Assert.IsTrue(tracknumber.Length == 20);
-            Assert.StartsWith(tracknumber, "1Z");
+            Assert.IsTrue(tracknumber.StartsWith("1Z"));
+            //Assert.StartsWith(tracknumber, "1Z");
 
         }
 
@@ -305,7 +313,8 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             string tracknumber = (string)trackingnumbergenerator.Generate();
             Assert.IsNotNull(tracknumber);
             Assert.IsTrue(tracknumber.Length == 22);
-            Assert.StartsWith(tracknumber, "91");
+            Assert.IsTrue(tracknumber.StartsWith("91"));
+            //Assert.StartsWith(tracknumber, "91");
 
         }
 
