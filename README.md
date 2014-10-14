@@ -3,9 +3,13 @@ ObjectHydrator
 
 This project allows you to pass custom POCO's to it, and have it return an instance of the class populated with randomly generated data. This random data can be overridden by convention.
 
-Current version 0.6.1
+Current version 0.7.0
 
-Version 0.6.1 is a breaking change as FromListGenerator's name has been changed to FromListGetSingleGenerator
+Version 0.7.0 is an additive change adding:
+UnitedKingdomCityGenerator
+UnitedKingdomCountyGenerator
+UnitedKingdomPostcodeGenerator
+AlphaNumericGenerator
 
 You can install with NuGet: Install-Package objecthydrator
 
@@ -60,6 +64,14 @@ TypeGenerator - Return a hydrated object of Type
 TypeListGenerator - Return a list of objects
 
 PasswordGenerator - Returns a string of random pw characters with length parameter
+
+UnitedKingdomCityGenerator - Returns a UK City - Thanks to fuzzy-afterlife
+
+UnitedKingdomCountyGenerator - Returns a UK County - Thanks to fuzzy-afterlife
+
+UnitedKingdomPostcodeGenerator - Returns a UK Post Code - Thanks to fuzzy-afterlife
+
+AlphaNumericGenerator - Returns an string with alpha chars of n length - Thanks to fuzzy-afterlife
 
 
 All values can be overridden so you can do things like fake search results etc...
