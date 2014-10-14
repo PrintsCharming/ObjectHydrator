@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="DefaultTypeMap.cs" />
     <Compile Include="EnumMap.cs" />
+    <Compile Include="Generators\AlphaNumericGenerator.cs" />
     <Compile Include="Generators\AmericanAddressGenerator.cs" />
     <Compile Include="Generators\AmericanCityGenerator.cs" />
     <Compile Include="Generators\AmericanPhoneGenerator.cs" />
@@ -109,6 +110,9 @@
     <Compile Include="Generators\NullGenerator.cs" />
     <Compile Include="Generators\TextGenerator.cs" />
     <Compile Include="Generators\TypeGenerator.cs" />
+    <Compile Include="Generators\UnitedKingdomCityGenerator.cs" />
+    <Compile Include="Generators\UnitedKingdomCountyGenerator.cs" />
+    <Compile Include="Generators\UnitedKingdomPostcodeGenerator.cs" />
     <Compile Include="Generators\WebsiteGenerator.cs" />
     <Compile Include="Hydrator.cs" />
     <Compile Include="Interfaces\IMap.cs" />

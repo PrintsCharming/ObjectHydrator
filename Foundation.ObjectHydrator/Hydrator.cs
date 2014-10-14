@@ -275,6 +275,27 @@ namespace Foundation.ObjectHydrator
             return this;
         }
 
+        public Hydrator<T> WithUnitedKingdomCity<TProperty>(Expression<Func<T, TProperty>> expression)
+        {
+            IGenerator<TProperty> gen = (IGenerator<TProperty>)new UnitedKingdomCityGenerator();
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+
+        public Hydrator<T> WithUnitedKingdomCounty<TProperty>(Expression<Func<T, TProperty>> expression)
+        {
+            IGenerator<TProperty> gen = (IGenerator<TProperty>)new UnitedKingdomCountyGenerator();
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+
+        public Hydrator<T> WithUnitedKingdomPostCode<TProperty>(Expression<Func<T, TProperty>> expression)
+        {
+            IGenerator<TProperty> gen = (IGenerator<TProperty>)new UnitedKingdomPostCodeGenerator();
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+
         /// <summary>
         /// Returns a CCV based on the type. {Presently just returns a 000-999 ignoring the type}
         /// </summary>
@@ -412,10 +433,21 @@ namespace Foundation.ObjectHydrator
             return this;
         }
 
+        /// <summary>
+        /// Applies a random alphanumeric string of a specified length
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="expression"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public Hydrator<T> WithAlphaNumeric<TProperty>(Expression<Func<T, TProperty>> expression, int length)
+        {
+            IGenerator<TProperty> gen = (IGenerator<TProperty>)new AlphaNumericGenerator(length);
+            SetPropertyMap(expression, gen);
+            return this;
 
-
-
-
+        }
+        
 
 
         
