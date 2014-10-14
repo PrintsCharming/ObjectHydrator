@@ -1,7 +1,8 @@
-﻿using System.Diagnostics;
-using Foundation.ObjectHydrator.Tests.POCOs;
-using System.Collections.Generic;
+
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Foundation.ObjectHydrator.Generators;
+using Foundation.ObjectHydrator.Tests.POCOs;
 using NUnit.Framework;
 
 namespace Foundation.ObjectHydrator.Tests.HydratorTests
@@ -14,9 +15,9 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         {
             int[] values = {1, 2, 3};
             var args = new object[] {values};
-            Hydrator<ComplexCustomer> hydrator = new Hydrator<ComplexCustomer>()
+            var hydrator = new Hydrator<ComplexCustomer>()
                 .With(x => x.HomeAddress, new TypeGenerator<Address>());
-            ComplexCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer);
             Assert.IsNotNull(customer.HomeAddress, "CustomerAddress is null");
         }
@@ -24,35 +25,33 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void CanGetListOfComplexCustomer()
         {
-            int[] values = { 1, 2, 3 };
-            var args = new object[] { values };
-            Hydrator<ComplexCustomer> hydrator = new Hydrator<ComplexCustomer>()
+            int[] values = {1, 2, 3};
+            var args = new object[] {values};
+            var hydrator = new Hydrator<ComplexCustomer>()
                 .With(x => x.HomeAddress, new TypeGenerator<Address>());
-            IList<ComplexCustomer> customerlist = hydrator.GetList(10);
+            var customerlist = hydrator.GetList(10);
             Assert.IsNotNull(customerlist);
             Assert.IsTrue(customerlist.Count == 10);
             Assert.IsNotNull(customerlist[1].HomeAddress, "CustomerAddress is null");
-
         }
 
-      
 
         [Test]
         public void CanLoadSingleComplexCustomerWithAddressList()
         {
-            int listSize = 6;
+            var listSize = 6;
             var args = new object[] {listSize};
 
-            ComplexCustomer customer = new Hydrator<ComplexCustomer>()
+            var customer = new Hydrator<ComplexCustomer>()
                 .With(x => x.Addresses, new ListGenerator<Address>(listSize))
                 .With(x => x.FirstName, "Test")
                 .GetSingle();
 
-            
+
             Assert.IsNotNull(customer);
             Assert.IsTrue(customer.Addresses.Count == listSize,
-                          string.Format("Customer.Address.Count [{0}] is not expected value of [{1}].",
-                                        customer.Addresses.Count, listSize));
+                string.Format("Customer.Address.Count [{0}] is not expected value of [{1}].",
+                    customer.Addresses.Count, listSize));
 
             Trace.WriteLine("Addresses Generated...");
             foreach (Address address in customer.Addresses)
@@ -64,11 +63,11 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void CanLoadSingleComplexCustomerWithRandomCountOfAddressList()
         {
-            var args = new object[] { };
-            Hydrator<ComplexCustomer> hydrator = new Hydrator<ComplexCustomer>()
+            var args = new object[] {};
+            var hydrator = new Hydrator<ComplexCustomer>()
                 .With(x => x.Addresses, ListGenerator<Address>.RandomLength());
 
-            ComplexCustomer customer = hydrator.GetSingle();
+            var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer);
             Assert.IsTrue(customer.Addresses.Count > 0);
 
@@ -83,7 +82,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         public void CanLoadSingleComplexCustomerWithCustumTypeMappers()
         {
             var lastNameDefault = "Lennon";
-            ComplexCustomer hy = new Hydrator<ComplexCustomer>()
+            var hy = new Hydrator<ComplexCustomer>()
                 .ForAll<Address>(new Hydrator<Address>())
                 .For<IList<Address>>(new Map<IList<Address>>().Using(new ListGenerator<Address>(10)))
                 .For<string>(new Map<string>().Matching(info => info.Name.ToLower() == "lastname").Using(lastNameDefault))
@@ -91,7 +90,5 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             Assert.AreEqual(lastNameDefault, hy.LastName);
         }
-
-        
     }
 }
