@@ -8,6 +8,7 @@ Basic syntax looks like this:
 Hydrator<Customer> _customerHydrator = new Hydrator<Customer>();
 
 Customer customer = _customerHydrator.GetSingle();
+
 List<Customer> customerlist=_customerHydrator.GetList(20);
 
 Advanced syntax looks like:
