@@ -3,6 +3,17 @@ ObjectHydrator
 
 This project allows you to pass custom POCO's to it, and have it return an instance of the class populated with randomly generated data. This random data can be overridden by convention.
 
+Basic syntax looks like this:
+
+Hydrator<Customer> _customerHydrator = new Hydrator<Customer>();
+
+Customer customer = _customerHydrator.GetSingle();
+List<Customer> customerlist=_customerHydrator.GetList(20);
+
+Advanced syntax looks like:
+
+Hydrator<Customer> _customerHydrator = new Hydrator<Customer>().WithInteger(x => x.CustomerAge, 1, 100).WithAmericanPhone(x=>x.CustomerPhone);
+
 Current version 0.7.0
 
 Version 0.7.0 is an additive change adding:
