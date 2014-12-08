@@ -166,6 +166,12 @@ namespace Foundation.ObjectHydrator
             return this;
         }
 
+        public Hydrator<T> WithCustomGenerator<TProperty>(Expression<Func<T,TProperty>> expression, IGenerator<TProperty> customgenerator)
+        {
+            SetPropertyMap(expression, customgenerator);
+            return this;
+        }
+
 
         public Hydrator<T> WithDate<TProperty>(Expression<Func<T, TProperty>> expression, DateTime minimum, DateTime maximum)
         {

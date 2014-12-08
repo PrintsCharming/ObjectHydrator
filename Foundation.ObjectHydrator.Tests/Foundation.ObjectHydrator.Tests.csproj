@@ -95,9 +95,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeneratorTests\Generator_Tests.cs" />
+    <Compile Include="HydratorTests\Hydrator_InjectedGenerator_Test.cs" />
     <Compile Include="HydratorTests\Hydrator_ComplexCustomer_Tests.cs" />
     <Compile Include="HydratorTests\Hydrator_SimpleAddress_Tests.cs" />
     <Compile Include="HydratorTests\Hydrator_SimpleCustomer_Tests.cs" />
+    <Compile Include="HydratorTests\InjectedGenerator.cs" />
     <Compile Include="POCOs\Address.cs" />
     <Compile Include="POCOs\ComplexCustomer.cs" />
     <Compile Include="POCOs\SimpleCustomer.cs" />
