@@ -15,7 +15,10 @@ Advanced syntax looks like:
 
 Hydrator<Customer> _customerHydrator = new Hydrator<Customer>().WithInteger(x => x.CustomerAge, 1, 100).WithAmericanPhone(x=>x.CustomerPhone);
 
-Current version 0.7.0
+Current version 1.0.0
+Added the ability to inject Generators at instantiation time.
+Which looks like this:
+var hydrator = new Hydrator<Address>().WithCustomGenerator(x=>x.State, new InjectedGenerator());
 
 Version 0.7.0 is an additive change adding:
 UnitedKingdomCityGenerator
