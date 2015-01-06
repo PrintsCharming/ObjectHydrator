@@ -17,6 +17,9 @@ This project allows you to pass custom POCO's to it, and have it return an insta
 
 ## Changes
 
+Version 1.1.0
+* Added the ability to respect the StringLength property attribute from System.ComponentModel.DataAnnotations (more annotations are welcome and likely)
+
 Version 1.0.0
 
 * Added the ability to inject Generators at instantiation time. Which looks like this:
