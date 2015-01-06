@@ -6,12 +6,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Foundation.ObjectHydrator.Tests.POCOs
 {
-    public class SimpleCustomer
+    public class RestrictedDescriptionCustomer
     {
         
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Company { get; set; }
+        [StringLength(5)]
         public string Description { get; set; }
         public int Locations { get; set; }
         public DateTime IncorporatedOn { get; set; }

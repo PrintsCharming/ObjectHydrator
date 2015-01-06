@@ -29,7 +29,7 @@ namespace Foundation.ObjectHydrator.Generators
 
         public string Generate()
         {
-            return sampleText.Substring(0, random.Next(5, Length - 1)).Trim();
+            return sampleText.Substring(0, random.Next(1, Length - 1)).Trim();
         }
 
         #endregion

@@ -24,6 +24,18 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         }
 
         [Test]
+        public void CanGetSingleRestrictedDescriptionCustomer()
+        {
+            var hydrator = new Hydrator<RestrictedDescriptionCustomer>();
+            var customer = hydrator.GetSingle();
+
+            Assert.IsTrue(!String.IsNullOrEmpty(customer.Description), "Customer Description should exist.");
+            Assert.IsTrue(customer.Description.Length <= 5,"Length not restricted");
+            DumpSimpleCustomer(customer);
+        }
+
+
+        [Test]
         public void CanGetList()
         {
             var listCount = 50;

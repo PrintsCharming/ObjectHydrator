@@ -13,6 +13,28 @@ namespace Foundation.ObjectHydrator
         {
             PropertyName = propertyInfo.Name;
             PropertyInfo = propertyInfo;
+            object[] a = propertyInfo.GetCustomAttributes(false);
+            foreach (var item in a)
+            {
+                try
+                {
+                    System.Attribute attr = (System.Attribute)item;
+                    //TODO: Refactor this out to be more flexible and support more annotations
+                    if (attr.GetType()==typeof(System.ComponentModel.DataAnnotations.StringLengthAttribute))
+                    {
+                        System.ComponentModel.DataAnnotations.StringLengthAttribute sla = (System.ComponentModel.DataAnnotations.StringLengthAttribute)attr;
+                        if (generator.GetType()==typeof(Generators.TextGenerator))
+                        {
+                            generator = (IGenerator<T>)new Generators.TextGenerator(sla.MaximumLength);
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    
+                    throw;
+                }
+            }
             Generator = generator;
         }
 
