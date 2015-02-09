@@ -22,6 +22,10 @@ namespace Foundation.ObjectHydrator.Generators
         public TextGenerator(int length)
         {
             Length = length;
+            if (Length>sampleText.Length)
+            {
+                Length=sampleText.Length;
+            }
             random = RandomSingleton.Instance.Random;
         }
 
