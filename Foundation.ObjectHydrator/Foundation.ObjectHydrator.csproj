@@ -84,6 +84,7 @@
     <Compile Include="Generators\AmericanPhoneGenerator.cs" />
     <Compile Include="Generators\AmericanPostalCodeGenerator.cs" />
     <Compile Include="Generators\AmericanStateGenerator.cs" />
+    <Compile Include="Generators\ArrayGenerator.cs" />
     <Compile Include="Generators\BooleanGenerator.cs" />
     <Compile Include="Generators\ByteArrayGenerator.cs" />
     <Compile Include="Generators\CCVGenerator.cs" />
