@@ -19,6 +19,11 @@ namespace Foundation.ObjectHydrator.Generators
 
         public object Generate()
         {
+            if (_info.PropertyType.IsArray)
+            {
+                return Array.CreateInstance(_info.PropertyType.GetElementType(), 0);
+            }
+
             return Activator.CreateInstance(_info.PropertyType);
         }
 

@@ -36,6 +36,8 @@ namespace Foundation.ObjectHydrator.Tests.POCOs
         
 
         public string HomePhone { get; set; }
+        public string WorkPhone { get; set; }
+        public string[] PhoneNumbers { get; set; }
 
         public CustomerType Type { get; set; }
 

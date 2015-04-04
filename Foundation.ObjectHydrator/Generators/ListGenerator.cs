@@ -1,28 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class ListGenerator<T>:IGenerator<IList<T>>
+	public class ListGenerator<T>:IGenerator<IList<T>>
     {
         private readonly int listLength;
+        private readonly IGenerator<T> elementGenerator;
 
-        public ListGenerator(int length)
+        public ListGenerator(int length, IGenerator<T> elementGenerator = null)
         {
+            this.elementGenerator =  elementGenerator ?? new TypeGenerator<T>();
             listLength = length;
         }
 
         #region IGenerator<IList<T>> Members
 
-        public IList<T> Generate()
+        public virtual IList<T> Generate()
         {
             IList<T> list = new List<T>();
             for (int i = 0; i < listLength; i++)
             {
-                list.Add(new TypeGenerator<T>().Generate());
+                list.Add(elementGenerator.Generate());
             }
             return list;
         }

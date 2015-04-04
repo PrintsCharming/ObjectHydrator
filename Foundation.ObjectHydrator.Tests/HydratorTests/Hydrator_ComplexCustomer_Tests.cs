@@ -1,4 +1,3 @@
-
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Foundation.ObjectHydrator.Generators;
@@ -57,6 +56,30 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             foreach (Address address in customer.Addresses)
             {
                 Trace.WriteLine(address.AddressLine1);
+            }
+        }
+
+
+        [Test]
+        public void CanLoadSingleComplexCustomerWithPhoneList()
+        {
+            var listSize = 6;
+            var args = new object[] {listSize};
+
+            var customer = new Hydrator<ComplexCustomer>()
+                .With(x => x.PhoneNumbers, new ArrayGenerator<string>(listSize, new AmericanPhoneGenerator()))
+                .GetSingle();
+
+
+            Assert.IsNotNull(customer);
+            Assert.IsTrue(customer.PhoneNumbers.Length == listSize,
+                  string.Format("customer.PhoneNumbers.Length [{0}] is not expected value of [{1}].",
+                  customer.PhoneNumbers.Length, listSize));
+
+            Trace.WriteLine("Addresses Generated...");
+            foreach (string ph in customer.PhoneNumbers)
+            {
+                Trace.WriteLine(ph);
             }
         }
 
