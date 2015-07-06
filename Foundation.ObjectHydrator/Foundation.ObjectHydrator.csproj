@@ -116,6 +116,7 @@
     <Compile Include="Generators\UnitedKingdomCountyGenerator.cs" />
     <Compile Include="Generators\UnitedKingdomPostcodeGenerator.cs" />
     <Compile Include="Generators\WebsiteGenerator.cs" />
+    <Compile Include="GenericHydrator.cs" />
     <Compile Include="Hydrator.cs" />
     <Compile Include="Interfaces\IMap.cs" />
     <Compile Include="Interfaces\IMapping.cs" />

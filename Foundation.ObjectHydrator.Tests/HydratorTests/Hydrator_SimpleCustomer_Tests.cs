@@ -20,7 +20,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             Assert.IsTrue(!String.IsNullOrEmpty(customer.Description), "Customer Description should exist.");
 
-            DumpSimpleCustomer(customer);
+            TestUtilities.DumpSimpleCustomer(customer);
         }
 
         [Test]
@@ -31,7 +31,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             Assert.IsTrue(!String.IsNullOrEmpty(customer.Description), "Customer Description should exist.");
             Assert.IsTrue(customer.Description.Length <= 5,"Length not restricted");
-            DumpSimpleCustomer(customer);
+            TestUtilities.DumpSimpleCustomer(customer);
         }
 
 
@@ -55,7 +55,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             Assert.IsTrue(!String.IsNullOrEmpty(customer.Description), "Customer Description should exist.");
 
-            DumpSimpleCustomer(customer);
+            TestUtilities.DumpSimpleCustomer(customer);
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             Assert.IsTrue(customer.Locations >= 5 && customer.Locations <= 10,
                 String.Format("Customer Locations [{0}] is outside expected range.", customer.Locations));
 
-            DumpSimpleCustomer(customer);
+            TestUtilities.DumpSimpleCustomer(customer);
         }
 
 
@@ -85,7 +85,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             Assert.IsTrue(defaultValue == customer.Description, String.Format("Default value is not as expected[{0}]", defaultValue));
 
-            DumpSimpleCustomer(customer);
+            TestUtilities.DumpSimpleCustomer(customer);
         }
 
         [Test]
@@ -108,7 +108,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             Assert.IsTrue(customer.Locations >= 0, String.Format("Customer Locations is expected."));
 
-            DumpSimpleCustomer(customer);
+            TestUtilities.DumpSimpleCustomer(customer);
         }
 
         [Test]
@@ -120,7 +120,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             Assert.IsTrue(customer.Revenue >= 0, String.Format("Customer Revenue is expected."));
 
-            DumpSimpleCustomer(customer);
+            TestUtilities.DumpSimpleCustomer(customer);
         }
 
         [Test]
@@ -135,7 +135,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var decimalPart = customer.Revenue - (int) customer.Revenue;
             Assert.IsTrue(decimalPart >= 0, String.Format("Customer Revenue decimal part is expected."));
 
-            DumpSimpleCustomer(customer);
+            TestUtilities.DumpSimpleCustomer(customer);
         }
 
         [Test]
@@ -149,7 +149,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
             Assert.That(customer.Revenue, Is.InRange(minimum, maximum));
-            DumpSimpleCustomer(customer);
+            TestUtilities.DumpSimpleCustomer(customer);
         }
 
         [Test]
@@ -168,7 +168,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             Assert.That(customer.Revenue, Is.InRange(minimum, maximum));
             Assert.IsTrue(decimalPart >= 0, String.Format("Customer Revenue decimal part is expected."));
 
-            DumpSimpleCustomer(customer);
+            TestUtilities.DumpSimpleCustomer(customer);
         }
 
         [Test]
@@ -183,7 +183,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             Assert.IsTrue(defaultValue == customer.Locations, String.Format("Default value is not as expected[{0}]", defaultValue));
 
-            DumpSimpleCustomer(customer);
+            TestUtilities.DumpSimpleCustomer(customer);
         }
 
         [Test]
@@ -199,7 +199,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             Assert.IsTrue(defaultValue == customer.IncorporatedOn, String.Format("Default value is not as expected[{0}]", defaultValue));
 
-            DumpSimpleCustomer(customer);
+            TestUtilities.DumpSimpleCustomer(customer);
         }
 
         [Test]
@@ -220,7 +220,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             Assert.That(customer.Locations, Is.InRange(minimumValue, maximumValue),
                 String.Format("Customer Locations [{0}] is outside expected range [{1},{2}].", customer.Locations, minimumValue,
                     maximumValue));
-            DumpSimpleCustomer(customer);
+            TestUtilities.DumpSimpleCustomer(customer);
         }
 
         [Test]
@@ -238,7 +238,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             Assert.That(customer.IncorporatedOn, Is.InRange(minimumValue, maximumValue),
                 String.Format("Customer IncorporatedOn [{0}] is outside expected range [{1}, {2}].", customer.IncorporatedOn,
                     minimumValue, maximumValue));
-            DumpSimpleCustomer(customer);
+            TestUtilities.DumpSimpleCustomer(customer);
         }
 
         [Test]
@@ -256,7 +256,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             Assert.That(customer.IncorporatedOn, Is.InRange(minimumValue, maximumValue),
                 String.Format("Customer IncorporatedOn [{0}] is outside expected range [{1}, {2}].", customer.IncorporatedOn,
                     minimumValue, maximumValue));
-            DumpSimpleCustomer(customer);
+            TestUtilities.DumpSimpleCustomer(customer);
         }
 
         [Test]
@@ -270,7 +270,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             Assert.IsTrue(customer.Version.Length == length, String.Format("Customer Version Length is expected to be {0}.", length));
 
-            DumpSimpleCustomer(customer);
+            TestUtilities.DumpSimpleCustomer(customer);
         }
 
         [Test]
@@ -288,7 +288,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
                 String.Format("Credit Card Number [{0}] should be {1} long.", customer.CreditCardNumber,
                     length));
 
-            DumpSimpleCustomer(customer);
+            TestUtilities.DumpSimpleCustomer(customer);
         }
 
         private bool IsWebsiteAddressValid(string webaddy)
@@ -394,7 +394,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.IsActive);
             Assert.IsInstanceOfType(typeof (bool), customer.IsActive);
-            DumpSimpleCustomer(customer);
+            TestUtilities.DumpSimpleCustomer(customer);
         }
 
         [Test]
@@ -622,31 +622,10 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         {
             foreach (SimpleCustomer customer in customers)
             {
-                DumpSimpleCustomer(customer);
+                TestUtilities.DumpSimpleCustomer(customer);
             }
         }
 
-        private void DumpSimpleCustomer(Object theObject)
-        {
-            Trace.WriteLine("");
-            foreach (PropertyInfo propertyInfo in theObject.GetType().GetProperties())
-            {
-                Trace.WriteLine(String.Format("{0} [{1}]", propertyInfo.Name, propertyInfo.GetValue(theObject, null)));
-
-                if (propertyInfo.PropertyType == typeof (byte[]))
-                {
-                    var theArray = propertyInfo.GetValue(theObject, null) as byte[];
-                    if (theArray != null)
-                    {
-                        Trace.Write("  byte[] ");
-                        for (var i = 0; i < theArray.Length; i++)
-                        {
-                            Trace.Write(String.Format("[{0}]", theArray[i]));
-                        }
-                        Trace.WriteLine(String.Empty);
-                    }
-                }
-            }
-        }
+        
     }
 }

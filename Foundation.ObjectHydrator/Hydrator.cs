@@ -10,14 +10,9 @@ using System.Linq.Expressions;
 
 namespace Foundation.ObjectHydrator
 {
-    public class Hydrator<T>:IGenerator<T>
+
+    public class Hydrator<T>:Hydrator,IGenerator<T>
     {
-        readonly Type typeOfT = null;
-        readonly IDictionary<string, IMapping> propertyMap;
-        private readonly IList<IMap> typeMap;
-        private IList<IMap> defaultTypeMap;
-
-
         #region Ctors
 
         public Hydrator()
@@ -25,12 +20,8 @@ namespace Foundation.ObjectHydrator
         {
         }
 
-        public Hydrator(IList<IMap> defaultMap)
+        public Hydrator(IList<IMap> defaultMap) : base(typeof(T), defaultMap)
         {
-            typeOfT = typeof(T);
-            propertyMap = new Dictionary<string, IMapping>();
-            typeMap = new List<IMap>();
-            defaultTypeMap = defaultMap;
         }
         #endregion
 
@@ -47,7 +38,7 @@ namespace Foundation.ObjectHydrator
         {
             get
             {
-                return RandomSingleton.Instance.Random;
+				return base.Random;
             }
         }
 
@@ -64,9 +55,7 @@ namespace Foundation.ObjectHydrator
 
         public T Generate()
         {
-            var instance = (T)Activator.CreateInstance(typeOfT);
-            Populate(instance);
-            return instance;
+			return (T)base.Generate();
         }
 
         #endregion
@@ -108,24 +97,10 @@ namespace Foundation.ObjectHydrator
             return toReturn;
         }
 
-        private void SetPropertyMap<TProperty>(Expression<Func<T, TProperty>> expression, IGenerator<TProperty> generator)
-        {
-            var propertyName = ((MemberExpression)expression.Body).Member.Name;
-            PropertyInfo propertyInfo = typeof(T).GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-
-            // Check to see if we have this property...
-            if (propertyInfo == null)
-            {
-                throw new ArgumentException("The Property can not be found.", propertyName);
-            }
-
-            if (!propertyInfo.CanWrite)
-            {
-                throw new ArgumentException("The Property can not be written.", propertyName);
-            }
-
-            propertyMap[propertyInfo.Name] = new Mapping<TProperty>(propertyInfo, generator);
-        }
+		private void SetPropertyMap<TProperty>(Expression<Func<T, TProperty>> expression, IGenerator<TProperty> generator) {
+			var propertyName = ((MemberExpression)expression.Body).Member.Name;
+			base.SetPropertyMap<TProperty>(propertyName, generator);
+		}
 
         #region WithTypes
         /// <summary>
@@ -518,53 +493,9 @@ namespace Foundation.ObjectHydrator
         {
             typeMap.Add(map);
             return this;
-        }
+        }       
 
-        private void Populate(object instance)
-        {
-            AddTypeMapToPropertyMap();
-            foreach (IMapping mapping in propertyMap.Values)
-            {
-                PropertyInfo propertyInfo = instance.GetType().GetProperty(mapping.PropertyName, BindingFlags.Public | BindingFlags.Instance);
-                
-               
-                if (propertyInfo != null)
-                {
-                    propertyInfo.SetValue(instance, mapping.Generate(), null);
-                }
-            }
-        }
-
-        private void AddTypeMapToPropertyMap()
-        {
-            AddDefaultTypeMapToTypeMap();
-
-            foreach (PropertyInfo propertyInfo in typeOfT.GetProperties())
-            {
-                if (propertyInfo.CanWrite && !propertyMap.ContainsKey(propertyInfo.Name))
-                {
-                    PropertyInfo info = propertyInfo;
-                    var map = typeMap.FirstOrDefault(infer => infer.Type == info.PropertyType && infer.Match(info));
-
-                    if (map != null)
-                    {
-                        propertyMap[propertyInfo.Name] = map.Mapping(propertyInfo);
-                    }
-                    else if (!propertyInfo.PropertyType.IsInterface)
-                    {
-                        propertyMap[propertyInfo.Name] = new Mapping(propertyInfo, new Generator(propertyInfo));
-                    }
-                }
-            }
-        }
-
-        private void AddDefaultTypeMapToTypeMap()
-        {
-            foreach (var map in defaultTypeMap)
-            {
-                typeMap.Add(map);
-            }
-        }
+       
        
     }
 
