@@ -15,6 +15,28 @@ This project allows you to pass custom POCO's to it, and have it return an insta
         .WithInteger(x => x.CustomerAge, 1, 100)
         .WithAmericanPhone(x=>x.CustomerPhone);
 
+**A custom generator looks like:**
+
+```csharp
+public class FullNameGenerator : IGenerator<string>
+{
+    static readonly IGenerator<string> FirstNameGen = new FirstNameGenerator();
+    static readonly IGenerator<string> LastNameGen = new LastNameGenerator();
+
+    public string Generate()
+    {
+        return FirstNameGen.Generate() + " " + LastNameGen.Generate();
+    }
+}
+```
+    
+Use it like this:
+
+```csharp
+Hydrator<Customer> _customerHydrator = new Hydrator<Customer>()
+    .With(x => x.FullName, new FullNameGenerator());
+```
+
 ## Changes
 
 Version 1.1.0
