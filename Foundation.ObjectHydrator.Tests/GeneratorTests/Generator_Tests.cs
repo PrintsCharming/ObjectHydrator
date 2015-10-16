@@ -155,6 +155,15 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         }
 
         [Test]
+        public void AmericanPostalCodeGeneratorNoPlusFourTest()
+        {
+            IGenerator<string> postalgen = new AmericanPostalCodeGenerator(0);
+            var zipcode = (string)postalgen.Generate();
+            Assert.IsNotNull(zipcode);
+            Assert.IsTrue(IsAmericanPostalCodeValid(zipcode));
+        }
+
+        [Test]
         public void TextGeneratorTest()
         {
             IGenerator<string> textgen = new TextGenerator();
