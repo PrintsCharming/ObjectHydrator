@@ -22,7 +22,7 @@ namespace Foundation.ObjectHydrator.Generators
         {
             string plusFour = String.Empty;
 
-            if (random.Next(0, 100) % (100 / PercentageWithPlusFour) == 0)
+            if (PercentageWithPlusFour > 0 && random.Next(0, 100) % (100 / PercentageWithPlusFour) == 0)
             {
                 plusFour = String.Format("-{0:0000}", random.Next(1, 9999));
             }
