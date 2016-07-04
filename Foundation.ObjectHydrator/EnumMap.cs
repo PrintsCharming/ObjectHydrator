@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Foundation.ObjectHydrator.Interfaces;
 using System.Reflection;
 using Foundation.ObjectHydrator.Generators;
@@ -25,7 +22,7 @@ namespace Foundation.ObjectHydrator
 
         IMapping IMap.Mapping(PropertyInfo info)
         {
-            return new Mapping<object>(info, new EnumGenerator(Enum.GetValues(info.PropertyType)));
+            return new Mapping<object>(info, new EnumGenerator<object>(Enum.GetValues(info.PropertyType)));
         }
 
         #endregion

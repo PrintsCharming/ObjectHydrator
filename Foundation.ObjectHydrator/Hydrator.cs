@@ -212,7 +212,7 @@ namespace Foundation.ObjectHydrator
         /// <returns>This instance of the Hydrator for type T.</returns>
         public Hydrator<T> WithEnum<TProperty>(Expression<Func<T, TProperty>> expression, Array enumValues)
         {
-            IGenerator<TProperty> gen = (IGenerator<TProperty>)new EnumGenerator(enumValues);
+            IGenerator<TProperty> gen = new EnumGenerator<TProperty>(enumValues);
             SetPropertyMap(expression, gen);
             return this;
 
