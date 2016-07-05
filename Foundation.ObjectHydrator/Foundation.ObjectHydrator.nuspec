@@ -12,9 +12,9 @@
 		<releaseNotes>Generic EnumGenerator</releaseNotes>
 		<copyright>Copyright 2016</copyright>
 		<tags>objecthydrator</tags>
-		<files>
+	</metadata>
+	<files>
 			<file src="bin\Release\Foundation.ObjectHydrator.dll" target="lib\.NetFramework 4.0\" />
 			<file src="bin\Release\Foundation.ObjectHydrator.pdb" target="lib\.NetFramework 4.0\" />
 		</files>
-	</metadata>
 </package>
