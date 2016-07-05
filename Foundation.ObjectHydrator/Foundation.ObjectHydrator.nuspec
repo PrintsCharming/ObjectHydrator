@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <package >
-	<metadata>
-		<id>objecthydrator</id>
-		<version>$version$</version>
-		<title>objecthydrator</title>
-		<authors>Andrian</authors>
-		<owners>Andrian</owners>
-		<projectUrl>https://github.com/deathgore/ObjectHydrator</projectUrl>
-		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>ObjectHydrator</description>
-		<releaseNotes>Generic EnumGenerator</releaseNotes>
-		<copyright>Copyright 2016</copyright>
-		<tags>objecthydrator</tags>
-	</metadata>
-	<files>
-			<file src="bin\Release\Foundation.ObjectHydrator.dll" target="lib\net45\" />
-			<file src="bin\Release\Foundation.ObjectHydrator.pdb" target="lib\net45\" />
-		</files>
+        <metadata>
+                <id>objecthydrator</id>
+                <version>$version$</version>
+                <title>objecthydrator</title>
+                <authors>Andrian</authors>
+                <owners>Andrian</owners>
+                <projectUrl>https://github.com/deathgore/ObjectHydrator</projectUrl>
+                <requireLicenseAcceptance>false</requireLicenseAcceptance>
+                <description>ObjectHydrator</description>
+                <releaseNotes>Generic EnumGenerator</releaseNotes>
+                <copyright>Copyright 2016</copyright>
+                <tags>objecthydrator</tags>
+        </metadata>
+        <files>
+                        <file src="bin\Release\Foundation.ObjectHydrator.dll" target="lib\net461\" />
+                        <file src="bin\Release\Foundation.ObjectHydrator.pdb" target="lib\net461\" />
+                </files>
 </package>
