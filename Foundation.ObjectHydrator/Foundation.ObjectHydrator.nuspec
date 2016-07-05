@@ -14,7 +14,7 @@
                 <tags>objecthydrator</tags>
         </metadata>
         <files>
-                        <file src="bin\Release\Foundation.ObjectHydrator.dll" target="lib\net461\" />
-                        <file src="bin\Release\Foundation.ObjectHydrator.pdb" target="lib\net461\" />
+                        <file src="bin\Release\Foundation.ObjectHydrator.dll" target="lib/net461" />
+                        <file src="bin\Release\Foundation.ObjectHydrator.pdb" target="lib/net461" />
                 </files>
 </package>
