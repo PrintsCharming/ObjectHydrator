@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Foundation.ObjectHydrator.Interfaces;
 using Foundation.ObjectHydrator.Generators;
 
@@ -13,11 +11,26 @@ namespace Foundation.ObjectHydrator
         {
             Add(new Map<DateTime>().Using(new DateTimeGenerator()));
             Add(new Map<double>().Using(new DoubleGenerator()));
+            Add(new Map<double?>().Using(new NullableDoubleGenerator()));
             Add(new Map<Double>().Using(new DoubleGenerator()));
+            Add(new Map<Double?>().Using(new NullableDoubleGenerator()));
+
+            Add(new Map<decimal>().Using(new DecimalGenerator()));
+            Add(new Map<decimal?>().Using(new NullableDecimalGenerator()));
+            Add(new Map<Decimal>().Using(new DecimalGenerator()));
+            Add(new Map<Decimal?>().Using(new NullableDecimalGenerator()));
+
             Add(new Map<int>().Using(new IntegerGenerator()));
+            Add(new Map<int?>().Using(new NullableIntegerGenerator()));
             Add(new Map<Int32>().Using(new IntegerGenerator()));
+            Add(new Map<Int32?>().Using(new NullableIntegerGenerator()));
+
             Add(new Map<bool>().Using(new BooleanGenerator()));
+            Add(new Map<bool?>().Using(new NullableBooleanGenerator()));
+
             Add(new Map<Guid>().Using(new GuidGenerator()));
+            Add(new Map<Guid?>().Using(new NullableGuidGenerator()));
+
             Add(new Map<byte[]>().Using(new ByteArrayGenerator(8)));
             Add(new EnumMap());
             Add(new Map<string>()
