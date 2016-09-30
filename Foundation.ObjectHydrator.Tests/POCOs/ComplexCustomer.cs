@@ -5,10 +5,10 @@ namespace Foundation.ObjectHydrator.Tests.POCOs
 {
     public enum CustomerType
     {
-        Lead,
-        Prospect,
-        Active,
-        Inactive
+        Lead = 1,
+        Prospect = 2,
+        Active = 3,
+        Inactive = 4
     }
 
     public class ComplexCustomer
