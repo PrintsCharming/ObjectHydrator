@@ -393,7 +393,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>();
             var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.IsActive);
-            Assert.IsInstanceOfType(typeof (bool), customer.IsActive);
+            Assert.IsInstanceOf<bool>(customer.IsActive);
+            
             DumpSimpleCustomer(customer);
         }
 

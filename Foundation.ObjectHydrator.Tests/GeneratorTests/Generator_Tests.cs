@@ -276,7 +276,8 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             IGenerator<bool> booleangenerator = new BooleanGenerator();
             var boolvalue = (bool) booleangenerator.Generate();
             Assert.IsNotNull(boolvalue);
-            Assert.IsInstanceOfType(typeof (bool), boolvalue);
+            Assert.IsInstanceOf<bool>(boolvalue);
+            
         }
 
         [Test]
