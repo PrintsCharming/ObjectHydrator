@@ -1,7 +1,4 @@
-﻿using System;
-
-
-namespace Foundation.ObjectHydrator.Interfaces
+﻿namespace Foundation.ObjectHydrator.Interfaces
 {
     public interface IGenerator
     {
