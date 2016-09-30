@@ -3,7 +3,7 @@ using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class EnumGenerator:IGenerator<object>
+    public class EnumGenerator<T> : IGenerator<T>
     {
         Random random;
         Array EnumValues;
@@ -15,9 +15,9 @@ namespace Foundation.ObjectHydrator.Generators
 
         }
 
-        public object Generate()
+        public T Generate()
         {
-            return EnumValues.GetValue(random.Next(0, EnumValues.Length - 1));
+            return (T)EnumValues.GetValue(random.Next(0, EnumValues.Length - 1));
         }
     }
 }

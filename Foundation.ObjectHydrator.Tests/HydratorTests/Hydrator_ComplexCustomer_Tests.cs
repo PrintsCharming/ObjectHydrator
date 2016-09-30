@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Foundation.ObjectHydrator.Generators;
 using Foundation.ObjectHydrator.Tests.POCOs;
@@ -112,6 +113,17 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
                 .GetSingle();
 
             Assert.AreEqual(lastNameDefault, hy.LastName);
+        }
+
+
+        [Test]
+        public void CanLoadSingleComplexCustomerWithEnum()
+        {
+            var hydrator = new Hydrator<ComplexCustomer>()
+                .WithEnum(x => x.Type, Enum.GetValues(typeof(CustomerType)));
+            var customer = hydrator.GetSingle();
+            Assert.IsNotNull(customer);
+            Assert.IsTrue(customer.Type > 0, "CustomerType is expected");
         }
     }
 }
