@@ -125,12 +125,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Foundation.ObjectHydrator\Foundation.ObjectHydrator.csproj">
-      <Project>{8B60029E-DC22-4019-8AD6-E6A6A0CAEBFA}</Project>
-      <Name>Foundation.ObjectHydrator</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
