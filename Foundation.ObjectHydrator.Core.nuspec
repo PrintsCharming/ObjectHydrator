@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Foundation.ObjectHydrator.Core</id>
+    <version>1.0.1</version>
+    <title>ObjectHydrator</title>
+    <authors>Rukai, Ryan Smith</authors>
+    <owners>Rukai</owners>
+    <licenseUrl></licenseUrl>
+    <projectUrl></projectUrl>
+    <iconUrl></iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This is a lib for ObjectHydrator for .net core! It is rebuilt from Foundation.ObjectHydrator! Thanks!</description>
+    <releaseNotes>Initial realease for .net core 1.6</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>ObjectHydrator .netCore</tags>
+    <dependencies>
+      <group targetFramework=".NETStandard1.6">
+        <dependency id="NETStandard.Library" version="[1.6.0, )" />
+        <dependency id="System.ComponentModel.Annotations" version="[1.6.0, )" />
+        <dependency id="System.Reflection.TypeExtensions" version="[4.3.0-preview1-24530-04, )" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

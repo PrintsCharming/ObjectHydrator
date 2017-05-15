@@ -1,6 +1,14 @@
 {
-  "version": "1.0.0-*",
-
+  "title": "Foundation.ObjectHydrator.Core",
+  "description": "Foundation.ObjectHydrator.Core",
+  "version": "1.0.2-*",
+  "packOptions": {
+    "owners": [ "Rukai" ],
+    "tags": [ "ObjectHydrator", ".net core" ],
+    "requireLicenseAcceptance": false,
+    "summary": "This is a lib for ObjectHydrator for .net core! It is rebuilt from Foundation.ObjectHydrator! Thanks!",
+    "releaseNotes": "Refine the RandomOptionsGenerator."
+  },
   "dependencies": {
     "NETStandard.Library": "1.6.0",
     "System.ComponentModel.Annotations": "4.3.0",
@@ -8,6 +16,7 @@
   },
 
   "frameworks": {
+    "net462": {},
     "netstandard1.6": {
       "imports": "dnxcore50"
     }
