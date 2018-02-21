@@ -1,10 +1,10 @@
-﻿using System;
-using Foundation.ObjectHydrator.Interfaces;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
 using System.Reflection;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class Generator:IGenerator
+    public class Generator : IGenerator<object>
     {
         private readonly PropertyInfo _info;
 
@@ -18,12 +18,24 @@ namespace Foundation.ObjectHydrator.Generators
         {
             if (_info.PropertyType.IsArray)
             {
-                return Array.CreateInstance(_info.PropertyType.GetElementType(), 0);
+                var type = _info.PropertyType.GetElementType();
+
+                if (CanConstruct(type))
+                {
+                    return Array.CreateInstance(type, 0);
+                }
             }
 
-            return Activator.CreateInstance(_info.PropertyType);
+            return CanConstruct(_info.PropertyType) ? Activator.CreateInstance(_info.PropertyType) : null;
         }
 
         #endregion
+
+
+
+        private static bool CanConstruct(Type type)
+        {
+            return type != null && !type.IsAbstract && type.GetConstructor(Type.EmptyTypes) != null;
+        }
     }
 }

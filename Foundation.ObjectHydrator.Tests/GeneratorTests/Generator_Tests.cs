@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Foundation.ObjectHydrator.Generators;
+using Foundation.ObjectHydrator.Interfaces;
+using Foundation.ObjectHydrator.Tests.POCOs;
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Foundation.ObjectHydrator.Generators;
-using Foundation.ObjectHydrator.Interfaces;
-using NUnit.Framework;
 
 namespace Foundation.ObjectHydrator.Tests.GeneratorTests
 {
@@ -14,7 +15,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void FirstNameGeneratorTest()
         {
             IGenerator<string> fng = new FirstNameGenerator();
-            var firstname = (string) fng.Generate();
+            var firstname = (string)fng.Generate();
             Assert.IsNotNull(firstname);
         }
 
@@ -22,7 +23,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void LastNameGeneratorTest()
         {
             IGenerator<string> lng = new LastNameGenerator();
-            var lastname = (string) lng.Generate();
+            var lastname = (string)lng.Generate();
             Assert.IsNotNull(lastname);
         }
 
@@ -30,7 +31,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void CompanyNameGeneratorTest()
         {
             IGenerator<string> cng = new CompanyNameGenerator();
-            var companyname = (string) cng.Generate();
+            var companyname = (string)cng.Generate();
             Assert.IsNotNull(companyname);
         }
 
@@ -38,7 +39,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void DateTimeGeneratorWithDefaultTest()
         {
             IGenerator<DateTime> dtg = new DateTimeGenerator();
-            var checkme = (DateTime) dtg.Generate();
+            var checkme = (DateTime)dtg.Generate();
             var current = DateTime.Now;
             Assert.IsNotNull(checkme);
             Assert.That(checkme, Is.InRange(current.AddYears(-10), current.AddYears(10)));
@@ -51,7 +52,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             var mymax = Convert.ToDateTime("1/1/1980");
 
             IGenerator<DateTime> dtg = new DateTimeGenerator(mymin, mymax);
-            var checkme = (DateTime) dtg.Generate();
+            var checkme = (DateTime)dtg.Generate();
             Assert.That(checkme, Is.InRange(mymin, mymax));
         }
 
@@ -60,7 +61,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         {
             var setme = "hi";
             IGenerator<string> defgen = new DefaultGenerator<string>(setme);
-            var checkme = (string) defgen.Generate();
+            var checkme = (string)defgen.Generate();
             Assert.IsNotNull(checkme);
             Assert.AreEqual(checkme, setme);
         }
@@ -69,7 +70,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void DoubleGeneratorWithDefaultValues()
         {
             IGenerator<double> doublegen = new DoubleGenerator();
-            var checkme = (double) doublegen.Generate();
+            var checkme = (double)doublegen.Generate();
             Assert.IsNotNull(checkme);
             Assert.That(checkme, Is.InRange(0.00, 100.00));
         }
@@ -77,14 +78,17 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         [Test]
         public void EnumGeneratorTest()
         {
-            //IGenerator enumgen = new EnumGenerator();
+            var enumgenerator = new EnumGenerator(Enum.GetValues(typeof(CustomerType)));
+            var enumvalue = enumgenerator.Generate();
+            Assert.IsNotNull(enumvalue);
+            Assert.IsInstanceOf<CustomerType>(enumvalue);
         }
 
         [Test]
         public void IntegerGeneratorWithDefaultTest()
         {
             IGenerator<int> intgen = new IntegerGenerator();
-            var checkme = (int) intgen.Generate();
+            var checkme = (int)intgen.Generate();
             Assert.IsNotNull(checkme);
             Assert.That(checkme, Is.InRange(0, 100));
         }
@@ -95,7 +99,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             var min = 5;
             var max = 20;
             IGenerator<int> intgen = new IntegerGenerator(min, max);
-            var checkme = (int) intgen.Generate();
+            var checkme = (int)intgen.Generate();
             Assert.IsNotNull(checkme);
             Assert.That(checkme, Is.InRange(min, max));
         }
@@ -108,7 +112,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             testlist.Add("yay");
             testlist.Add("nay");
             IGenerator<string> listgen = new FromListGetSingleGenerator<string>(testlist);
-            var checkme = (string) listgen.Generate();
+            var checkme = (string)listgen.Generate();
             Assert.IsNotNull(checkme);
             Assert.IsTrue(testlist.Contains(checkme));
         }
@@ -117,7 +121,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void NullGeneratorTest()
         {
             IGenerator<object> nullgen = new NullGenerator();
-            var checkme = (string) nullgen.Generate();
+            var checkme = (string)nullgen.Generate();
             Assert.IsNull(checkme);
         }
 
@@ -134,7 +138,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void AmericanPhoneGeneratorTest()
         {
             IGenerator<string> phonegen = new AmericanPhoneGenerator();
-            var phone = (string) phonegen.Generate();
+            var phone = (string)phonegen.Generate();
             Assert.IsNotNull(phone);
             Assert.IsTrue(CheckPhone(phone));
         }
@@ -149,7 +153,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void AmericanPostalCodeGenerator()
         {
             IGenerator<string> postalgen = new AmericanPostalCodeGenerator(1);
-            var zipcode = (string) postalgen.Generate();
+            var zipcode = (string)postalgen.Generate();
             Assert.IsNotNull(zipcode);
             Assert.IsTrue(IsAmericanPostalCodeValid(zipcode));
         }
@@ -167,7 +171,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void TextGeneratorTest()
         {
             IGenerator<string> textgen = new TextGenerator();
-            var text = (string) textgen.Generate();
+            var text = (string)textgen.Generate();
             Assert.IsNotNull(text);
         }
 
@@ -176,7 +180,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void AmericanAddressGeneratorTest()
         {
             IGenerator<string> americanaddy = new AmericanAddressGenerator();
-            var address = (string) americanaddy.Generate();
+            var address = (string)americanaddy.Generate();
             Assert.IsNotNull(address);
         }
 
@@ -185,7 +189,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void AmericanCityGeneratorTest()
         {
             IGenerator<string> americancity = new AmericanCityGenerator();
-            var city = (string) americancity.Generate();
+            var city = (string)americancity.Generate();
             Assert.IsNotNull(city);
         }
 
@@ -193,7 +197,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void AmericanStateGeneratorTest()
         {
             IGenerator<string> americanstate = new AmericanStateGenerator();
-            var state = (string) americanstate.Generate();
+            var state = (string)americanstate.Generate();
             Assert.IsNotNull(state);
         }
 
@@ -209,7 +213,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void IPAddressGeneratorTest()
         {
             IGenerator<string> ipaddress = new IPAddressGenerator();
-            var ipaddy = (string) ipaddress.Generate();
+            var ipaddy = (string)ipaddress.Generate();
             Assert.IsNotNull(ipaddy);
             Assert.IsTrue(IsValidIPAddress(ipaddy));
         }
@@ -224,7 +228,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void WwebsiteAddressGeneratorTest()
         {
             IGenerator<string> websitegen = new WebsiteGenerator();
-            var site = (string) websitegen.Generate();
+            var site = (string)websitegen.Generate();
             Assert.IsNotNull(site);
             Assert.IsTrue(IsWebsiteAddressValid(site));
         }
@@ -233,7 +237,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void GenderGenerator()
         {
             IGenerator<string> gendergenerator = new GenderGenerator();
-            var gender = (string) gendergenerator.Generate();
+            var gender = (string)gendergenerator.Generate();
             Assert.IsNotNull(gender);
         }
 
@@ -241,7 +245,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void CreditCardTypeGenerator()
         {
             IGenerator<string> cardtypegenerator = new CreditCardTypeGenerator();
-            var cardtype = (string) cardtypegenerator.Generate();
+            var cardtype = (string)cardtypegenerator.Generate();
             Assert.IsNotNull(cardtype);
         }
 
@@ -249,7 +253,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void CountryCodeGenerator()
         {
             IGenerator<string> countrycodegenerator = new CountryCodeGenerator();
-            var countrycode = (string) countrycodegenerator.Generate();
+            var countrycode = (string)countrycodegenerator.Generate();
             Assert.IsNotNull(countrycode);
         }
 
@@ -265,7 +269,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void EmailAddressGenerator()
         {
             IGenerator<string> emailaddressgenerator = new EmailAddressGenerator();
-            var emailaddy = (string) emailaddressgenerator.Generate();
+            var emailaddy = (string)emailaddressgenerator.Generate();
             Assert.IsNotNull(emailaddy);
             Assert.IsTrue(IsEmailAddressValid(emailaddy));
         }
@@ -274,47 +278,47 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void BooleanGenerator()
         {
             IGenerator<bool> booleangenerator = new BooleanGenerator();
-            var boolvalue = (bool) booleangenerator.Generate();
+            var boolvalue = (bool)booleangenerator.Generate();
             Assert.IsNotNull(boolvalue);
             Assert.IsInstanceOf<bool>(boolvalue);
-            
+
         }
 
         [Test]
         public void FedExTrackingNumberGenerator()
         {
             IGenerator<string> trackingnumbergenerator = new TrackingNumberGenerator("FedEx");
-            var tracknumber = (string) trackingnumbergenerator.Generate();
+            var tracknumber = (string)trackingnumbergenerator.Generate();
             Assert.IsNotNull(tracknumber);
             Assert.IsTrue(tracknumber.Length == 15);
-            Assert.That(tracknumber, Is.StringStarting("4"));
+            Assert.That(tracknumber, Does.StartWith("4"));
         }
 
         [Test]
         public void UPSTrackingNumberGenerator()
         {
             IGenerator<string> trackingnumbergenerator = new TrackingNumberGenerator("UPS");
-            var tracknumber = (string) trackingnumbergenerator.Generate();
+            var tracknumber = (string)trackingnumbergenerator.Generate();
             Assert.IsNotNull(tracknumber);
             Assert.IsTrue(tracknumber.Length == 20);
-            Assert.That(tracknumber, Is.StringStarting("1Z"));
+            Assert.That(tracknumber, Does.StartWith("1Z"));
         }
 
         [Test]
         public void USPSTrackingNumberGenerator()
         {
             IGenerator<string> trackingnumbergenerator = new TrackingNumberGenerator("USPS");
-            var tracknumber = (string) trackingnumbergenerator.Generate();
+            var tracknumber = (string)trackingnumbergenerator.Generate();
             Assert.IsNotNull(tracknumber);
             Assert.IsTrue(tracknumber.Length == 22);
-            Assert.That(tracknumber, Is.StringStarting("91"));
+            Assert.That(tracknumber, Does.StartWith("91"));
         }
 
         [Test]
         public void CanGetDefaultCCVFromGenerator()
         {
             IGenerator<string> ccvGenerator = new CCVGenerator("");
-            var ccv = (string) ccvGenerator.Generate();
+            var ccv = (string)ccvGenerator.Generate();
             Assert.IsNotNull(ccv);
         }
 
@@ -322,7 +326,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void PasswordWithDefaultLengthGenerator()
         {
             IGenerator<string> pwGen = new PasswordGenerator();
-            var pw = (string) pwGen.Generate();
+            var pw = (string)pwGen.Generate();
             Assert.IsNotNull(pw);
             Assert.IsTrue(pw.Length == 10);
         }
@@ -332,7 +336,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         {
             var length = 99;
             IGenerator<string> pwGen = new PasswordGenerator(length);
-            var pw = (string) pwGen.Generate();
+            var pw = (string)pwGen.Generate();
             Assert.IsNotNull(pw);
             Assert.AreEqual(length, pw.Length);
         }
@@ -368,6 +372,60 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             IGenerator<string> unitedKingdomCountyGenerator = new UnitedKingdomPostCodeGenerator();
             var county = (string)unitedKingdomCountyGenerator.Generate();
             Assert.IsNotNull(county);
+        }
+
+        [Test]
+        public void NullableBooleanGenerator()
+        {
+            var booleangenerator = new NullableBooleanGenerator(false);
+            var boolvalue = booleangenerator.Generate();
+            Assert.IsNotNull(boolvalue);
+            Assert.IsInstanceOf<bool?>(boolvalue);
+        }
+
+        [Test]
+        public void NullableDateTimeGenerator()
+        {
+            var dateTimegenerator = new NullableDateTimeGenerator(false);
+            var dateTimevalue = dateTimegenerator.Generate();
+            Assert.IsNotNull(dateTimevalue);
+            Assert.IsInstanceOf<DateTime?>(dateTimevalue);
+        }
+
+        [Test]
+        public void NullableDoubleGenerator()
+        {
+            var doublegenerator = new NullableDoubleGenerator(false);
+            var doublevalue = doublegenerator.Generate();
+            Assert.IsNotNull(doublevalue);
+            Assert.IsInstanceOf<double?>(doublevalue);
+        }
+
+        [Test]
+        public void NullableGuidGenerator()
+        {
+            var guidgenerator = new NullableGuidGenerator(false);
+            var guidvalue = guidgenerator.Generate();
+            Assert.IsNotNull(guidvalue);
+            Assert.IsInstanceOf<Guid?>(guidvalue);
+        }
+
+        [Test]
+        public void NullableIntegerGenerator()
+        {
+            var intgenerator = new NullableIntegerGenerator(false);
+            var intvalue = intgenerator.Generate();
+            Assert.IsNotNull(intvalue);
+            Assert.IsInstanceOf<int?>(intvalue);
+        }
+
+        [Test]
+        public void NullableEnumGenerator()
+        {
+            var enumgenerator = new NullableEnumGenerator(Enum.GetValues(typeof(CustomerType)), false);
+            var enumvalue = enumgenerator.Generate();
+            Assert.IsNotNull(enumvalue);
+            Assert.IsInstanceOf<CustomerType?>(enumvalue);
         }
     }
 }
