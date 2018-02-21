@@ -1,27 +1,28 @@
-﻿using System;
+﻿using Foundation.ObjectHydrator.Generators;
+using Foundation.ObjectHydrator.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using Foundation.ObjectHydrator.Generators;
-using Foundation.ObjectHydrator.Interfaces;
 using System.Linq.Expressions;
+using System.Reflection;
 
 
 namespace Foundation.ObjectHydrator
 {
-    public class Hydrator<T>:IGenerator<T>
+    public class Hydrator<T> : IGenerator<T>
     {
         readonly Type typeOfT = null;
         readonly IDictionary<string, IMapping> propertyMap;
         private readonly IList<IMap> typeMap;
         private IList<IMap> defaultTypeMap;
-
+        private readonly bool _allowNulls;
 
         #region Ctors
 
-        public Hydrator()
-            : this(new DefaultTypeMap())
+        public Hydrator(bool allowNulls = true)
+            : this(new DefaultTypeMap(allowNulls))
         {
+            _allowNulls = allowNulls;
         }
 
         public Hydrator(IList<IMap> defaultMap)
@@ -77,9 +78,9 @@ namespace Foundation.ObjectHydrator
         public IList<T> GetList()
         {
             int length;
-            
+
             length = Random.Next(1, 10);
-            
+
             return GetList(length);
         }
 
@@ -165,7 +166,7 @@ namespace Foundation.ObjectHydrator
             return this;
         }
 
-        public Hydrator<T> WithCustomGenerator<TProperty>(Expression<Func<T,TProperty>> expression, IGenerator<TProperty> customgenerator)
+        public Hydrator<T> WithCustomGenerator<TProperty>(Expression<Func<T, TProperty>> expression, IGenerator<TProperty> customgenerator)
         {
             SetPropertyMap(expression, customgenerator);
             return this;
@@ -358,7 +359,7 @@ namespace Foundation.ObjectHydrator
             SetPropertyMap(expression, gen);
             return this;
         }
-        
+
 
 
         /// <summary>
@@ -452,10 +453,10 @@ namespace Foundation.ObjectHydrator
             return this;
 
         }
-        
 
 
-        
+
+
         #endregion
 
         //Not working.
@@ -467,7 +468,54 @@ namespace Foundation.ObjectHydrator
         }
 
         #endregion
-        
+
+        #region WithNullableTypes
+        public Hydrator<T> WithNullableInteger<TProperty>(Expression<Func<T, TProperty>> expression, int minimum, int maximum, bool allowNulls = true)
+        {
+            var gen = (IGenerator<TProperty>)new NullableIntegerGenerator(minimum, maximum, allowNulls);
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+
+        public Hydrator<T> WithNullableGuid<TProperty>(Expression<Func<T, TProperty>> expression, bool allowNulls = true)
+        {
+            var gen = (IGenerator<TProperty>)new NullableGuidGenerator(allowNulls);
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+
+        public Hydrator<T> WithNullableDate<TProperty>(Expression<Func<T, TProperty>> expression, DateTime minimum, DateTime maximum, bool allowNulls = true)
+        {
+
+            var gen = (IGenerator<TProperty>)new NullableDateTimeGenerator(minimum, maximum, allowNulls);
+            SetPropertyMap(expression, gen);
+
+            return this;
+        }
+
+        public Hydrator<T> WithNullableDouble<TProperty>(Expression<Func<T, TProperty>> expression, int decimalPlaces, bool allowNulls = true)
+        {
+            var gen = (IGenerator<TProperty>)new NullableDoubleGenerator(decimalPlaces, allowNulls);
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+        public Hydrator<T> WithNullableDouble<TProperty>(Expression<Func<T, TProperty>> expression, double minimum, double maximum, bool allowNulls = true)
+        {
+            var gen = (IGenerator<TProperty>)new NullableDoubleGenerator(minimum, maximum, allowNulls);
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+
+
+        public Hydrator<T> WithNullableDouble<TProperty>(Expression<Func<T, TProperty>> expression, double minimum, double maximum, int decimalPlaces, bool allowNulls = true)
+        {
+            var gen = (IGenerator<TProperty>)new NullableDoubleGenerator(minimum, maximum, decimalPlaces, allowNulls);
+            SetPropertyMap(expression, gen);
+
+            return this;
+        }
+        #endregion
+
         /// <summary>
         /// Applies a random selection from the passed list to the provided Property Name.
         /// </summary>
@@ -525,8 +573,8 @@ namespace Foundation.ObjectHydrator
             foreach (IMapping mapping in propertyMap.Values)
             {
                 PropertyInfo propertyInfo = instance.GetType().GetProperty(mapping.PropertyName, BindingFlags.Public | BindingFlags.Instance);
-                
-               
+
+
                 if (propertyInfo != null)
                 {
                     propertyInfo.SetValue(instance, mapping.Generate(), null);
@@ -564,7 +612,7 @@ namespace Foundation.ObjectHydrator
                 typeMap.Add(map);
             }
         }
-       
+
     }
 
 }

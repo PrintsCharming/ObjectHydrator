@@ -1,14 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Foundation.ObjectHydrator.Generators;
 using Foundation.ObjectHydrator.Interfaces;
-using Foundation.ObjectHydrator.Generators;
+using System;
+using System.Collections.Generic;
 
 namespace Foundation.ObjectHydrator
 {
-    public class DefaultTypeMap:List<IMap>
+    public class DefaultTypeMap : List<IMap>
     {
-        public DefaultTypeMap()
+        public DefaultTypeMap(bool allowNulls)
         {
+            Add(new Map<DateTime?>().Using(new NullableDateTimeGenerator(allowNulls)));
+            Add(new Map<double?>().Using(new NullableDoubleGenerator(allowNulls)));
+            Add(new Map<int?>().Using(new NullableIntegerGenerator(allowNulls)));
+            Add(new Map<bool?>().Using(new NullableBooleanGenerator(allowNulls)));
+            Add(new Map<Guid?>().Using(new NullableGuidGenerator(allowNulls)));
+
             Add(new Map<DateTime>().Using(new DateTimeGenerator()));
             Add(new Map<double>().Using(new DoubleGenerator()));
             Add(new Map<Double>().Using(new DoubleGenerator()));
