@@ -91,17 +91,9 @@
     <Compile Include="Generators\ByteArrayGenerator.cs" />
     <Compile Include="Generators\CCVGenerator.cs" />
     <Compile Include="Generators\CompanyNameGenerator.cs" />
-    <Compile Include="Generators\DecimalGenerator.cs" />
     <Compile Include="Generators\FromListGetListGenerator.cs" />
     <Compile Include="Generators\FromListGetSingleGenerator.cs" />
     <Compile Include="Generators\Generator.cs" />
-    <Compile Include="Generators\NullableBooleanGenerator.cs" />
-    <Compile Include="Generators\NullableDateTimeGenerator.cs" />
-    <Compile Include="Generators\NullableDecimalGenerator.cs" />
-    <Compile Include="Generators\NullableDoubleGenerator.cs" />
-    <Compile Include="Generators\NullableEnumGenerator.cs" />
-    <Compile Include="Generators\NullableGuidGenerator.cs" />
-    <Compile Include="Generators\NullableIntegerGenerator.cs" />
     <Compile Include="Generators\PasswordGenerator.cs" />
     <Compile Include="Generators\TrackingNumberGenerator.cs" />
     <Compile Include="Generators\CountryCodeGenerator.cs" />

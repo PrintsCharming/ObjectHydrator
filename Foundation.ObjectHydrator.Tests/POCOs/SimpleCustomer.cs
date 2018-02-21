@@ -4,7 +4,7 @@ namespace Foundation.ObjectHydrator.Tests.POCOs
 {
     public class SimpleCustomer
     {
-
+        
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Company { get; set; }
@@ -51,9 +51,7 @@ namespace Foundation.ObjectHydrator.Tests.POCOs
                 _password = value;
             }
         }
-
+        
         public string placeholderstring { get; set; }
-
-        public int? RewardPoints { get; set; }
     }
 }

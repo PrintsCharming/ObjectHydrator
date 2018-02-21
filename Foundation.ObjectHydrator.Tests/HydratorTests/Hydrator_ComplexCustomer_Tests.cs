@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Foundation.ObjectHydrator.Generators;
 using Foundation.ObjectHydrator.Tests.POCOs;
@@ -113,34 +112,6 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
                 .GetSingle();
 
             Assert.AreEqual(lastNameDefault, hy.LastName);
-        }
-
-        [Test]
-        public void ThrowExceptionForAbstractTypeGeneration()
-        {
-            var abstractGenerator = new TypeGenerator<Animal>();
-            
-            Assert.Throws<MissingMethodException>(() => abstractGenerator.Generate());
-        }
-
-        [Test]
-        public void CanLoadSingleComplexCustomerWithAbstractTypeMapper()
-        {
-            var hy = new Hydrator<ComplexCustomer>();
-
-            var customer = hy.GetSingle();
-
-            Assert.IsNotNull(customer);
-            
-            //As Animal is an abstract class, it will not be instantiate by default
-            Assert.IsNull(customer.Pet, "Abstract class cannot be instantiate");
-
-            //Set up the generator for abstract type
-            hy = hy.With(x => x.Pet, new TypeGenerator<Dog>());
-            customer = hy.GetSingle();
-
-            Assert.IsNotNull(customer.Pet);
-            Assert.IsInstanceOf<Dog>(customer.Pet);
         }
     }
 }

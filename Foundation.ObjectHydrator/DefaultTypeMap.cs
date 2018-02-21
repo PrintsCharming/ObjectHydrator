@@ -1,32 +1,23 @@
-﻿using Foundation.ObjectHydrator.Generators;
-using Foundation.ObjectHydrator.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Foundation.ObjectHydrator.Interfaces;
+using Foundation.ObjectHydrator.Generators;
 
 namespace Foundation.ObjectHydrator
 {
-    public class DefaultTypeMap : List<IMap>
+    public class DefaultTypeMap:List<IMap>
     {
-        public DefaultTypeMap(bool allowNulls)
+        public DefaultTypeMap()
         {
-            Add(new Map<DateTime?>().Using(new NullableDateTimeGenerator(allowNulls)));
-            Add(new Map<double?>().Using(new NullableDoubleGenerator(allowNulls)));
-            Add(new Map<int?>().Using(new NullableIntegerGenerator(allowNulls)));
-            Add(new Map<bool?>().Using(new NullableBooleanGenerator(allowNulls)));
-            Add(new Map<Guid?>().Using(new NullableGuidGenerator(allowNulls)));
-            Add(new Map<decimal?>().Using(new NullableDecimalGenerator(allowNulls)));
-
-
             Add(new Map<DateTime>().Using(new DateTimeGenerator()));
             Add(new Map<double>().Using(new DoubleGenerator()));
-            Add(new Map<decimal>().Using(new DecimalGenerator()));
             Add(new Map<Double>().Using(new DoubleGenerator()));
             Add(new Map<int>().Using(new IntegerGenerator()));
             Add(new Map<Int32>().Using(new IntegerGenerator()));
             Add(new Map<bool>().Using(new BooleanGenerator()));
             Add(new Map<Guid>().Using(new GuidGenerator()));
             Add(new Map<byte[]>().Using(new ByteArrayGenerator(8)));
-            //Add(new EnumMap()); --It is not working as expected.
+            Add(new EnumMap());
             Add(new Map<string>()
                     .Matching(info => info.Name.ToLower() == "firstname" || info.Name.ToLower() == "fname")
                     .Using(new FirstNameGenerator()));
