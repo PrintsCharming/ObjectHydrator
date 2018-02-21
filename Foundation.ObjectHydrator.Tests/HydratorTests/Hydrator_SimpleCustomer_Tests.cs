@@ -1,11 +1,11 @@
-﻿using Foundation.ObjectHydrator.Generators;
-using Foundation.ObjectHydrator.Tests.POCOs;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using NUnit.Framework;
+using Foundation.ObjectHydrator.Generators;
+using Foundation.ObjectHydrator.Tests.POCOs;
 
 namespace Foundation.ObjectHydrator.Tests.HydratorTests
 {
@@ -30,7 +30,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var customer = hydrator.GetSingle();
 
             Assert.IsTrue(!String.IsNullOrEmpty(customer.Description), "Customer Description should exist.");
-            Assert.IsTrue(customer.Description.Length <= 5, "Length not restricted");
+            Assert.IsTrue(customer.Description.Length <= 5,"Length not restricted");
             DumpSimpleCustomer(customer);
         }
 
@@ -132,7 +132,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
                 .WithDouble(x => x.Revenue, decimalPlaces);
             var customer = hydrator.GetSingle();
 
-            var decimalPart = customer.Revenue - (int)customer.Revenue;
+            var decimalPart = customer.Revenue - (int) customer.Revenue;
             Assert.IsTrue(decimalPart >= 0, String.Format("Customer Revenue decimal part is expected."));
 
             DumpSimpleCustomer(customer);
@@ -163,7 +163,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
                 .WithDouble(x => x.Revenue, minimum, maximum, decimalPlaces);
 
             var customer = hydrator.GetSingle();
-            var decimalPart = customer.Revenue - (int)customer.Revenue;
+            var decimalPart = customer.Revenue - (int) customer.Revenue;
 
             Assert.That(customer.Revenue, Is.InRange(minimum, maximum));
             Assert.IsTrue(decimalPart >= 0, String.Format("Customer Revenue decimal part is expected."));
@@ -394,7 +394,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.IsActive);
             Assert.IsInstanceOf<bool>(customer.IsActive);
-
+            
             DumpSimpleCustomer(customer);
         }
 
@@ -463,7 +463,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void FromListTest()
         {
-            IList<string> mylist = new List<string>() { "red", "green", "blue", "orange" };
+            IList<string> mylist = new List<string>() {"red", "green", "blue", "orange"};
             var hydrator = new Hydrator<SimpleCustomer>()
                 .FromList(x => x.placeholderstring, mylist);
             var customer = hydrator.GetSingle();
@@ -619,17 +619,6 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             Assert.IsNotNull(customer.placeholderstring);
         }
 
-        [Test]
-        public void CanGetNullableFields()
-        {
-            var hydrator = new Hydrator<SimpleCustomer>(false);
-            var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.RewardPoints);
-            Assert.IsInstanceOf<int?>(customer.RewardPoints);
-
-            DumpSimpleCustomer(customer);
-        }
-
         private void DumpCustomers(IList<SimpleCustomer> customers)
         {
             foreach (SimpleCustomer customer in customers)
@@ -645,7 +634,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             {
                 Trace.WriteLine(String.Format("{0} [{1}]", propertyInfo.Name, propertyInfo.GetValue(theObject, null)));
 
-                if (propertyInfo.PropertyType == typeof(byte[]))
+                if (propertyInfo.PropertyType == typeof (byte[]))
                 {
                     var theArray = propertyInfo.GetValue(theObject, null) as byte[];
                     if (theArray != null)
