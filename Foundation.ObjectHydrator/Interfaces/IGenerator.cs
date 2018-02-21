@@ -1,11 +1,14 @@
-﻿namespace Foundation.ObjectHydrator.Interfaces
+﻿using System;
+
+namespace Foundation.ObjectHydrator.Interfaces
 {
+    [Obsolete]
     public interface IGenerator
     {
         object Generate();
     }
 
-    public interface IGenerator<T>
+    public interface IGenerator<out T>
     {
         T Generate();
     }

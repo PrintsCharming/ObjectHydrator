@@ -648,7 +648,7 @@ namespace Foundation.ObjectHydrator
                     {
                         propertyMap[propertyInfo.Name] = map.Mapping(propertyInfo);
                     }
-                    else if (!propertyInfo.PropertyType.IsInterface)
+                    else
                     {
                         propertyMap[propertyInfo.Name] = new Mapping(propertyInfo, _allowNulls);
                     }

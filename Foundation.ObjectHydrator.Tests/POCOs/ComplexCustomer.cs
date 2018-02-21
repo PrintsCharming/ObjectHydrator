@@ -31,13 +31,15 @@ namespace Foundation.ObjectHydrator.Tests.POCOs
         public Address HomeAddress { get; set; }
         public IList<Address> Addresses { get; set; }
 
-        
+
 
         public string HomePhone { get; set; }
         public string WorkPhone { get; set; }
         public string[] PhoneNumbers { get; set; }
 
         public CustomerType Type { get; set; }
+
+        public Animal Pet { get; set; }
 
     }
 }
