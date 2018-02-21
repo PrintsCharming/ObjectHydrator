@@ -3118,8 +3118,6 @@ namespace Foundation.ObjectHydrator.Generators
 
         public string Generate()
         {
-            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
             var postCode = new StringBuilder();
 
             postCode.Append(_postcodePrefix[_random.Next(0, _postcodePrefix.Count)]);

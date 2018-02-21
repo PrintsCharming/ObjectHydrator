@@ -64,10 +64,10 @@ namespace SampleWebApplication
             }
         }
 
-        private Company _company;
+        //private Company _company;
         public Company Company { get; set; }
 
-        private IList<Company> _companies;
+        //private IList<Company> _companies;
         public IList<Company> Companies {get;set;}
 
         

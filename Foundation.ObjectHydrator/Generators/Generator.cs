@@ -1,10 +1,10 @@
-﻿using System;
-using Foundation.ObjectHydrator.Interfaces;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
 using System.Reflection;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class Generator:IGenerator
+    public class Generator : IGenerator<object>
     {
         private readonly PropertyInfo _info;
 
