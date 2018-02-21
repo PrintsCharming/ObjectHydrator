@@ -231,6 +231,27 @@ namespace Foundation.ObjectHydrator
 
         }
 
+        public Hydrator<T> WithDecimal<TProperty>(Expression<Func<T, TProperty>> expression, int decimalPlaces)
+        {
+            var gen = (IGenerator<TProperty>)new DecimalGenerator(decimalPlaces);
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+        public Hydrator<T> WithDecimal<TProperty>(Expression<Func<T, TProperty>> expression, decimal minimum, decimal maximum)
+        {
+            var gen = (IGenerator<TProperty>)new DecimalGenerator(minimum, maximum);
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+
+
+        public Hydrator<T> WithDecimal<TProperty>(Expression<Func<T, TProperty>> expression, decimal minimum, decimal maximum, int decimalPlaces)
+        {
+            var gen = (IGenerator<TProperty>)new DecimalGenerator(minimum, maximum, decimalPlaces);
+            SetPropertyMap(expression, gen);
+
+            return this;
+        }
 
 
         #region WithCustomGeneratorTypes
@@ -514,6 +535,36 @@ namespace Foundation.ObjectHydrator
 
             return this;
         }
+
+        public Hydrator<T> WithNullableDecimal<TProperty>(Expression<Func<T, TProperty>> expression, int decimalPlaces, bool allowNulls = true)
+        {
+            var gen = (IGenerator<TProperty>)new NullableDecimalGenerator(decimalPlaces, allowNulls);
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+        public Hydrator<T> WithNullableDecimal<TProperty>(Expression<Func<T, TProperty>> expression, decimal minimum, decimal maximum, bool allowNulls = true)
+        {
+            var gen = (IGenerator<TProperty>)new NullableDecimalGenerator(minimum, maximum, allowNulls);
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+
+
+        public Hydrator<T> WithNullableDecimal<TProperty>(Expression<Func<T, TProperty>> expression, decimal minimum, decimal maximum, int decimalPlaces, bool allowNulls = true)
+        {
+            var gen = (IGenerator<TProperty>)new NullableDecimalGenerator(minimum, maximum, decimalPlaces, allowNulls);
+            SetPropertyMap(expression, gen);
+
+            return this;
+        }
+
+        public Hydrator<T> WithNullableEnum<TProperty>(Expression<Func<T, TProperty>> expression, Array enumValues, bool allowNulls = true)
+        {
+            var gen = (IGenerator<TProperty>)new NullableEnumGenerator(enumValues, allowNulls);
+            SetPropertyMap(expression, gen);
+            return this;
+
+        }
         #endregion
 
         /// <summary>
@@ -599,7 +650,7 @@ namespace Foundation.ObjectHydrator
                     }
                     else if (!propertyInfo.PropertyType.IsInterface)
                     {
-                        propertyMap[propertyInfo.Name] = new Mapping(propertyInfo, new Generator(propertyInfo));
+                        propertyMap[propertyInfo.Name] = new Mapping(propertyInfo, _allowNulls);
                     }
                 }
             }

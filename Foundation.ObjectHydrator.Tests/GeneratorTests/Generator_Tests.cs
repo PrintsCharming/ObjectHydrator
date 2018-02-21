@@ -1,5 +1,6 @@
 ﻿using Foundation.ObjectHydrator.Generators;
 using Foundation.ObjectHydrator.Interfaces;
+using Foundation.ObjectHydrator.Tests.POCOs;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -77,7 +78,10 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         [Test]
         public void EnumGeneratorTest()
         {
-            //IGenerator enumgen = new EnumGenerator();
+            var enumgenerator = new EnumGenerator(Enum.GetValues(typeof(CustomerType)));
+            var enumvalue = enumgenerator.Generate();
+            Assert.IsNotNull(enumvalue);
+            Assert.IsInstanceOf<CustomerType>(enumvalue);
         }
 
         [Test]
@@ -413,7 +417,15 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             var intvalue = intgenerator.Generate();
             Assert.IsNotNull(intvalue);
             Assert.IsInstanceOf<int?>(intvalue);
+        }
 
+        [Test]
+        public void NullableEnumGenerator()
+        {
+            var enumgenerator = new NullableEnumGenerator(Enum.GetValues(typeof(CustomerType)), false);
+            var enumvalue = enumgenerator.Generate();
+            Assert.IsNotNull(enumvalue);
+            Assert.IsInstanceOf<CustomerType?>(enumvalue);
         }
     }
 }
