@@ -392,7 +392,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void UnitedKingdomPhoneGeneratorTest()
         {
             const string ndcPrefix = "6";
-            var expectedPrefix = $"0{ndcPrefix}";
+            var expectedPrefix = string.Format("0{0}", ndcPrefix);
             var generator = new UnitedKingdomPhoneNumberGenerator(ndcPrefix);
 
             var result = generator.Generate();
