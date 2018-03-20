@@ -593,6 +593,18 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         }
 
         [Test]
+        public void WithUnitedKingdomNationalInsuranceNumberTest()
+        {
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithUnitedKingdomNationalInsuranceNumber(x => x.placeholderstring);
+
+            var customer = hydrator.GetSingle();
+
+            Assert.IsNotNull(customer.placeholderstring);
+            Assert.IsNotEmpty(customer.placeholderstring);
+        }
+
+        [Test]
         public void WithUnitedKingdomCityTest()
         {
             var hydrator = new Hydrator<SimpleCustomer>()
