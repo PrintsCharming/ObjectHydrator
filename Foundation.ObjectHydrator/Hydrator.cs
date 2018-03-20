@@ -206,7 +206,7 @@ namespace Foundation.ObjectHydrator
         /// <summary>
         /// Applies a random selection from the provided enumValues for the provided Property Name.
         /// </summary>
-        /// <param name="Expression">The Property to apply the randomly selected Enum to.</param>
+        /// <param name="expression">The Property to apply the randomly selected Enum to.</param>
         /// <param name="enumValues">The Array of System.Enum values from which to chose a random entry to return.</param>
         /// <returns>This instance of the Hydrator for type T.</returns>
         public Hydrator<T> WithEnum<TProperty>(Expression<Func<T, TProperty>> expression, Array enumValues)
@@ -300,6 +300,22 @@ namespace Foundation.ObjectHydrator
             SetPropertyMap(expression, gen);
             return this;
         }
+
+        public Hydrator<T> WithUnitedKingdomLandline(Expression<Func<T, string>> expression)
+        {
+            var gen = new UnitedKingdomLandlineGenerator();
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+
+        public Hydrator<T> WithUnitedKingdomMobile(Expression<Func<T, string>> expression)
+        {
+            var gen = new UnitedKingdomMobileGenerator();
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+
+
 
         /// <summary>
         /// Returns a CCV based on the type. {Presently just returns a 000-999 ignoring the type}
@@ -471,7 +487,7 @@ namespace Foundation.ObjectHydrator
         /// <summary>
         /// Applies a random selection from the passed list to the provided Property Name.
         /// </summary>
-        /// <param name="propertyName">The Property to apply the randomly selected List Item to.</param>
+        /// <param name="expression">The Property to apply the randomly selected List Item to.</param>
         /// <param name="list">The IEnumerable<![CDATA[<Object>]]> to randomly choose a value from.</param>
         /// <returns>This instance of the Hydrator for type T.</returns>
         public Hydrator<T> FromList<TProperty>(Expression<Func<T, TProperty>> expression, IEnumerable<TProperty> list)
