@@ -15,6 +15,7 @@ namespace Foundation.ObjectHydrator
         readonly IDictionary<string, IMapping> propertyMap;
         private readonly IList<IMap> typeMap;
         private IList<IMap> defaultTypeMap;
+        private List<Action<T>> actions;
 
 
         #region Ctors
@@ -519,17 +520,24 @@ namespace Foundation.ObjectHydrator
             return this;
         }
 
-        private void Populate(object instance)
+        private void Populate(T instance)
         {
             AddTypeMapToPropertyMap();
             foreach (IMapping mapping in propertyMap.Values)
             {
                 PropertyInfo propertyInfo = instance.GetType().GetProperty(mapping.PropertyName, BindingFlags.Public | BindingFlags.Instance);
-                
                
                 if (propertyInfo != null)
                 {
                     propertyInfo.SetValue(instance, mapping.Generate(), null);
+                }
+            }
+
+            if (actions != null)
+            {
+                foreach (var action in this.actions)
+                {
+                    action(instance);
                 }
             }
         }
@@ -564,7 +572,13 @@ namespace Foundation.ObjectHydrator
                 typeMap.Add(map);
             }
         }
-       
+
+        public Hydrator<T> Do(Action<T> action)
+        {
+            if(actions == null) { actions = new List<Action<T>>();}
+            actions.Add(action);
+            return this;
+        }
     }
 
 }
