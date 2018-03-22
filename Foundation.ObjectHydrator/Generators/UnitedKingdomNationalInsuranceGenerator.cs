@@ -53,7 +53,7 @@ namespace Foundation.ObjectHydrator.Generators
 
             for (int i = 0; i < length; i++)
             {
-                var val = _random.Next(0, 9);
+                var val = _random.Next(0, 10);
                 result[i] = val.ToString()[0];
             }
 
@@ -93,7 +93,7 @@ namespace Foundation.ObjectHydrator.Generators
 
         private T AnyElement<T>(IReadOnlyCollection<T> list)
         {
-            var max = list.Count - 1;
+            var max = list.Count;
             if (max < 0)
             {
                 return default(T);
