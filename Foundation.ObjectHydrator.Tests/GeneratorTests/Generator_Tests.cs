@@ -369,5 +369,17 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             var county = (string)unitedKingdomCountyGenerator.Generate();
             Assert.IsNotNull(county);
         }
+
+        [Test]
+        public void CultureInfoNamesGeneratorTest()
+        {
+            IGenerator<string> cultureDisplayNameGenerator = new CulturesGenerator<string>(culture => culture.DisplayName);
+            var cultureDisplayName = cultureDisplayNameGenerator.Generate();
+            Assert.IsNotNull(cultureDisplayName);
+
+            IGenerator<int> cultureLCIDGenerator = new CulturesGenerator<int>(culture => culture.LCID);
+            var cultureLCID = cultureLCIDGenerator.Generate();
+            Assert.Greater(cultureLCID, 0);
+        }
     }
 }
