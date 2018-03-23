@@ -619,6 +619,31 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             Assert.IsNotNull(customer.placeholderstring);
         }
 
+        [Test]
+        public void WithUnitedKingdomLandlineTest()
+        {
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithUnitedKingdomLandline(x => x.placeholderstring);
+
+            var customer = hydrator.GetSingle();
+
+            Assert.IsNotNull(customer.placeholderstring);
+            Assert.IsNotEmpty(customer.placeholderstring);
+            Assert.IsTrue(customer.placeholderstring.StartsWith("01"));
+        }
+
+        [Test]
+        public void WithUnitedKingdomMobileTest()
+        {
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithUnitedKingdomMobile(x => x.placeholderstring);
+
+            var customer = hydrator.GetSingle();
+
+            Assert.IsNotNull(customer.placeholderstring);
+            Assert.IsNotEmpty(customer.placeholderstring);
+            Assert.IsTrue(customer.placeholderstring.StartsWith("07"));
+        }
         private void DumpCustomers(IList<SimpleCustomer> customers)
         {
             foreach (SimpleCustomer customer in customers)

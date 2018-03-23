@@ -370,5 +370,36 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             var county = (string)unitedKingdomCountyGenerator.Generate();
             Assert.IsNotNull(county);
         }
+
+        [Test]
+        public void UnitedKingdomLandlineGeneratorTest()
+        {
+            var generator = new UnitedKingdomLandlineGenerator();
+            var result = generator.Generate();
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.StartsWith("01"), "Landline numbers always start with \"01\" in the UK");
+        }
+
+        [Test]
+        public void UnitedKingdomMobileGeneratorTest()
+        {
+            var generator = new UnitedKingdomMobileGenerator();
+            var result = generator.Generate();
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.StartsWith("07"), "Mobile numbers always start with \"07\" in the UK");
+        }
+
+        [Test]
+        public void UnitedKingdomPhoneGeneratorTest()
+        {
+            const string ndcPrefix = "6";
+            var expectedPrefix = string.Format("0{0}", ndcPrefix);
+            var generator = new UnitedKingdomPhoneNumberGenerator(ndcPrefix);
+
+            var result = generator.Generate();
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.StartsWith(expectedPrefix), "The phone number should start with \"{0}\"", expectedPrefix);
+        }
     }
 }
