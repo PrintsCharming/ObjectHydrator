@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Foundation.ObjectHydrator.Generators;
@@ -476,10 +477,15 @@ namespace Foundation.ObjectHydrator
             return this;
 
         }
-        
+
+        public Hydrator<T> WithCultures<TProperty>(Expression<Func<T, TProperty>> expression, Func<CultureInfo, TProperty> propertyGetter)
+        {
+            IGenerator<TProperty> gen = (IGenerator<TProperty>)new CulturesGenerator<TProperty>(propertyGetter);
+            SetPropertyMap(expression, gen);
+            return this;
+        }
 
 
-        
         #endregion
 
         //Not working.
