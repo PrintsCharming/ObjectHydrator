@@ -287,7 +287,8 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             var tracknumber = (string) trackingnumbergenerator.Generate();
             Assert.IsNotNull(tracknumber);
             Assert.IsTrue(tracknumber.Length == 15);
-            Assert.That(tracknumber, Is.StringStarting("4"));
+            
+            Assert.That(tracknumber.StartsWith("4"));
         }
 
         [Test]
@@ -297,7 +298,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             var tracknumber = (string) trackingnumbergenerator.Generate();
             Assert.IsNotNull(tracknumber);
             Assert.IsTrue(tracknumber.Length == 20);
-            Assert.That(tracknumber, Is.StringStarting("1Z"));
+            Assert.That(tracknumber.StartsWith("1Z"));
         }
 
         [Test]
@@ -307,7 +308,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             var tracknumber = (string) trackingnumbergenerator.Generate();
             Assert.IsNotNull(tracknumber);
             Assert.IsTrue(tracknumber.Length == 22);
-            Assert.That(tracknumber, Is.StringStarting("91"));
+            Assert.That(tracknumber.StartsWith("91"));
         }
 
         [Test]
