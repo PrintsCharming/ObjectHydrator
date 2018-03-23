@@ -253,6 +253,7 @@ ServiceFabricBackup/
 # Microsoft Fakes
 FakesAssemblies/
 
+<<<<<<< HEAD
 # GhostDoc plugin setting file
 *.GhostDoc.xml
 
