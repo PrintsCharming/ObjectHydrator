@@ -348,6 +348,18 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         }
 
         [Test]
+        public void UnitedKingdomNationalInsuranceGeneratorTest()
+        {
+            var generator = new UnitedKingdomNationalInsuranceGenerator();
+
+            var result = generator.Generate();
+
+            Assert.IsNotNull(result);
+            Assert.IsNotEmpty(result);
+            Assert.IsTrue(new Regex(@"^(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)(?:[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\s*\d\s*){6}([A-D]|\s)$").IsMatch(result));
+        }
+
+        [Test]
         public void UnitedKingdomCityGeneratorTest()
         {
             IGenerator<string> unitedKingdomCityGenerator = new UnitedKingdomCityGenerator();
