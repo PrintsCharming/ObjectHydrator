@@ -280,6 +280,13 @@ namespace Foundation.ObjectHydrator
             return this;
         }
 
+        public Hydrator<T> WithUnitedKingdomNationalInsuranceNumber(Expression<Func<T, string>> expression)
+        {
+            var gen = new UnitedKingdomNationalInsuranceGenerator();
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+
         public Hydrator<T> WithUnitedKingdomCity<TProperty>(Expression<Func<T, TProperty>> expression)
         {
             IGenerator<TProperty> gen = (IGenerator<TProperty>)new UnitedKingdomCityGenerator();
