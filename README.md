@@ -43,6 +43,11 @@ Hydrator<Customer> _customerHydrator = new Hydrator<Customer>()
 
 ## Changes
 
+Version 1.3.0
+* Added 3 new generators UnitedKingdomPhoneNumberGenerator, UnitedKingdomInsuranceNumberGenerator, and CulturesGenerator thanks to rikrak and ushenkodmitry
+*  "Do" method to allow a property to be set from the generated values in other properties, thanks to rikrak
+* Fixed randomization method which was excluding the last possible, thanks to rikrak and ushenkodmitry
+
 Version 1.1.0
 * Added the ability to respect the StringLength property attribute from System.ComponentModel.DataAnnotations (more annotations are welcome and likely)
 
@@ -96,6 +101,9 @@ PasswordGenerator | Returns a string of random pw characters with length paramet
 UnitedKingdomCityGenerator | Returns a UK City | Thanks to fuzzy-afterlife
 UnitedKingdomCountyGenerator | Returns a UK County | Thanks to fuzzy-afterlife
 UnitedKingdomPostcodeGenerator | Returns a UK Post Code | Thanks to fuzzy-afterlife
+UnitedKingdomPhoneNumberGenerator | Returns a UK Phone | Thanks to rikrak
+UnitedKingdomInsuranceNumberGenerator | Returns a UK Ins Number | Thanks to rikrak
 AlphaNumericGenerator | Returns an string with alpha chars of n length | Thanks to fuzzy-afterlife
+CulturesGenerator | Returns a Culture Info property | Thanks to ushenkodmitry
 
 All values can be overridden so you can do things like fake search results etc...
