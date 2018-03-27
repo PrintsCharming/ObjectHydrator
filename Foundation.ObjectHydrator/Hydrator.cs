@@ -218,6 +218,22 @@ namespace Foundation.ObjectHydrator
             return this;
 
         }
+
+        /// <summary>
+        /// Applies a random selection from the provided enumValues for the provided Property Name.
+        /// </summary>
+        /// <param name="expression">The Property to apply the randomly selected Enum to.</param>
+        /// <param name="options">Allows options to be set for this property generation in a fluent form.</param>
+        /// <returns>This instance of the Hydrator for type T.</returns>
+        public Hydrator<T> WithEnum<TProperty>(Expression<Func<T, TProperty>> expression, Func<IEnumGeneratorOptionsBuilder<TProperty>, IEnumGeneratorOptionsBuilder<TProperty>> options = null)
+            where TProperty: struct, IConvertible
+        {
+            var gen = new EnumGenerator<TProperty>(options);
+            SetPropertyMap(expression, gen);
+            return this;
+
+        }
+
         /// <summary>
         /// Applies a randomly selected byte[] to the provided Property Name of the specified length.
         /// </summary>
