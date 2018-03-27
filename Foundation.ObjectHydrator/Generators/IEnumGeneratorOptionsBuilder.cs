@@ -6,5 +6,6 @@ namespace Foundation.ObjectHydrator.Generators
         where TEnum : struct, IConvertible
     {
         IEnumGeneratorOptionsBuilder<TEnum> Excluding(TEnum value);
+        IEnumGeneratorOptionsBuilder<TEnum> WithFrequency(TEnum value, int frequency);
     }
 }

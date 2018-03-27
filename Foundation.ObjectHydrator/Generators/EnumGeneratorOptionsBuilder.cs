@@ -12,6 +12,7 @@ namespace Foundation.ObjectHydrator.Generators
         where TEnum: struct, IConvertible // attempt to restrict to just enum values
     {
         private readonly List<TEnum> _valuesToExclude = new List<TEnum>();
+        private readonly Dictionary<TEnum, int> _valueFrequency = new Dictionary<TEnum, int>();
 
         public IReadOnlyCollection<TEnum> ValuesToExclude => _valuesToExclude.Distinct().ToArray();
 
@@ -21,9 +22,25 @@ namespace Foundation.ObjectHydrator.Generators
             return this;
         }
 
+        public IEnumGeneratorOptionsBuilder<TEnum> WithFrequency(TEnum value, int frequency)
+        {
+            _valueFrequency[value] = Math.Abs(frequency);
+            return this;
+        }
+
         public bool ShouldInclude(TEnum value)
         {
             return !_valuesToExclude.Contains(value);
+        }
+
+        public int ValueFrequency(TEnum value)
+        {
+            if (_valueFrequency.ContainsKey(value))
+            {
+                return _valueFrequency[value];
+            }
+
+            return 1;
         }
     }
 }

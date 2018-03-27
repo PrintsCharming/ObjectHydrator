@@ -31,33 +31,45 @@ namespace Foundation.ObjectHydrator.Generators
     public class EnumGenerator<TEnum> : IGenerator<TEnum>
         where TEnum : struct, IConvertible // attempt to restrict to enums only
     {
-        private readonly Random _random;
-        private readonly TEnum[] _values;
+        private readonly FromListGetSingleGenerator<TEnum> _values;
 
         public EnumGenerator(Func<IEnumGeneratorOptionsBuilder<TEnum>, IEnumGeneratorOptionsBuilder<TEnum>> optionBuilder = null)
         {
-            this._random = RandomSingleton.Instance.Random;
             var options = new EnumGeneratorOptionsBuilder<TEnum>();
             if (optionBuilder != null)
             {
                 optionBuilder(options);
             }
+            
+            var values = GetAllValuesForEnum();
 
+            var valuesToSelectFrom = new List<TEnum>();
+            foreach (var value in values.Where(e => options.ShouldInclude(e)))
+            {
+                for (var i = 0; i < options.ValueFrequency(value); i++)
+                {
+                    valuesToSelectFrom.Add(value);
+                }
+            }
 
+            this._values = new FromListGetSingleGenerator<TEnum>(valuesToSelectFrom.ToArray());
+        }
+
+        private static List<TEnum> GetAllValuesForEnum()
+        {
             var values = new List<TEnum>();
             foreach (var value in Enum.GetValues(typeof(TEnum)))
             {
-                var enumValue = (TEnum)value;
+                var enumValue = (TEnum) value;
                 values.Add(enumValue);
             }
 
-            this._values = values.Where(e => options.ShouldInclude(e)).ToArray();
+            return values;
         }
 
         public TEnum Generate()
         {
-            var idx = _random.Next(0, _values.Length);
-            return _values[idx];
+            return _values.Generate();
         }
     }
 }
