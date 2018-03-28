@@ -92,6 +92,7 @@
     <Compile Include="Generators\CCVGenerator.cs" />
     <Compile Include="Generators\CompanyNameGenerator.cs" />
     <Compile Include="Generators\CulturesGenerator.cs" />
+    <Compile Include="Generators\FrequencyList.cs" />
     <Compile Include="Generators\FromListGetListGenerator.cs" />
     <Compile Include="Generators\FromListGetSingleGenerator.cs" />
     <Compile Include="Generators\Generator.cs" />

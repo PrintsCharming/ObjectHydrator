@@ -85,6 +85,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GeneratorTests\FrequencyListTests.cs" />
     <Compile Include="GeneratorTests\Generator_Tests.cs" />
     <Compile Include="HydratorTests\Hydrator_Do_Tests.cs" />
     <Compile Include="HydratorTests\Hydrator_InjectedGenerator_Test.cs" />
