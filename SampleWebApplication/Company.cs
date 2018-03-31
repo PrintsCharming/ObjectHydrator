@@ -2,75 +2,19 @@
 {
     public class Company
     {
-        private int _companyID;
-        public int CompanyID
-        {
-            get { return _companyID; }
-            set
-            {
-                _companyID = value;
-            }
-        }
+        public int CompanyId { get; set; }
 
-        private string _companyName;
-        public string CompanyName
-        {
-            get { return _companyName; }
-            set
-            {
-                _companyName = value;
-            }
-        }
+        public string CompanyName { get; set; }
 
-        private string _addressLine;
-        public string AddressLine
-        {
-            get { return _addressLine; }
-            set
-            {
-                _addressLine = value;
-            }
-        }
+        public string AddressLine { get; set; }
 
-        private string _city;
-        public string City
-        {
-            get { return _city; }
-            set
-            {
-                _city = value;
-            }
-        }
+        public string City { get; set; }
 
-        private string _state;
-        public string State
-        {
-            get { return _state; }
-            set
-            {
-                _state = value;
-            }
-        }
+        public string State { get; set; }
 
-        private string _zip;
-        public string Zip
-        {
-            get { return _zip; }
-            set
-            {
-                _zip = value;
-            }
-        }
+        public string Zip { get; set; }
 
-        private string _homepage;
-        public string Homepage
-        {
-            get { return _homepage; }
-            set
-            {
-                _homepage = value;
-            }
-        }
+        public string Homepage { get; set; }
 
         public override string ToString()
         {

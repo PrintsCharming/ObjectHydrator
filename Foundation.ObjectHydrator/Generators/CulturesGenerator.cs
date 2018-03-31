@@ -6,9 +6,9 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public sealed class CulturesGenerator<TProperty> : IGenerator<TProperty>
     {
-        readonly Func<CultureInfo, TProperty> _propertyGetter;
+        private readonly Func<CultureInfo, TProperty> _propertyGetter;
 
-        readonly Random _random = RandomSingleton.Instance.Random;
+        private readonly Random _random = RandomSingleton.Instance.Random;
 
         public CulturesGenerator(Func<CultureInfo, TProperty> propertyGetter)
         {
@@ -21,7 +21,7 @@ namespace Foundation.ObjectHydrator.Generators
 
             var next = _random.Next(0, cultures.Length - 1);
 
-            CultureInfo culture = cultures[next];
+            var culture = cultures[next];
 
             return _propertyGetter(culture);
         }

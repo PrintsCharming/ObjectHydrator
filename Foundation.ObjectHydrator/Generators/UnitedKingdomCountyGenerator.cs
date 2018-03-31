@@ -15,9 +15,14 @@ namespace Foundation.ObjectHydrator.Generators
             LoadCountyNames();
         }
 
+        public string Generate()
+        {
+            return _countyNames[_random.Next(0, _countyNames.Count)];
+        }
+
         private void LoadCountyNames()
         {
-            _countyNames = new List<string>()
+            _countyNames = new List<string>
             {
                 "London",
                 "Bedfordshire",
@@ -108,11 +113,6 @@ namespace Foundation.ObjectHydrator.Generators
                 "Kincardineshire",
                 "Kinross-shire"
             };
-        }
-
-        public string Generate()
-        {
-            return _countyNames[_random.Next(0, _countyNames.Count)];
         }
     }
 }

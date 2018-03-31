@@ -1,27 +1,24 @@
-﻿
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Foundation.ObjectHydrator.Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Foundation.ObjectHydrator.Interfaces;
 
-
-
-
-    namespace Foundation.ObjectHydrator.Generators
+namespace Foundation.ObjectHydrator.Generators
+{
+    public class FromListGetSingleGenerator<T> : IGenerator<T>
     {
-        public class FromListGetSingleGenerator<T> : IGenerator<T>
-        {
-            readonly Random random;
-            IEnumerable<T> list = new List<T>();
-            public FromListGetSingleGenerator(IEnumerable<T> list)
-            {
-                random = RandomSingleton.Instance.Random;
-                this.list = list;
-            }
+        private readonly Random _random;
+        private readonly IEnumerable<T> _list;
 
-            public T Generate()
-            {
-                return list.ElementAt(random.Next(0, list.Count<T>()));
-            }
+        public FromListGetSingleGenerator(IEnumerable<T> list)
+        {
+            _random = RandomSingleton.Instance.Random;
+            _list = list;
+        }
+
+        public T Generate()
+        {
+            return _list.ElementAt(_random.Next(0, _list.Count()));
         }
     }
+}

@@ -6,13 +6,13 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class AlphaNumericGenerator : IGenerator<string>
     {
-        Random random;
-        private int stringLength;
+        private readonly Random _random;
+        private readonly int _stringLength;
 
         public AlphaNumericGenerator(int length)
         {
-            random = RandomSingleton.Instance.Random;
-            stringLength = length;
+            _random = RandomSingleton.Instance.Random;
+            _stringLength = length;
         }
 
         public string Generate()
@@ -20,9 +20,9 @@ namespace Foundation.ObjectHydrator.Generators
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
             var result = new string(
-                Enumerable.Repeat(chars, stringLength)
-                          .Select(s => s[random.Next(s.Length)])
-                          .ToArray());
+                Enumerable.Repeat(chars, _stringLength)
+                    .Select(s => s[_random.Next(s.Length)])
+                    .ToArray());
 
             return result;
         }

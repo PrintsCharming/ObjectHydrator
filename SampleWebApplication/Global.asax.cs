@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web;
 using Foundation.ObjectHydrator;
-
 using Foundation.ObjectHydrator.Generators;
 
 namespace SampleWebApplication
 {
-    public class Global : System.Web.HttpApplication
+    public class Global : HttpApplication
     {
 
         protected void Application_Start(object sender, EventArgs e)

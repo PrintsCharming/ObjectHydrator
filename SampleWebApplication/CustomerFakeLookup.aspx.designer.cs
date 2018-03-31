@@ -8,6 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+
 namespace SampleWebApplication {
     
     
@@ -20,7 +23,7 @@ namespace SampleWebApplication {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected HtmlForm form1;
         
         /// <summary>
         /// Menu1 control.
@@ -29,7 +32,7 @@ namespace SampleWebApplication {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::SampleWebApplication.Menu Menu1;
+        protected Menu Menu1;
         
         /// <summary>
         /// txtLastName control.
@@ -38,7 +41,7 @@ namespace SampleWebApplication {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLastName;
+        protected TextBox txtLastName;
         
         /// <summary>
         /// Button1 control.
@@ -47,7 +50,7 @@ namespace SampleWebApplication {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected Button Button1;
         
         /// <summary>
         /// GridView1 control.
@@ -56,6 +59,6 @@ namespace SampleWebApplication {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected GridView GridView1;
     }
 }

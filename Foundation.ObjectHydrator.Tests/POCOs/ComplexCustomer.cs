@@ -13,11 +13,6 @@ namespace Foundation.ObjectHydrator.Tests.POCOs
 
     public class ComplexCustomer
     {
-        public ComplexCustomer()
-        {
-
-        }
-
         public int Id { get; private set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

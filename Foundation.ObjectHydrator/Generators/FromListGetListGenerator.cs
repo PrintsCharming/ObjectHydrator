@@ -4,28 +4,24 @@ using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class FromListGetListGenerator<T>:IGenerator<IList<T>>
+    public class FromListGetListGenerator<T> : IGenerator<IList<T>>
     {
-        private readonly int listLength;
-        public IEnumerable<T> list = new List<T>();
-        private IList<T> newList = new List<T>();
+        private readonly int _listLength;
+        public IEnumerable<T> List;
+        private readonly IList<T> _newList = new List<T>();
+
         public FromListGetListGenerator(IEnumerable<T> list, int count)
         {
-            this.list = list;
-            listLength = count;
+            List = list;
+            _listLength = count;
         }
 
         public IList<T> Generate()
         {
-            for (int i = 0; i < listLength; i++)
-            {
-                if (i < list.Count())
-                {
-                    newList.Add(list.ElementAt(i));
-                }
-            }
-            return newList;
+            for (var i = 0; i < _listLength; i++)
+                if (i < List.Count())
+                    _newList.Add(List.ElementAt(i));
+            return _newList;
         }
-        
     }
 }

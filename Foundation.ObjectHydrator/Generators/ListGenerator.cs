@@ -3,15 +3,15 @@ using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class ListGenerator<T>:IGenerator<IList<T>>
+    public class ListGenerator<T> : IGenerator<IList<T>>
     {
-        private readonly int listLength;
-        private readonly IGenerator<T> elementGenerator;
+        private readonly IGenerator<T> _elementGenerator;
+        private readonly int _listLength;
 
         public ListGenerator(int length, IGenerator<T> elementGenerator = null)
         {
-            this.elementGenerator =  elementGenerator ?? new TypeGenerator<T>();
-            listLength = length;
+            _elementGenerator = elementGenerator ?? new TypeGenerator<T>();
+            _listLength = length;
         }
 
         #region IGenerator<IList<T>> Members
@@ -19,10 +19,8 @@ namespace Foundation.ObjectHydrator.Generators
         public virtual IList<T> Generate()
         {
             IList<T> list = new List<T>();
-            for (int i = 0; i < listLength; i++)
-            {
-                list.Add(elementGenerator.Generate());
-            }
+            for (var i = 0; i < _listLength; i++)
+                list.Add(_elementGenerator.Generate());
             return list;
         }
 

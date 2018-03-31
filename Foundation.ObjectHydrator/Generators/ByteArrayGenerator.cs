@@ -5,28 +5,28 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class ByteArrayGenerator : IGenerator<byte[]>
     {
-        Random random;
-        public int Length { get; set; }
+        private readonly Random _random;
 
         public ByteArrayGenerator()
             : this(8)
         {
-
         }
 
         public ByteArrayGenerator(int length)
         {
-            random = RandomSingleton.Instance.Random;
+            _random = RandomSingleton.Instance.Random;
             Length = length;
         }
+
+        public int Length { get; set; }
 
         #region IGenerator Members
 
         public byte[] Generate()
         {
-            byte[] toReturn = new byte[Length];
+            var toReturn = new byte[Length];
 
-            random.NextBytes(toReturn);
+            _random.NextBytes(toReturn);
 
             return toReturn;
         }

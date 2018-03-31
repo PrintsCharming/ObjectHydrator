@@ -3,31 +3,29 @@ using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class PasswordGenerator:IGenerator<string>
+    public class PasswordGenerator : IGenerator<string>
     {
-        private char[] legalchars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()".ToCharArray();
-        int length;
+        private readonly char[] _legalchars =
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()".ToCharArray();
+
+        private readonly int _length;
 
         public PasswordGenerator()
             : this(10)
-        { }
+        {
+        }
 
         public PasswordGenerator(int pwlength)
         {
-            length = pwlength;
+            _length = pwlength;
         }
 
         public string Generate()
         {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < length; i++)
-            {
-                sb.Append(legalchars[RandomSingleton.Instance.Random.Next(0, legalchars.Length - 1)]);
-            }
+            var sb = new StringBuilder();
+            for (var i = 0; i < _length; i++)
+                sb.Append(_legalchars[RandomSingleton.Instance.Random.Next(0, _legalchars.Length - 1)]);
             return sb.ToString();
         }
-
-
-
     }
 }
