@@ -3,19 +3,19 @@ using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class CCVGenerator:IGenerator<string>
+    public class CcvGenerator:IGenerator<string>
     {
-        Random random;
-        public string CCVType { get; set; }
-        public CCVGenerator(string ccvtype)
+        readonly Random _random;
+        public string CcvType { get; set; }
+        public CcvGenerator(string ccvtype)
         {
-            random = RandomSingleton.Instance.Random;
-            CCVType = ccvtype;
+            _random = RandomSingleton.Instance.Random;
+            CcvType = ccvtype;
         }
 
         public string Generate()
         {
-            int ccv = random.Next(0, 999);
+            int ccv = _random.Next(0, 999);
             if (ccv < 100)
             {
                 ccv += 100;

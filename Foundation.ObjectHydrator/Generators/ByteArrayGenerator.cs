@@ -5,7 +5,7 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class ByteArrayGenerator : IGenerator<byte[]>
     {
-        Random random;
+        readonly Random _random;
         public int Length { get; set; }
 
         public ByteArrayGenerator()
@@ -16,7 +16,7 @@ namespace Foundation.ObjectHydrator.Generators
 
         public ByteArrayGenerator(int length)
         {
-            random = RandomSingleton.Instance.Random;
+            _random = RandomSingleton.Instance.Random;
             Length = length;
         }
 
@@ -26,7 +26,7 @@ namespace Foundation.ObjectHydrator.Generators
         {
             byte[] toReturn = new byte[Length];
 
-            random.NextBytes(toReturn);
+            _random.NextBytes(toReturn);
 
             return toReturn;
         }

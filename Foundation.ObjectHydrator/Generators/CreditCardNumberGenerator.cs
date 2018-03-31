@@ -7,7 +7,7 @@ namespace Foundation.ObjectHydrator.Generators
     public class CreditCardNumberGenerator : IGenerator<string>
     {
         public int Length { get; set; }
-        private Random random;
+        private readonly Random _random;
 
         public CreditCardNumberGenerator()
             : this(13)
@@ -16,7 +16,7 @@ namespace Foundation.ObjectHydrator.Generators
         }
         public CreditCardNumberGenerator(int length)
         {
-            random = RandomSingleton.Instance.Random;
+            _random = RandomSingleton.Instance.Random;
             Length = length;
         }
 
@@ -35,7 +35,7 @@ namespace Foundation.ObjectHydrator.Generators
             for (int i = 0; i < Length - 1; i++)
             {
                 counter++;
-                int digit = random.Next(0, 9);
+                int digit = _random.Next(0, 9);
 
                 if (counter % 2 == 1)
                 {

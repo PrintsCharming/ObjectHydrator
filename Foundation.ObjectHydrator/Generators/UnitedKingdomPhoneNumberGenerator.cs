@@ -44,7 +44,7 @@ namespace Foundation.ObjectHydrator.Generators
             stringBuilder.Append(_ndcPrefix);
             for (int i = 0; i < 3; i++)
             {
-                int val = this._random.Next(1, 9);
+                int val = _random.Next(1, 9);
                 stringBuilder.Append(val);
             }
 
@@ -52,7 +52,7 @@ namespace Foundation.ObjectHydrator.Generators
             //Subscriber number
             for (int i = 0; i < 6; i++)
             {
-                int val = this._random.Next(0, 9);
+                int val = _random.Next(0, 9);
                 stringBuilder.Append(val);
 
                 if ((i == 2) && ShouldAddSeparator())

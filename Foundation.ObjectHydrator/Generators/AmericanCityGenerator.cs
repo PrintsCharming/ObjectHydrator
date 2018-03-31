@@ -12,19 +12,19 @@ namespace Foundation.ObjectHydrator.Generators
         /// <summary>
         /// Instance of Random Singleton
         /// </summary>
-        Random random;
+        private readonly Random _random;
 
         /// <summary>
         /// Local var for citynames
         /// </summary>
-        IList<string> citynames = new List<string>();
+        IList<string> _citynames = new List<string>();
 
         /// <summary>
         /// Default Constructor
         /// </summary>
         public AmericanCityGenerator()
         {
-            random = RandomSingleton.Instance.Random;
+            _random = RandomSingleton.Instance.Random;
             LoadCityNames();
         }
 
@@ -33,7 +33,7 @@ namespace Foundation.ObjectHydrator.Generators
         /// </summary>
         private void LoadCityNames()
         {
-            citynames = new List<string>() { "indianapolis",
+            _citynames = new List<string>() { "indianapolis",
 "portland",
 "los angeles",
 "grand rapids",
@@ -906,7 +906,7 @@ namespace Foundation.ObjectHydrator.Generators
 
         public string Generate()
         {
-            return citynames[random.Next(0, citynames.Count)];
+            return _citynames[_random.Next(0, _citynames.Count)];
         }
     }
 }

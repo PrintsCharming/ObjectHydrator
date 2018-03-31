@@ -314,7 +314,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         [Test]
         public void CanGetDefaultCCVFromGenerator()
         {
-            IGenerator<string> ccvGenerator = new CCVGenerator("");
+            IGenerator<string> ccvGenerator = new CcvGenerator("");
             var ccv = (string) ccvGenerator.Generate();
             Assert.IsNotNull(ccv);
         }

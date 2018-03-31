@@ -10,10 +10,7 @@ namespace Foundation.ObjectHydrator
 
         #region IMap Members
 
-        Type IMap.Type
-        {
-            get { return typeof(object); }
-        }
+        Type IMap.Type => typeof(object);
 
         bool IMap.Match(PropertyInfo info)
         {

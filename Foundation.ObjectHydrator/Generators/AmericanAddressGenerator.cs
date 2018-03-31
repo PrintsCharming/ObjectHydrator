@@ -18,20 +18,20 @@ namespace Foundation.ObjectHydrator.Generators
         /// <summary>
         /// Instance of Random singleton
         /// </summary>
-        private Random random;
+        private readonly Random _random;
 
         /// <summary>
         /// Local var for holding streetnames
         /// </summary>
-        private IList<string> streetnames = new List<string>();
+        private IList<string> _streetnames = new List<string>();
 
         /// <summary>
         /// Initializes a new instance of the AmericanAddressGenerator class.
         /// </summary>
         public AmericanAddressGenerator()
         {
-            this.random = RandomSingleton.Instance.Random;
-            this.LoadStreetNames();
+            _random = RandomSingleton.Instance.Random;
+            LoadStreetNames();
         }
 
         /// <summary>
@@ -41,16 +41,16 @@ namespace Foundation.ObjectHydrator.Generators
         public string Generate()
         {
             StringBuilder sb = new StringBuilder();
-            int numericPortion = this.random.Next(1, 99999);
+            int numericPortion = _random.Next(1, 99999);
             sb.Append(numericPortion.ToString());
             sb.Append(" ");
 
-            sb.Append(this.streetnames[this.random.Next(0, this.streetnames.Count)]);
+            sb.Append(_streetnames[_random.Next(0, _streetnames.Count)]);
             sb.Append(" ");
 
-            string[] suffix = new string[8] { "Dr.", "Pl.", "St.", "Ave.", "Way", "Lane", "Circle", "Rd." };
+            string[] suffix = new string[] { "Dr.", "Pl.", "St.", "Ave.", "Way", "Lane", "Circle", "Rd." };
             int max2 = suffix.Count() - 1;
-            sb.Append(suffix[this.random.Next(0, max2)]);
+            sb.Append(suffix[_random.Next(0, max2)]);
 
             return sb.ToString();
         }
@@ -60,7 +60,7 @@ namespace Foundation.ObjectHydrator.Generators
         /// </summary>
         private void LoadStreetNames()
         {
-            this.streetnames = new List<string>()
+            _streetnames = new List<string>
             {
                 "10TH",
 "11TH",

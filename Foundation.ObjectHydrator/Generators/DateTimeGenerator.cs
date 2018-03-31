@@ -5,7 +5,7 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class DateTimeGenerator:IGenerator<DateTime>
     {
-        Random random;
+        readonly Random _random;
         public DateTime MinimumValue { get; private set; }
         public DateTime MaximumValue { get; private set; }
 
@@ -19,14 +19,14 @@ namespace Foundation.ObjectHydrator.Generators
             MinimumValue=minimumValue;
             MaximumValue=maximumValue;
 
-            random=RandomSingleton.Instance.Random;
+            _random=RandomSingleton.Instance.Random;
         }
 
         public DateTime Generate()
         {
             TimeSpan timeSpan = MaximumValue - MinimumValue;
-            int dayOffset = random.Next(0, timeSpan.Days);
-            return MinimumValue.Date.AddDays(dayOffset) + new TimeSpan(random.Next(0, 24), random.Next(0, 59), random.Next(0, 59));
+            int dayOffset = _random.Next(0, timeSpan.Days);
+            return MinimumValue.Date.AddDays(dayOffset) + new TimeSpan(_random.Next(0, 24), _random.Next(0, 59), _random.Next(0, 59));
 
         }
     }

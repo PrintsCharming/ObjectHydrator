@@ -52,7 +52,7 @@ namespace Foundation.ObjectHydrator.Generators
                 }
             }
 
-            this._values = new FromListGetSingleGenerator<TEnum>(valuesToSelectFrom.ToArray());
+            _values = new FromListGetSingleGenerator<TEnum>(valuesToSelectFrom.ToArray());
         }
 
         private static List<TEnum> GetAllValuesForEnum()

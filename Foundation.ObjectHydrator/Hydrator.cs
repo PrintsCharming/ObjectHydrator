@@ -12,11 +12,11 @@ namespace Foundation.ObjectHydrator
 {
     public class Hydrator<T>:IGenerator<T>
     {
-        readonly Type typeOfT = null;
-        readonly IDictionary<string, IMapping> propertyMap;
-        private readonly IList<IMap> typeMap;
-        private IList<IMap> defaultTypeMap;
-        private List<Action<T>> actions;
+        readonly Type _typeOfT = null;
+        readonly IDictionary<string, IMapping> _propertyMap;
+        private readonly IList<IMap> _typeMap;
+        private IList<IMap> _defaultTypeMap;
+        private List<Action<T>> _actions;
 
 
         #region Ctors
@@ -28,10 +28,10 @@ namespace Foundation.ObjectHydrator
 
         public Hydrator(IList<IMap> defaultMap)
         {
-            typeOfT = typeof(T);
-            propertyMap = new Dictionary<string, IMapping>();
-            typeMap = new List<IMap>();
-            defaultTypeMap = defaultMap;
+            _typeOfT = typeof(T);
+            _propertyMap = new Dictionary<string, IMapping>();
+            _typeMap = new List<IMap>();
+            _defaultTypeMap = defaultMap;
         }
         #endregion
 
@@ -44,13 +44,7 @@ namespace Foundation.ObjectHydrator
         /// Getter for the Random being utilized by the Hydrator.
         /// This Random may be used by external IGenerators to ensure good random results.
         /// </summary>
-        public Random Random
-        {
-            get
-            {
-                return RandomSingleton.Instance.Random;
-            }
-        }
+        public Random Random => RandomSingleton.Instance.Random;
 
         /// <summary>
         /// GetSingle returns a single instance of T populated with default, random data.
@@ -65,7 +59,7 @@ namespace Foundation.ObjectHydrator
 
         public T Generate()
         {
-            var instance = (T)Activator.CreateInstance(typeOfT);
+            var instance = (T)Activator.CreateInstance(_typeOfT);
             Populate(instance);
             return instance;
         }
@@ -125,7 +119,7 @@ namespace Foundation.ObjectHydrator
                 throw new ArgumentException("The Property can not be written.", propertyName);
             }
 
-            propertyMap[propertyInfo.Name] = new Mapping<TProperty>(propertyInfo, generator);
+            _propertyMap[propertyInfo.Name] = new Mapping<TProperty>(propertyInfo, generator);
         }
 
         #region WithTypes
@@ -348,9 +342,9 @@ namespace Foundation.ObjectHydrator
         /// <param name="expression"></param>
         /// <param name="ccvtype"></param>
         /// <returns></returns>
-        public Hydrator<T> WithCCV<TProperty>(Expression<Func<T, TProperty>> expression, string ccvtype)
+        public Hydrator<T> WithCcv<TProperty>(Expression<Func<T, TProperty>> expression, string ccvtype)
         {
-            IGenerator<TProperty> gen = (IGenerator<TProperty>)new CCVGenerator(ccvtype);
+            IGenerator<TProperty> gen = (IGenerator<TProperty>)new CcvGenerator(ccvtype);
             SetPropertyMap(expression, gen);
 
             return this;
@@ -420,7 +414,7 @@ namespace Foundation.ObjectHydrator
         /// </summary>
         /// <param name="expression">The Property to apply the randomly generated IP Address to.</param>
         /// <returns>This instance of the Hydrator for type T.</returns>
-        public Hydrator<T> WithIPAddress<TProperty>(Expression<Func<T, TProperty>> expression)
+        public Hydrator<T> WithIpAddress<TProperty>(Expression<Func<T, TProperty>> expression)
         {
             IGenerator<TProperty> gen = (IGenerator<TProperty>)new IPAddressGenerator();
             SetPropertyMap(expression, gen);
@@ -496,7 +490,7 @@ namespace Foundation.ObjectHydrator
 
         public Hydrator<T> WithCultures<TProperty>(Expression<Func<T, TProperty>> expression, Func<CultureInfo, TProperty> propertyGetter)
         {
-            IGenerator<TProperty> gen = (IGenerator<TProperty>)new CulturesGenerator<TProperty>(propertyGetter);
+            IGenerator<TProperty> gen = new CulturesGenerator<TProperty>(propertyGetter);
             SetPropertyMap(expression, gen);
             return this;
         }
@@ -522,7 +516,7 @@ namespace Foundation.ObjectHydrator
         /// <returns>This instance of the Hydrator for type T.</returns>
         public Hydrator<T> FromList<TProperty>(Expression<Func<T, TProperty>> expression, IEnumerable<TProperty> list)
         {
-            IGenerator<TProperty> gen = (IGenerator<TProperty>)new FromListGetSingleGenerator<TProperty>(list);
+            IGenerator<TProperty> gen = new FromListGetSingleGenerator<TProperty>(list);
             SetPropertyMap(expression, gen);
             return this;
         }
@@ -548,27 +542,27 @@ namespace Foundation.ObjectHydrator
             }
             PropertyInfo propertyInfo = propertyInfo1;
 
-            propertyMap[propertyInfo.Name] = new Mapping<object>(propertyInfo, new NullGenerator());
+            _propertyMap[propertyInfo.Name] = new Mapping<object>(propertyInfo, new NullGenerator());
 
             return this;
         }
 
         public Hydrator<T> ForAll<TType>(IGenerator<TType> generator)
         {
-            typeMap.Add(new Map<TType>().Using(generator));
+            _typeMap.Add(new Map<TType>().Using(generator));
             return this;
         }
 
         public Hydrator<T> For<TType>(Map<TType> map)
         {
-            typeMap.Add(map);
+            _typeMap.Add(map);
             return this;
         }
 
         private void Populate(T instance)
         {
             AddTypeMapToPropertyMap();
-            foreach (IMapping mapping in propertyMap.Values)
+            foreach (IMapping mapping in _propertyMap.Values)
             {
                 PropertyInfo propertyInfo = instance.GetType().GetProperty(mapping.PropertyName, BindingFlags.Public | BindingFlags.Instance);
                
@@ -578,9 +572,9 @@ namespace Foundation.ObjectHydrator
                 }
             }
 
-            if (actions != null)
+            if (_actions != null)
             {
-                foreach (var action in this.actions)
+                foreach (var action in _actions)
                 {
                     action(instance);
                 }
@@ -591,20 +585,20 @@ namespace Foundation.ObjectHydrator
         {
             AddDefaultTypeMapToTypeMap();
 
-            foreach (PropertyInfo propertyInfo in typeOfT.GetProperties())
+            foreach (PropertyInfo propertyInfo in _typeOfT.GetProperties())
             {
-                if (propertyInfo.CanWrite && !propertyMap.ContainsKey(propertyInfo.Name))
+                if (propertyInfo.CanWrite && !_propertyMap.ContainsKey(propertyInfo.Name))
                 {
                     PropertyInfo info = propertyInfo;
-                    var map = typeMap.FirstOrDefault(infer => infer.Type == info.PropertyType && infer.Match(info));
+                    var map = _typeMap.FirstOrDefault(infer => infer.Type == info.PropertyType && infer.Match(info));
 
                     if (map != null)
                     {
-                        propertyMap[propertyInfo.Name] = map.Mapping(propertyInfo);
+                        _propertyMap[propertyInfo.Name] = map.Mapping(propertyInfo);
                     }
                     else if (!propertyInfo.PropertyType.IsInterface)
                     {
-                        propertyMap[propertyInfo.Name] = new Mapping(propertyInfo, new Generator(propertyInfo));
+                        _propertyMap[propertyInfo.Name] = new Mapping(propertyInfo, new Generator(propertyInfo));
                     }
                 }
             }
@@ -612,16 +606,16 @@ namespace Foundation.ObjectHydrator
 
         private void AddDefaultTypeMapToTypeMap()
         {
-            foreach (var map in defaultTypeMap)
+            foreach (var map in _defaultTypeMap)
             {
-                typeMap.Add(map);
+                _typeMap.Add(map);
             }
         }
 
         public Hydrator<T> Do(Action<T> action)
         {
-            if(actions == null) { actions = new List<Action<T>>();}
-            actions.Add(action);
+            if(_actions == null) { _actions = new List<Action<T>>();}
+            _actions.Add(action);
             return this;
         }
     }

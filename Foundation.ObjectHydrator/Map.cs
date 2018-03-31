@@ -15,13 +15,7 @@ namespace Foundation.ObjectHydrator
             _func = info => info.CanWrite;
         }
 
-        Type IMap.Type
-        {
-            get
-            {
-                return typeof(T);
-            }
-        }
+        Type IMap.Type => typeof(T);
 
         bool IMap.Match(PropertyInfo info)
         {

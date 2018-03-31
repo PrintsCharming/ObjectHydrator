@@ -4,7 +4,7 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class DefaultGenerator<T> : IGenerator<T>
     {
-        public T DefaultValue { get; private set; }
+        public T DefaultValue { get; }
 
         public DefaultGenerator(T defaultValue)
         {
