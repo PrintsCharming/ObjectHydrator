@@ -113,5 +113,19 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             Assert.AreEqual(lastNameDefault, hy.LastName);
         }
+
+        [Test]
+        public void CanGenerateComplexCustomerWithRestrictedEnumProperty()
+        {
+            const int testCount = 20;
+            for (int i = 0; i < testCount; i++)
+            {
+                var hy = new Hydrator<ComplexCustomer>()
+                    .WithEnum(c => c.Type, opts => opts.Excluding(CustomerType.Inactive))
+                    .GetSingle();
+
+                Assert.IsTrue(hy.Type != CustomerType.Inactive, "An inactive customer should not be generated");
+            }
+        }
     }
 }
