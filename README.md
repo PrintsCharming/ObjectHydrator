@@ -45,6 +45,7 @@ Hydrator<Customer> _customerHydrator = new Hydrator<Customer>()
 
 Version 1.4.0 Pre
 * Enhanced Enum generator, thanks to rikrak
+* Clean up and new language version usages
 
 Version 1.3.0
 * Added 3 new generators UnitedKingdomPhoneNumberGenerator, UnitedKingdomInsuranceNumberGenerator, and CulturesGenerator thanks to rikrak and ushenkodmitry
