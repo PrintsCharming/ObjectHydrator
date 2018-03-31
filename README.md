@@ -43,6 +43,9 @@ Hydrator<Customer> _customerHydrator = new Hydrator<Customer>()
 
 ## Changes
 
+Version 1.4.0 Pre
+* Enhanced Enum generator, thanks to rikrak
+
 Version 1.3.0
 * Added 3 new generators UnitedKingdomPhoneNumberGenerator, UnitedKingdomInsuranceNumberGenerator, and CulturesGenerator thanks to rikrak and ushenkodmitry
 *  "Do" method to allow a property to be set from the generated values in other properties, thanks to rikrak
