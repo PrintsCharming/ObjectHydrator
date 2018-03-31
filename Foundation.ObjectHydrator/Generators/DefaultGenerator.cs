@@ -4,17 +4,16 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class DefaultGenerator<T> : IGenerator<T>
     {
-        public T DefaultValue { get; }
-
         public DefaultGenerator(T defaultValue)
         {
             DefaultValue = defaultValue;
         }
 
+        public T DefaultValue { get; }
+
         public T Generate()
         {
             return DefaultValue;
         }
-
     }
 }

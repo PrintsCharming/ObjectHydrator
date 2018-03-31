@@ -5,7 +5,7 @@ using Foundation.ObjectHydrator.Interfaces;
 namespace Foundation.ObjectHydrator.Generators
 {
     /// <summary>
-    /// Generates a telephone number in the format used in the UK
+    ///     Generates a telephone number in the format used in the UK
     /// </summary>
     public class UnitedKingdomPhoneNumberGenerator : IGenerator<string>
     {
@@ -13,20 +13,19 @@ namespace Foundation.ObjectHydrator.Generators
         private readonly Random _random = RandomSingleton.Instance.Random;
 
         /// <summary>
-        /// Creates an instance of <see cref="UnitedKingdomPhoneNumberGenerator"/>
-        /// See <a href="https://www.area-codes.org.uk/formatting.php">this formatting guide</a>
+        ///     Creates an instance of <see cref="UnitedKingdomPhoneNumberGenerator" />
+        ///     See <a href="https://www.area-codes.org.uk/formatting.php">this formatting guide</a>
         /// </summary>
         /// <param name="ndcPrefix">
-        /// The first non-zero part of the area code.
-        /// <ul>
-        ///     <li>1 0r 2 = Landline (geographic)</li>
-        ///     <li>3 = Landline (non-geographic)</li>
-        ///     <li>5 = Corporate and VOIP</li>
-        ///     <li>7 = Mobiles</li>
-        ///     <li>8 = special rate numbers</li>
-        ///     <li>9 = premium rate numbers</li> 
-        /// </ul>
-        /// 
+        ///     The first non-zero part of the area code.
+        ///     <ul>
+        ///         <li>1 0r 2 = Landline (geographic)</li>
+        ///         <li>3 = Landline (non-geographic)</li>
+        ///         <li>5 = Corporate and VOIP</li>
+        ///         <li>7 = Mobiles</li>
+        ///         <li>8 = special rate numbers</li>
+        ///         <li>9 = premium rate numbers</li>
+        ///     </ul>
         /// </param>
         public UnitedKingdomPhoneNumberGenerator(string ndcPrefix)
         {
@@ -42,24 +41,21 @@ namespace Foundation.ObjectHydrator.Generators
             // area code (National Destination Code)
             stringBuilder.Append("0");
             stringBuilder.Append(_ndcPrefix);
-            for (int i = 0; i < 3; i++)
+            for (var i = 0; i < 3; i++)
             {
-                int val = _random.Next(1, 9);
+                var val = _random.Next(1, 9);
                 stringBuilder.Append(val);
             }
 
             stringBuilder.Append(" ");
             //Subscriber number
-            for (int i = 0; i < 6; i++)
+            for (var i = 0; i < 6; i++)
             {
-                int val = _random.Next(0, 9);
+                var val = _random.Next(0, 9);
                 stringBuilder.Append(val);
 
-                if ((i == 2) && ShouldAddSeparator())
-                {
-                    // add a space in the middle for nice formatting
+                if (i == 2 && ShouldAddSeparator())
                     stringBuilder.Append(" ");
-                }
             }
 
             return stringBuilder.ToString();
@@ -74,11 +70,15 @@ namespace Foundation.ObjectHydrator.Generators
 
     public class UnitedKingdomMobileGenerator : UnitedKingdomPhoneNumberGenerator
     {
-        public UnitedKingdomMobileGenerator():base("7") { }
+        public UnitedKingdomMobileGenerator() : base("7")
+        {
+        }
     }
 
     public class UnitedKingdomLandlineGenerator : UnitedKingdomPhoneNumberGenerator
     {
-        public UnitedKingdomLandlineGenerator() : base("1") { }
+        public UnitedKingdomLandlineGenerator() : base("1")
+        {
+        }
     }
 }

@@ -4,9 +4,9 @@ using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class IPAddressGenerator:IGenerator<string>
+    public class IPAddressGenerator : IGenerator<string>
     {
-        Random random;
+        private readonly Random random;
 
         public IPAddressGenerator()
         {
@@ -15,7 +15,7 @@ namespace Foundation.ObjectHydrator.Generators
 
         public string Generate()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append(random.Next(1, 255));
             sb.Append(".");
 

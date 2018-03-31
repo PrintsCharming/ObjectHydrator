@@ -4,10 +4,10 @@ using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class CompanyNameGenerator:IGenerator<string>
+    public class CompanyNameGenerator : IGenerator<string>
     {
-        readonly Random _random;
-        IList<string> _companynames = new List<string>();
+        private readonly Random _random;
+        private IList<string> _companynames = new List<string>();
 
         public CompanyNameGenerator()
         {
@@ -22,7 +22,8 @@ namespace Foundation.ObjectHydrator.Generators
 
         private void LoadNames()
         {
-            _companynames = new List<String> { 
+            _companynames = new List<string>
+            {
                 "Acme, inc.",
                 "Widget Corp",
                 "123 Warehousing",
@@ -148,6 +149,5 @@ namespace Foundation.ObjectHydrator.Generators
                 "Chasers"
             };
         }
-
     }
 }

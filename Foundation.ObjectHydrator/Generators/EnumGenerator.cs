@@ -6,12 +6,12 @@ using Foundation.ObjectHydrator.Interfaces;
 namespace Foundation.ObjectHydrator.Generators
 {
     /// <summary>
-    /// Produces a random value from the given list of enum values
+    ///     Produces a random value from the given list of enum values
     /// </summary>
-    public class EnumGenerator:IGenerator<object>
+    public class EnumGenerator : IGenerator<object>
     {
-        private readonly Random _random = RandomSingleton.Instance.Random;
         private readonly Array _enumValues;
+        private readonly Random _random = RandomSingleton.Instance.Random;
 
 
         public EnumGenerator(Array enumValues)
@@ -26,33 +26,33 @@ namespace Foundation.ObjectHydrator.Generators
     }
 
     /// <summary>
-    /// Produces a random value from the given enum
+    ///     Produces a random value from the given enum
     /// </summary>
     public class EnumGenerator<TEnum> : IGenerator<TEnum>
         where TEnum : struct, IConvertible // attempt to restrict to enums only
     {
         private readonly FromListGetSingleGenerator<TEnum> _values;
 
-        public EnumGenerator(Func<IEnumGeneratorOptionsBuilder<TEnum>, IEnumGeneratorOptionsBuilder<TEnum>> optionBuilder = null)
+        public EnumGenerator(
+            Func<IEnumGeneratorOptionsBuilder<TEnum>, IEnumGeneratorOptionsBuilder<TEnum>> optionBuilder = null)
         {
             var options = new EnumGeneratorOptionsBuilder<TEnum>();
             if (optionBuilder != null)
-            {
                 optionBuilder(options);
-            }
-            
+
             var values = GetAllValuesForEnum();
 
             var valuesToSelectFrom = new List<TEnum>();
             foreach (var value in values.Where(e => options.ShouldInclude(e)))
-            {
                 for (var i = 0; i < options.ValueFrequency(value); i++)
-                {
                     valuesToSelectFrom.Add(value);
-                }
-            }
 
             _values = new FromListGetSingleGenerator<TEnum>(valuesToSelectFrom.ToArray());
+        }
+
+        public TEnum Generate()
+        {
+            return _values.Generate();
         }
 
         private static List<TEnum> GetAllValuesForEnum()
@@ -65,11 +65,6 @@ namespace Foundation.ObjectHydrator.Generators
             }
 
             return values;
-        }
-
-        public TEnum Generate()
-        {
-            return _values.Generate();
         }
     }
 }

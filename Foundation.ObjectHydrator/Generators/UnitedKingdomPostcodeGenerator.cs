@@ -16,9 +16,22 @@ namespace Foundation.ObjectHydrator.Generators
             LoadPostcodePrefixes();
         }
 
+        public string Generate()
+        {
+            var postCode = new StringBuilder();
+
+            postCode.Append(_postcodePrefix[_random.Next(0, _postcodePrefix.Count)]);
+            postCode.Append(" ");
+            postCode.Append(_random.Next(0, 9));
+            postCode.Append(Convert.ToString(GetLetter()).ToUpper());
+            postCode.Append(Convert.ToString(GetLetter()).ToUpper());
+
+            return postCode.ToString();
+        }
+
         private void LoadPostcodePrefixes()
         {
-            _postcodePrefix = new List<string>()
+            _postcodePrefix = new List<string>
             {
                 "AB1",
                 "AB2",
@@ -3114,19 +3127,6 @@ namespace Foundation.ObjectHydrator.Generators
                 "ZE2",
                 "ZE3"
             };
-        }
-
-        public string Generate()
-        {
-            var postCode = new StringBuilder();
-
-            postCode.Append(_postcodePrefix[_random.Next(0, _postcodePrefix.Count)]);
-            postCode.Append(" ");
-            postCode.Append(_random.Next(0, 9));
-            postCode.Append(Convert.ToString(GetLetter()).ToUpper());
-            postCode.Append(Convert.ToString(GetLetter()).ToUpper());
-
-            return postCode.ToString();
         }
 
         private char GetLetter()

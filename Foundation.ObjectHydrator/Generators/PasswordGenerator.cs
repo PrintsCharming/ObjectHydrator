@@ -3,14 +3,17 @@ using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class PasswordGenerator:IGenerator<string>
+    public class PasswordGenerator : IGenerator<string>
     {
-        private char[] legalchars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()".ToCharArray();
-        int length;
+        private readonly char[] legalchars =
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()".ToCharArray();
+
+        private readonly int length;
 
         public PasswordGenerator()
             : this(10)
-        { }
+        {
+        }
 
         public PasswordGenerator(int pwlength)
         {
@@ -19,15 +22,10 @@ namespace Foundation.ObjectHydrator.Generators
 
         public string Generate()
         {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < length; i++)
-            {
+            var sb = new StringBuilder();
+            for (var i = 0; i < length; i++)
                 sb.Append(legalchars[RandomSingleton.Instance.Random.Next(0, legalchars.Length - 1)]);
-            }
             return sb.ToString();
         }
-
-
-
     }
 }

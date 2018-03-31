@@ -3,16 +3,14 @@ using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class IntegerGenerator:IGenerator<int>
+    public class IntegerGenerator : IGenerator<int>
     {
-        Random random;
-
-        public int MinimumValue { get; set; }
-        public int MaximumValue { get; set; }
+        private readonly Random random;
 
         public IntegerGenerator()
             : this(0, 100)
-        { }
+        {
+        }
 
         public IntegerGenerator(int minimumValue, int maximumValue)
         {
@@ -21,6 +19,9 @@ namespace Foundation.ObjectHydrator.Generators
 
             random = RandomSingleton.Instance.Random;
         }
+
+        public int MinimumValue { get; set; }
+        public int MaximumValue { get; set; }
 
         public int Generate()
         {

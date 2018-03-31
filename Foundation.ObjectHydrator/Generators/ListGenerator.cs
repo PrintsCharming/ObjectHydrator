@@ -3,14 +3,14 @@ using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class ListGenerator<T>:IGenerator<IList<T>>
+    public class ListGenerator<T> : IGenerator<IList<T>>
     {
-        private readonly int listLength;
         private readonly IGenerator<T> elementGenerator;
+        private readonly int listLength;
 
         public ListGenerator(int length, IGenerator<T> elementGenerator = null)
         {
-            this.elementGenerator =  elementGenerator ?? new TypeGenerator<T>();
+            this.elementGenerator = elementGenerator ?? new TypeGenerator<T>();
             listLength = length;
         }
 
@@ -19,10 +19,8 @@ namespace Foundation.ObjectHydrator.Generators
         public virtual IList<T> Generate()
         {
             IList<T> list = new List<T>();
-            for (int i = 0; i < listLength; i++)
-            {
+            for (var i = 0; i < listLength; i++)
                 list.Add(elementGenerator.Generate());
-            }
             return list;
         }
 

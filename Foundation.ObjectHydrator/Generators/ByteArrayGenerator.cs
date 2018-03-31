@@ -5,13 +5,11 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class ByteArrayGenerator : IGenerator<byte[]>
     {
-        readonly Random _random;
-        public int Length { get; set; }
+        private readonly Random _random;
 
         public ByteArrayGenerator()
             : this(8)
         {
-
         }
 
         public ByteArrayGenerator(int length)
@@ -20,11 +18,13 @@ namespace Foundation.ObjectHydrator.Generators
             Length = length;
         }
 
+        public int Length { get; set; }
+
         #region IGenerator Members
 
         public byte[] Generate()
         {
-            byte[] toReturn = new byte[Length];
+            var toReturn = new byte[Length];
 
             _random.NextBytes(toReturn);
 

@@ -5,14 +5,14 @@ using System.Linq;
 namespace Foundation.ObjectHydrator.Generators
 {
     /// <summary>
-    /// Allows the generation of enum values to be configured
+    ///     Allows the generation of enum values to be configured
     /// </summary>
     /// <typeparam name="TEnum">The enum type</typeparam>
     internal class EnumGeneratorOptionsBuilder<TEnum> : IEnumGeneratorOptionsBuilder<TEnum>
-        where TEnum: struct, IConvertible // attempt to restrict to just enum values
+        where TEnum : struct, IConvertible // attempt to restrict to just enum values
     {
-        private readonly List<TEnum> _valuesToExclude = new List<TEnum>();
         private readonly Dictionary<TEnum, int> _valueFrequency = new Dictionary<TEnum, int>();
+        private readonly List<TEnum> _valuesToExclude = new List<TEnum>();
 
         public IReadOnlyCollection<TEnum> ValuesToExclude => _valuesToExclude.Distinct().ToArray();
 
@@ -36,9 +36,7 @@ namespace Foundation.ObjectHydrator.Generators
         public int ValueFrequency(TEnum value)
         {
             if (_valueFrequency.ContainsKey(value))
-            {
                 return _valueFrequency[value];
-            }
 
             return 1;
         }

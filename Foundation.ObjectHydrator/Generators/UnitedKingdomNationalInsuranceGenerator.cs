@@ -6,17 +6,23 @@ using Foundation.ObjectHydrator.Interfaces;
 namespace Foundation.ObjectHydrator.Generators
 {
     /// <summary>
-    /// Attempts to generate a unique value that conforms to the UK National Insurance number specification
+    ///     Attempts to generate a unique value that conforms to the UK National Insurance number specification
     /// </summary>
     public class UnitedKingdomNationalInsuranceGenerator : IGenerator<string>
     {
-        private readonly Random _random;
-
         private static readonly List<string> UsedValues = new List<string>();
-        private static readonly char[] ValidPrefixChars = new char[] { 'A', 'B', 'C', 'E', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'W', 'X', 'Y', 'Z' };
-        private static readonly string[] InvalidPrefixes = new string[] { "BG", "GB", "NK", "KN", "TN", "NT", "ZZ", "OO", "CR", "FY", "MW", "NC", "PP", "PY", "PZ", "MA", "JY", "GY" };
-        private static readonly char[] InvalidPrefixSecondChars = new char[] { 'O' };
-        private static readonly char[] ValidSuffixChars = new char[] { 'A', 'B', 'C', 'D' };
+
+        private static readonly char[] ValidPrefixChars =
+            {'A', 'B', 'C', 'E', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'W', 'X', 'Y', 'Z'};
+
+        private static readonly string[] InvalidPrefixes =
+        {
+            "BG", "GB", "NK", "KN", "TN", "NT", "ZZ", "OO", "CR", "FY", "MW", "NC", "PP", "PY", "PZ", "MA", "JY", "GY"
+        };
+
+        private static readonly char[] InvalidPrefixSecondChars = {'O'};
+        private static readonly char[] ValidSuffixChars = {'A', 'B', 'C', 'D'};
+        private readonly Random _random;
 
 
         public UnitedKingdomNationalInsuranceGenerator()
@@ -41,17 +47,17 @@ namespace Foundation.ObjectHydrator.Generators
 
         private string GetValue()
         {
-            string validPrefix = GetValidPrefix();
-            string str = SequenceOfDigits(6);
-            char chr = ValidSuffixCharacter();
-            return string.Format("{0}{1}{2}", new object[] { validPrefix, str, chr });
+            var validPrefix = GetValidPrefix();
+            var str = SequenceOfDigits(6);
+            var chr = ValidSuffixCharacter();
+            return string.Format("{0}{1}{2}", new object[] {validPrefix, str, chr});
         }
 
         private string SequenceOfDigits(int length)
         {
             var result = new char[length];
 
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
                 var val = _random.Next(0, 10);
                 result[i] = val.ToString()[0];
@@ -65,7 +71,7 @@ namespace Foundation.ObjectHydrator.Generators
             string str;
             do
             {
-                str = new string(new char[]
+                str = new string(new[]
                 {
                     ValidPrefixFirstCharacter(),
                     ValidPrefixSecondCharacter()
@@ -73,8 +79,8 @@ namespace Foundation.ObjectHydrator.Generators
             } while (InvalidPrefixes.Contains(str));
 
             return str;
-
         }
+
         private char ValidPrefixFirstCharacter()
         {
             return AnyElement(ValidPrefixChars);
@@ -86,8 +92,7 @@ namespace Foundation.ObjectHydrator.Generators
             do
             {
                 chr = AnyElement(ValidPrefixChars);
-            }
-            while (InvalidPrefixSecondChars.Contains(chr));
+            } while (InvalidPrefixSecondChars.Contains(chr));
             return chr;
         }
 
@@ -95,9 +100,7 @@ namespace Foundation.ObjectHydrator.Generators
         {
             var max = list.Count;
             if (max < 0)
-            {
                 return default(T);
-            }
 
             var idx = _random.Next(0, max);
             return list.ElementAt(idx);
@@ -107,6 +110,5 @@ namespace Foundation.ObjectHydrator.Generators
         {
             return AnyElement(ValidSuffixChars);
         }
-
     }
 }

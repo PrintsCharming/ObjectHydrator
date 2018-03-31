@@ -6,7 +6,7 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class AlphaNumericGenerator : IGenerator<string>
     {
-        readonly Random _random;
+        private readonly Random _random;
         private readonly int _stringLength;
 
         public AlphaNumericGenerator(int length)
@@ -21,8 +21,8 @@ namespace Foundation.ObjectHydrator.Generators
 
             var result = new string(
                 Enumerable.Repeat(chars, _stringLength)
-                          .Select(s => s[_random.Next(s.Length)])
-                          .ToArray());
+                    .Select(s => s[_random.Next(s.Length)])
+                    .ToArray());
 
             return result;
         }
