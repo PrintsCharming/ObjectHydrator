@@ -54,9 +54,7 @@ namespace Foundation.ObjectHydrator
         /// <returns></returns>
         public IList<T> GetList()
         {
-            int length;
-
-            length = Random.Next(1, 10);
+            var length = Random.Next(1, 10);
 
             return GetList(length);
         }
@@ -69,7 +67,7 @@ namespace Foundation.ObjectHydrator
         public IList<T> GetList(int size)
         {
             if (size < 1)
-                throw new ArgumentOutOfRangeException("size", "size must be provided");
+                throw new ArgumentOutOfRangeException(nameof(size), "size must be provided");
 
             IList<T> toReturn = new List<T>();
 
@@ -505,7 +503,7 @@ namespace Foundation.ObjectHydrator
         /// <returns>This instance of the Hydrator for type T.</returns>
         public Hydrator<T> WithIpAddress<TProperty>(Expression<Func<T, TProperty>> expression)
         {
-            var gen = (IGenerator<TProperty>) new IPAddressGenerator();
+            var gen = (IGenerator<TProperty>) new IpAddressGenerator();
             SetPropertyMap(expression, gen);
 
             return this;

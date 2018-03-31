@@ -35,7 +35,7 @@ namespace Foundation.ObjectHydrator
                 .Using(new TrackingNumberGenerator("ups")));
             Add(new Map<string>()
                 .Matching(info => info.Name.ToLower() == "ipaddress")
-                .Using(new IPAddressGenerator()));
+                .Using(new IpAddressGenerator()));
             Add(new Map<string>()
                 .Matching(info => info.Name.ToLower().Contains("country"))
                 .Using(new CountryCodeGenerator()));

@@ -6,23 +6,23 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class LastNameGenerator : IGenerator<string>
     {
-        private IList<string> lastnames = new List<string>();
-        private readonly Random random;
+        private IList<string> _lastnames = new List<string>();
+        private readonly Random _random;
 
         public LastNameGenerator()
         {
-            random = RandomSingleton.Instance.Random;
+            _random = RandomSingleton.Instance.Random;
             LoadNames();
         }
 
         public string Generate()
         {
-            return lastnames[random.Next(0, lastnames.Count)];
+            return _lastnames[_random.Next(0, _lastnames.Count)];
         }
 
         private void LoadNames()
         {
-            lastnames = new List<string>
+            _lastnames = new List<string>
             {
                 "Abbott",
                 "Acevedo",

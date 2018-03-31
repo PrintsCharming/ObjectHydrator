@@ -2,7 +2,7 @@
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public interface IEnumGeneratorOptionsBuilder<TEnum>
+    public interface IEnumGeneratorOptionsBuilder<in TEnum>
         where TEnum : struct, IConvertible
     {
         IEnumGeneratorOptionsBuilder<TEnum> Excluding(TEnum value);

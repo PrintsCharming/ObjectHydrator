@@ -8,10 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+
 namespace SampleWebApplication {
     
     
-    public partial class _Default {
+    public partial class Default {
         
         /// <summary>
         /// form1 control.
@@ -20,7 +23,7 @@ namespace SampleWebApplication {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected HtmlForm form1;
         
         /// <summary>
         /// Menu1 control.
@@ -29,7 +32,7 @@ namespace SampleWebApplication {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::SampleWebApplication.Menu Menu1;
+        protected Menu Menu1;
         
         /// <summary>
         /// ObjectDataSource1 control.
@@ -38,7 +41,7 @@ namespace SampleWebApplication {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSource1;
+        protected ObjectDataSource ObjectDataSource1;
         
         /// <summary>
         /// GridView1 control.
@@ -47,6 +50,6 @@ namespace SampleWebApplication {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected GridView GridView1;
     }
 }

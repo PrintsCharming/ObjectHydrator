@@ -5,7 +5,7 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class IntegerGenerator : IGenerator<int>
     {
-        private readonly Random random;
+        private readonly Random _random;
 
         public IntegerGenerator()
             : this(0, 100)
@@ -17,7 +17,7 @@ namespace Foundation.ObjectHydrator.Generators
             MinimumValue = minimumValue;
             MaximumValue = maximumValue;
 
-            random = RandomSingleton.Instance.Random;
+            _random = RandomSingleton.Instance.Random;
         }
 
         public int MinimumValue { get; set; }
@@ -25,7 +25,7 @@ namespace Foundation.ObjectHydrator.Generators
 
         public int Generate()
         {
-            return random.Next(MinimumValue, MaximumValue + 1);
+            return _random.Next(MinimumValue, MaximumValue + 1);
         }
     }
 }

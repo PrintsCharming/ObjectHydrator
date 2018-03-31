@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Web.UI;
 using Foundation.ObjectHydrator;
 
 namespace SampleWebApplication
 {
-    public partial class AddCustomer : System.Web.UI.Page
+    public partial class AddCustomer : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

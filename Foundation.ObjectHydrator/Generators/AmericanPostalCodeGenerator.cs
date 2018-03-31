@@ -5,13 +5,13 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class AmericanPostalCodeGenerator : IGenerator<string>
     {
-        private readonly Random random;
+        private readonly Random _random;
 
         public AmericanPostalCodeGenerator(int percentageWithPlusFour)
         {
             PercentageWithPlusFour = percentageWithPlusFour;
 
-            random = RandomSingleton.Instance.Random;
+            _random = RandomSingleton.Instance.Random;
         }
 
         public int PercentageWithPlusFour { get; }
@@ -20,10 +20,10 @@ namespace Foundation.ObjectHydrator.Generators
         {
             var plusFour = string.Empty;
 
-            if (PercentageWithPlusFour > 0 && random.Next(0, 100) % (100 / PercentageWithPlusFour) == 0)
-                plusFour = $"-{random.Next(1, 9999):0000}";
+            if (PercentageWithPlusFour > 0 && _random.Next(0, 100) % (100 / PercentageWithPlusFour) == 0)
+                plusFour = $"-{_random.Next(1, 9999):0000}";
 
-            return $"{random.Next(501, 99950):00000}{plusFour}";
+            return $"{_random.Next(501, 99950):00000}{plusFour}";
         }
     }
 }

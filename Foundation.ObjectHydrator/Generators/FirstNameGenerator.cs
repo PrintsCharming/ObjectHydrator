@@ -6,23 +6,23 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class FirstNameGenerator : IGenerator<string>
     {
-        private IList<string> names = new List<string>();
-        private readonly Random random;
+        private IList<string> _names = new List<string>();
+        private readonly Random _random;
 
         public FirstNameGenerator()
         {
-            random = RandomSingleton.Instance.Random;
+            _random = RandomSingleton.Instance.Random;
             LoadNames();
         }
 
         public string Generate()
         {
-            return names[random.Next(0, names.Count)];
+            return _names[_random.Next(0, _names.Count)];
         }
 
         private void LoadNames()
         {
-            names = new List<string>
+            _names = new List<string>
             {
                 "Aaden",
                 "AadeAaliyah",

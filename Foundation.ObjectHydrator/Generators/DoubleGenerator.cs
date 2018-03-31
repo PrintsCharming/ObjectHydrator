@@ -5,7 +5,7 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class DoubleGenerator : IGenerator<double>
     {
-        private readonly Random random;
+        private readonly Random _random;
 
         public DoubleGenerator()
             : this(0.0, 100)
@@ -25,17 +25,17 @@ namespace Foundation.ObjectHydrator.Generators
         public DoubleGenerator(double minimumValue, double maximumValue, int decimalPlaces)
         {
             if (minimumValue > maximumValue)
-                throw new ArgumentOutOfRangeException("minimumValue", minimumValue,
+                throw new ArgumentOutOfRangeException(nameof(minimumValue), minimumValue,
                     "minimumValue must be <= maximumValue");
 
             if (decimalPlaces > 5)
-                throw new ArgumentOutOfRangeException("decimalPlaces", decimalPlaces, "decimalPlaces must be <=5;");
+                throw new ArgumentOutOfRangeException(nameof(decimalPlaces), decimalPlaces, "decimalPlaces must be <=5;");
 
             MinimumValue = minimumValue;
             MaximumValue = maximumValue;
             DecimalPlaces = decimalPlaces;
 
-            random = RandomSingleton.Instance.Random;
+            _random = RandomSingleton.Instance.Random;
         }
 
         public double MinimumValue { get; set; }
@@ -44,16 +44,13 @@ namespace Foundation.ObjectHydrator.Generators
 
         public double Generate()
         {
-            double toReturn;
-            double decimalPart;
-
             // The offset adjustment to get down to an Int minimum value
             var offset = MinimumValue - Math.Floor(MinimumValue);
             var adjustedMinimum = MinimumValue - offset;
             var adjustedMaximum = MaximumValue - offset;
 
-            toReturn = random.Next((int) adjustedMinimum, (int) adjustedMaximum);
-            decimalPart = random.NextDouble();
+            double toReturn = _random.Next((int) adjustedMinimum, (int) adjustedMaximum);
+            var decimalPart = _random.NextDouble();
             decimalPart *= Math.Pow(10, DecimalPlaces);
             decimalPart = (int) decimalPart;
 

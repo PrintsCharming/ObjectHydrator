@@ -5,11 +5,11 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class EmailAddressGenerator : IGenerator<string>
     {
-        private readonly Random random;
+        private readonly Random _random;
 
         public EmailAddressGenerator()
         {
-            random = RandomSingleton.Instance.Random;
+            _random = RandomSingleton.Instance.Random;
         }
 
         public string Generate()
@@ -21,21 +21,17 @@ namespace Foundation.ObjectHydrator.Generators
             var prefix = GetPrefix(fng, lng);
             var bizname = GetBizname(cng);
 
-            var suffix = new string[4] {".com", ".net", ".org", ".info"};
-            var num = random.Next(0, suffix.Length - 1);
+            var suffix = new[] {".com", ".net", ".org", ".info"};
+            var num = _random.Next(0, suffix.Length - 1);
             var domaintype = suffix[num];
 
-            return string.Format("{0}@{1}{2}", prefix, bizname, domaintype);
+            return $"{prefix}@{bizname}{domaintype}";
         }
 
         private string GetPrefix(IGenerator<string> fng, IGenerator<string> lng)
         {
-            var prefixtype = random.Next(0, 1);
-            string prefix;
-            if (prefixtype == 0)
-                prefix = string.Format("{0}_{1}", fng.Generate(), lng.Generate());
-            else
-                prefix = fng.Generate();
+            var prefixtype = _random.Next(0, 1);
+            var prefix = prefixtype == 0 ? $"{fng.Generate()}_{lng.Generate()}" : fng.Generate();
             return prefix;
         }
 

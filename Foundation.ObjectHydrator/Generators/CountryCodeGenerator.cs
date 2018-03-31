@@ -5,7 +5,7 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class CountryCodeGenerator : IGenerator<string>
     {
-        private IList<string> countrycodes = new List<string>();
+        private IList<string> _countrycodes = new List<string>();
 
         public CountryCodeGenerator()
         {
@@ -14,12 +14,12 @@ namespace Foundation.ObjectHydrator.Generators
 
         public string Generate()
         {
-            return new FromListGetSingleGenerator<string>(countrycodes).Generate();
+            return new FromListGetSingleGenerator<string>(_countrycodes).Generate();
         }
 
         private void LoadCountryCodes()
         {
-            countrycodes = new List<string>
+            _countrycodes = new List<string>
             {
                 "AD",
                 "AE",

@@ -7,18 +7,18 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class FromListGetSingleGenerator<T> : IGenerator<T>
     {
-        private readonly Random random;
-        private readonly IEnumerable<T> list = new List<T>();
+        private readonly Random _random;
+        private readonly IEnumerable<T> _list;
 
         public FromListGetSingleGenerator(IEnumerable<T> list)
         {
-            random = RandomSingleton.Instance.Random;
-            this.list = list;
+            _random = RandomSingleton.Instance.Random;
+            _list = list;
         }
 
         public T Generate()
         {
-            return list.ElementAt(random.Next(0, list.Count()));
+            return _list.ElementAt(_random.Next(0, _list.Count()));
         }
     }
 }

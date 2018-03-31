@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Foundation.ObjectHydrator.Tests.HydratorTests
 {
     [TestFixture]
-    public class Hydrator_Do_Tests
+    public class HydratorDoTests
     {
         [Test]
         public void CanSetConstantValue()
@@ -116,12 +116,12 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
                 .WithFirstName(x => x.FirstName)
                 .WithLastName(x => x.LastName)
                 .WithCompanyName(x => x.Company)
-                .Do(x => x.EmailAddress = string.Format("{0}.{1}@{2}.com", x.FirstName, x.LastName, x.Company));
+                .Do(x => x.EmailAddress = $"{x.FirstName}.{x.LastName}@{x.Company}.com");
 
             var customer = hydrator.GetSingle();
 
             Assert.IsNotNull(customer);
-            Assert.AreEqual(customer.EmailAddress, string.Format("{0}.{1}@{2}.com", customer.FirstName, customer.LastName, customer.Company), "The value should have been set in the Do method");
+            Assert.AreEqual(customer.EmailAddress, $"{customer.FirstName}.{customer.LastName}@{customer.Company}.com", "The value should have been set in the Do method");
         }
     }
 }

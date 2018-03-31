@@ -6,11 +6,11 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class WebsiteGenerator : IGenerator<string>
     {
-        private readonly Random random;
+        private readonly Random _random;
 
         public WebsiteGenerator()
         {
-            random = RandomSingleton.Instance.Random;
+            _random = RandomSingleton.Instance.Random;
         }
 
         public string Generate()
@@ -24,7 +24,7 @@ namespace Foundation.ObjectHydrator.Generators
             bizname = bizname.Replace(",", "");
             sb.Append(bizname);
             var suffix = new string[4] {".com", ".net", ".org", ".info"};
-            var num = random.Next(0, suffix.Length - 1);
+            var num = _random.Next(0, suffix.Length - 1);
             sb.Append(suffix[num]);
             return sb.ToString().ToLower();
         }

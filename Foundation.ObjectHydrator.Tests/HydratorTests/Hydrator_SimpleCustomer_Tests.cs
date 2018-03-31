@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using NUnit.Framework;
 using Foundation.ObjectHydrator.Generators;
 using Foundation.ObjectHydrator.Tests.POCOs;
+using NUnit.Framework;
 
 namespace Foundation.ObjectHydrator.Tests.HydratorTests
 {
     [TestFixture]
-    public class Hydrator_SimpleCustomer_Tests
+    public class HydratorSimpleCustomerTests
     {
         [Test]
         public void CanGetSingleSimpleCustomer()
@@ -67,7 +67,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var customer = hydrator.GetSingle();
 
             Assert.IsTrue(customer.Locations >= 5 && customer.Locations <= 10,
-                String.Format("Customer Locations [{0}] is outside expected range.", customer.Locations));
+                $"Customer Locations [{customer.Locations}] is outside expected range.");
 
             DumpSimpleCustomer(customer);
         }
@@ -83,7 +83,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsTrue(defaultValue == customer.Description, String.Format("Default value is not as expected[{0}]", defaultValue));
+            Assert.IsTrue(defaultValue == customer.Description, $"Default value is not as expected[{defaultValue}]");
 
             DumpSimpleCustomer(customer);
         }
@@ -106,7 +106,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsTrue(customer.Locations >= 0, String.Format("Customer Locations is expected."));
+            Assert.IsTrue(customer.Locations >= 0, "Customer Locations is expected.");
 
             DumpSimpleCustomer(customer);
         }
@@ -118,7 +118,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsTrue(customer.Revenue >= 0, String.Format("Customer Revenue is expected."));
+            Assert.IsTrue(customer.Revenue >= 0, "Customer Revenue is expected.");
 
             DumpSimpleCustomer(customer);
         }
@@ -133,7 +133,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var customer = hydrator.GetSingle();
 
             var decimalPart = customer.Revenue - (int) customer.Revenue;
-            Assert.IsTrue(decimalPart >= 0, String.Format("Customer Revenue decimal part is expected."));
+            Assert.IsTrue(decimalPart >= 0, "Customer Revenue decimal part is expected.");
 
             DumpSimpleCustomer(customer);
         }
@@ -166,7 +166,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var decimalPart = customer.Revenue - (int) customer.Revenue;
 
             Assert.That(customer.Revenue, Is.InRange(minimum, maximum));
-            Assert.IsTrue(decimalPart >= 0, String.Format("Customer Revenue decimal part is expected."));
+            Assert.IsTrue(decimalPart >= 0, "Customer Revenue decimal part is expected.");
 
             DumpSimpleCustomer(customer);
         }
@@ -181,7 +181,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsTrue(defaultValue == customer.Locations, String.Format("Default value is not as expected[{0}]", defaultValue));
+            Assert.IsTrue(defaultValue == customer.Locations, $"Default value is not as expected[{defaultValue}]");
 
             DumpSimpleCustomer(customer);
         }
@@ -197,7 +197,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsTrue(defaultValue == customer.IncorporatedOn, String.Format("Default value is not as expected[{0}]", defaultValue));
+            Assert.IsTrue(defaultValue == customer.IncorporatedOn, $"Default value is not as expected[{defaultValue}]");
 
             DumpSimpleCustomer(customer);
         }
@@ -215,11 +215,10 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsTrue(defaultValue == customer.Description, String.Format("Default value is not as expected[{0}]", defaultValue));
+            Assert.IsTrue(defaultValue == customer.Description, $"Default value is not as expected[{defaultValue}]");
 
             Assert.That(customer.Locations, Is.InRange(minimumValue, maximumValue),
-                String.Format("Customer Locations [{0}] is outside expected range [{1},{2}].", customer.Locations, minimumValue,
-                    maximumValue));
+                $"Customer Locations [{customer.Locations}] is outside expected range [{minimumValue},{maximumValue}].");
             DumpSimpleCustomer(customer);
         }
 
@@ -236,8 +235,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
 
             Assert.That(customer.IncorporatedOn, Is.InRange(minimumValue, maximumValue),
-                String.Format("Customer IncorporatedOn [{0}] is outside expected range [{1}, {2}].", customer.IncorporatedOn,
-                    minimumValue, maximumValue));
+                $"Customer IncorporatedOn [{customer.IncorporatedOn}] is outside expected range [{minimumValue}, {maximumValue}].");
             DumpSimpleCustomer(customer);
         }
 
@@ -254,8 +252,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
 
             Assert.That(customer.IncorporatedOn, Is.InRange(minimumValue, maximumValue),
-                String.Format("Customer IncorporatedOn [{0}] is outside expected range [{1}, {2}].", customer.IncorporatedOn,
-                    minimumValue, maximumValue));
+                $"Customer IncorporatedOn [{customer.IncorporatedOn}] is outside expected range [{minimumValue}, {maximumValue}].");
             DumpSimpleCustomer(customer);
         }
 
@@ -268,7 +265,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsTrue(customer.Version.Length == length, String.Format("Customer Version Length is expected to be {0}.", length));
+            Assert.IsTrue(customer.Version.Length == length, $"Customer Version Length is expected to be {length}.");
 
             DumpSimpleCustomer(customer);
         }
@@ -283,10 +280,9 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsNotEmpty(customer.CreditCardNumber, String.Format("Credit Card Number is expected."));
+            Assert.IsNotEmpty(customer.CreditCardNumber, "Credit Card Number is expected.");
             Assert.IsTrue(customer.CreditCardNumber.Length == length,
-                String.Format("Credit Card Number [{0}] should be {1} long.", customer.CreditCardNumber,
-                    length));
+                $"Credit Card Number [{customer.CreditCardNumber}] should be {length} long.");
 
             DumpSimpleCustomer(customer);
         }
@@ -306,7 +302,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             Assert.IsTrue(IsWebsiteAddressValid(customer.Homepage));
         }
 
-        public bool IsValidIPAddress(string ipaddress)
+        public bool IsValidIpAddress(string ipaddress)
         {
             var testpattern =
                 new Regex(
@@ -315,22 +311,22 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         }
 
         [Test]
-        public void IPAddressTest()
+        public void IpAddressTest()
         {
             var hydrator = new Hydrator<SimpleCustomer>();
             var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.Ipaddress);
-            Assert.IsTrue(IsValidIPAddress(customer.Ipaddress));
+            Assert.IsTrue(IsValidIpAddress(customer.Ipaddress));
         }
 
         [Test]
-        public void WithIPAddressTest()
+        public void WithIpAddressTest()
         {
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithIpAddress(x => x.Placeholderstring);
             var customer = hydrator.GetSingle();
             Assert.IsNotNull(customer.Placeholderstring);
-            Assert.IsTrue(IsValidIPAddress(customer.Placeholderstring));
+            Assert.IsTrue(IsValidIpAddress(customer.Placeholderstring));
         }
 
         [Test]
@@ -416,7 +412,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         }
 
         [Test]
-        public void CanGetCCV()
+        public void CanGetCcv()
         {
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithCcv(x => x.Ccv, "visa");
@@ -463,7 +459,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         [Test]
         public void FromListTest()
         {
-            IList<string> mylist = new List<string>() {"red", "green", "blue", "orange"};
+            IList<string> mylist = new List<string> {"red", "green", "blue", "orange"};
             var hydrator = new Hydrator<SimpleCustomer>()
                 .FromList(x => x.Placeholderstring, mylist);
             var customer = hydrator.GetSingle();
@@ -669,17 +665,16 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             Trace.WriteLine("");
             foreach (PropertyInfo propertyInfo in theObject.GetType().GetProperties())
             {
-                Trace.WriteLine(String.Format("{0} [{1}]", propertyInfo.Name, propertyInfo.GetValue(theObject, null)));
+                Trace.WriteLine($"{propertyInfo.Name} [{propertyInfo.GetValue(theObject, null)}]");
 
                 if (propertyInfo.PropertyType == typeof (byte[]))
                 {
-                    var theArray = propertyInfo.GetValue(theObject, null) as byte[];
-                    if (theArray != null)
+                    if (propertyInfo.GetValue(theObject, null) is byte[] theArray)
                     {
                         Trace.Write("  byte[] ");
-                        for (var i = 0; i < theArray.Length; i++)
+                        foreach (byte t in theArray)
                         {
-                            Trace.Write(String.Format("[{0}]", theArray[i]));
+                            Trace.Write($"[{t}]");
                         }
                         Trace.WriteLine(String.Empty);
                     }

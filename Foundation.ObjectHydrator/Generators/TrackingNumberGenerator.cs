@@ -6,11 +6,11 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class TrackingNumberGenerator : IGenerator<string>
     {
-        private readonly Random random;
+        private readonly Random _random;
 
         public TrackingNumberGenerator(string carrier)
         {
-            random = RandomSingleton.Instance.Random;
+            _random = RandomSingleton.Instance.Random;
             Carrier = carrier;
         }
 
@@ -27,17 +27,17 @@ namespace Foundation.ObjectHydrator.Generators
                 case "ups":
                     sb.Append("1Z");
                     for (var i = 0; i < 18; i++)
-                        sb.Append(chararray[random.Next(0, sizeofcharray)]);
+                        sb.Append(chararray[_random.Next(0, sizeofcharray)]);
                     break;
                 case "fedex":
                     sb.Append("4");
                     for (var i = 0; i < 14; i++)
-                        sb.Append(random.Next(0, 9));
+                        sb.Append(_random.Next(0, 9));
                     break;
                 case "usps":
                     sb.Append("91");
                     for (var i = 0; i < 20; i++)
-                        sb.Append(random.Next(0, 9));
+                        sb.Append(_random.Next(0, 9));
                     break;
             }
             return sb.ToString();

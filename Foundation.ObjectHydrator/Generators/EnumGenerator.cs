@@ -37,8 +37,7 @@ namespace Foundation.ObjectHydrator.Generators
             Func<IEnumGeneratorOptionsBuilder<TEnum>, IEnumGeneratorOptionsBuilder<TEnum>> optionBuilder = null)
         {
             var options = new EnumGeneratorOptionsBuilder<TEnum>();
-            if (optionBuilder != null)
-                optionBuilder(options);
+            optionBuilder?.Invoke(options);
 
             var values = GetAllValuesForEnum();
 

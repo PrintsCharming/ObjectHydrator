@@ -46,7 +46,7 @@ namespace Foundation.ObjectHydrator.Generators
             sb.Append(" ");
 
             string[] suffix = {"Dr.", "Pl.", "St.", "Ave.", "Way", "Lane", "Circle", "Rd."};
-            var max2 = suffix.Count() - 1;
+            var max2 = suffix.Length - 1;
             sb.Append(suffix[_random.Next(0, max2)]);
 
             return sb.ToString();
