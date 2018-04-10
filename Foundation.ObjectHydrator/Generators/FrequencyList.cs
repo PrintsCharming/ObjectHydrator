@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Foundation.ObjectHydrator.Generators
@@ -65,37 +66,53 @@ namespace Foundation.ObjectHydrator.Generators
             return GetEnumerator();
         }
 
-        private class FrequencyEnumerator:IEnumerator<T>
+        private class FrequencyEnumerator : IEnumerator<T>
         {
             private readonly List<GeneratedItemFrequencyDefinition<T>> _data;
-            private int _idx = 0;
+            private int _dataIdx = 0;
+            private int _itemIdx = 0;
             private T _current = default(T);
 
             public FrequencyEnumerator(List<GeneratedItemFrequencyDefinition<T>> data)
             {
+                if (data == null)
+                {
+                    throw new ArgumentNullException(nameof(data));
+                }
+
                 _data = data;
             }
 
-            public void Dispose()
-            {
-                
-
-            }
+            public void Dispose() { }
 
             public bool MoveNext()
             {
-                if (_idx >= _data.Count)
+                if (_dataIdx >= _data.Count)
                 {
                     return false;
                 }
 
-                _current = _data[_idx++].Value;
+                var currentData = _data[_dataIdx];
+                if (_itemIdx >= currentData.Frequency)
+                {
+                    ++_dataIdx;
+                    _itemIdx = 0;
+                    if (_dataIdx >= _data.Count)
+                    {
+                        return false;
+                    }
+                    currentData = _data[_dataIdx];
+                }
+
+                _current = currentData.Value;
+                ++_itemIdx;
                 return true;
             }
 
             public void Reset()
             {
-                this._idx = 0;
+                this._dataIdx = 0;
+                this._itemIdx = 0;
                 this._current = default(T);
             }
 
