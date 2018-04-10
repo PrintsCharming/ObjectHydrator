@@ -4,24 +4,26 @@ using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class FirstNameGenerator:IGenerator<string>
+    public class FirstNameGenerator : IGenerator<string>
     {
-        Random random;
-        IList<string> names = new List<string>();
+        private IList<string> _names = new List<string>();
+        private readonly Random _random;
+
         public FirstNameGenerator()
         {
-            random = RandomSingleton.Instance.Random;
+            _random = RandomSingleton.Instance.Random;
             LoadNames();
         }
 
         public string Generate()
         {
-            return names[random.Next(0,names.Count)];
+            return _names[_random.Next(0, _names.Count)];
         }
 
         private void LoadNames()
         {
-            names = new List<String> { 
+            _names = new List<string>
+            {
                 "Aaden",
                 "AadeAaliyah",
                 "Aaron",
@@ -1023,7 +1025,6 @@ namespace Foundation.ObjectHydrator.Generators
                 "Zoe",
                 "Zoey"
             };
-
         }
     }
 }

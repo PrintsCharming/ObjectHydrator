@@ -8,13 +8,13 @@ using NUnit.Framework;
 namespace Foundation.ObjectHydrator.Tests.GeneratorTests
 {
     [TestFixture]
-    public class Generator_Tests
+    public class GeneratorTests
     {
         [Test]
         public void FirstNameGeneratorTest()
         {
             IGenerator<string> fng = new FirstNameGenerator();
-            var firstname = (string) fng.Generate();
+            var firstname = fng.Generate();
             Assert.IsNotNull(firstname);
         }
 
@@ -22,7 +22,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void LastNameGeneratorTest()
         {
             IGenerator<string> lng = new LastNameGenerator();
-            var lastname = (string) lng.Generate();
+            var lastname = lng.Generate();
             Assert.IsNotNull(lastname);
         }
 
@@ -30,7 +30,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void CompanyNameGeneratorTest()
         {
             IGenerator<string> cng = new CompanyNameGenerator();
-            var companyname = (string) cng.Generate();
+            var companyname = cng.Generate();
             Assert.IsNotNull(companyname);
         }
 
@@ -38,7 +38,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void DateTimeGeneratorWithDefaultTest()
         {
             IGenerator<DateTime> dtg = new DateTimeGenerator();
-            var checkme = (DateTime) dtg.Generate();
+            var checkme = dtg.Generate();
             var current = DateTime.Now;
             Assert.IsNotNull(checkme);
             Assert.That(checkme, Is.InRange(current.AddYears(-10), current.AddYears(10)));
@@ -51,7 +51,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             var mymax = Convert.ToDateTime("1/1/1980");
 
             IGenerator<DateTime> dtg = new DateTimeGenerator(mymin, mymax);
-            var checkme = (DateTime) dtg.Generate();
+            var checkme = dtg.Generate();
             Assert.That(checkme, Is.InRange(mymin, mymax));
         }
 
@@ -60,7 +60,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         {
             var setme = "hi";
             IGenerator<string> defgen = new DefaultGenerator<string>(setme);
-            var checkme = (string) defgen.Generate();
+            var checkme = defgen.Generate();
             Assert.IsNotNull(checkme);
             Assert.AreEqual(checkme, setme);
         }
@@ -69,7 +69,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void DoubleGeneratorWithDefaultValues()
         {
             IGenerator<double> doublegen = new DoubleGenerator();
-            var checkme = (double) doublegen.Generate();
+            var checkme = doublegen.Generate();
             Assert.IsNotNull(checkme);
             Assert.That(checkme, Is.InRange(0.00, 100.00));
         }
@@ -84,7 +84,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void IntegerGeneratorWithDefaultTest()
         {
             IGenerator<int> intgen = new IntegerGenerator();
-            var checkme = (int) intgen.Generate();
+            var checkme = intgen.Generate();
             Assert.IsNotNull(checkme);
             Assert.That(checkme, Is.InRange(0, 100));
         }
@@ -95,7 +95,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             var min = 5;
             var max = 20;
             IGenerator<int> intgen = new IntegerGenerator(min, max);
-            var checkme = (int) intgen.Generate();
+            var checkme = intgen.Generate();
             Assert.IsNotNull(checkme);
             Assert.That(checkme, Is.InRange(min, max));
         }
@@ -108,7 +108,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             testlist.Add("yay");
             testlist.Add("nay");
             IGenerator<string> listgen = new FromListGetSingleGenerator<string>(testlist);
-            var checkme = (string) listgen.Generate();
+            var checkme = listgen.Generate();
             Assert.IsNotNull(checkme);
             Assert.IsTrue(testlist.Contains(checkme));
         }
@@ -134,7 +134,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void AmericanPhoneGeneratorTest()
         {
             IGenerator<string> phonegen = new AmericanPhoneGenerator();
-            var phone = (string) phonegen.Generate();
+            var phone = phonegen.Generate();
             Assert.IsNotNull(phone);
             Assert.IsTrue(CheckPhone(phone));
         }
@@ -149,7 +149,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void AmericanPostalCodeGenerator()
         {
             IGenerator<string> postalgen = new AmericanPostalCodeGenerator(1);
-            var zipcode = (string) postalgen.Generate();
+            var zipcode = postalgen.Generate();
             Assert.IsNotNull(zipcode);
             Assert.IsTrue(IsAmericanPostalCodeValid(zipcode));
         }
@@ -158,7 +158,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void AmericanPostalCodeGeneratorNoPlusFourTest()
         {
             IGenerator<string> postalgen = new AmericanPostalCodeGenerator(0);
-            var zipcode = (string)postalgen.Generate();
+            var zipcode = postalgen.Generate();
             Assert.IsNotNull(zipcode);
             Assert.IsTrue(IsAmericanPostalCodeValid(zipcode));
         }
@@ -167,7 +167,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void TextGeneratorTest()
         {
             IGenerator<string> textgen = new TextGenerator();
-            var text = (string) textgen.Generate();
+            var text = textgen.Generate();
             Assert.IsNotNull(text);
         }
 
@@ -176,7 +176,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void AmericanAddressGeneratorTest()
         {
             IGenerator<string> americanaddy = new AmericanAddressGenerator();
-            var address = (string) americanaddy.Generate();
+            var address = americanaddy.Generate();
             Assert.IsNotNull(address);
         }
 
@@ -185,7 +185,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void AmericanCityGeneratorTest()
         {
             IGenerator<string> americancity = new AmericanCityGenerator();
-            var city = (string) americancity.Generate();
+            var city = americancity.Generate();
             Assert.IsNotNull(city);
         }
 
@@ -193,11 +193,11 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void AmericanStateGeneratorTest()
         {
             IGenerator<string> americanstate = new AmericanStateGenerator();
-            var state = (string) americanstate.Generate();
+            var state = americanstate.Generate();
             Assert.IsNotNull(state);
         }
 
-        public bool IsValidIPAddress(string ipaddress)
+        public bool IsValidIpAddress(string ipaddress)
         {
             var testpattern =
                 new Regex(
@@ -206,12 +206,12 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         }
 
         [Test]
-        public void IPAddressGeneratorTest()
+        public void IpAddressGeneratorTest()
         {
-            IGenerator<string> ipaddress = new IPAddressGenerator();
-            var ipaddy = (string) ipaddress.Generate();
+            IGenerator<string> ipaddress = new IpAddressGenerator();
+            var ipaddy = ipaddress.Generate();
             Assert.IsNotNull(ipaddy);
-            Assert.IsTrue(IsValidIPAddress(ipaddy));
+            Assert.IsTrue(IsValidIpAddress(ipaddy));
         }
 
         private bool IsWebsiteAddressValid(string webaddy)
@@ -224,7 +224,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void WwebsiteAddressGeneratorTest()
         {
             IGenerator<string> websitegen = new WebsiteGenerator();
-            var site = (string) websitegen.Generate();
+            var site = websitegen.Generate();
             Assert.IsNotNull(site);
             Assert.IsTrue(IsWebsiteAddressValid(site));
         }
@@ -233,7 +233,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void GenderGenerator()
         {
             IGenerator<string> gendergenerator = new GenderGenerator();
-            var gender = (string) gendergenerator.Generate();
+            var gender = gendergenerator.Generate();
             Assert.IsNotNull(gender);
         }
 
@@ -241,7 +241,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void CreditCardTypeGenerator()
         {
             IGenerator<string> cardtypegenerator = new CreditCardTypeGenerator();
-            var cardtype = (string) cardtypegenerator.Generate();
+            var cardtype = cardtypegenerator.Generate();
             Assert.IsNotNull(cardtype);
         }
 
@@ -249,7 +249,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void CountryCodeGenerator()
         {
             IGenerator<string> countrycodegenerator = new CountryCodeGenerator();
-            var countrycode = (string) countrycodegenerator.Generate();
+            var countrycode = countrycodegenerator.Generate();
             Assert.IsNotNull(countrycode);
         }
 
@@ -265,7 +265,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void EmailAddressGenerator()
         {
             IGenerator<string> emailaddressgenerator = new EmailAddressGenerator();
-            var emailaddy = (string) emailaddressgenerator.Generate();
+            var emailaddy = emailaddressgenerator.Generate();
             Assert.IsNotNull(emailaddy);
             Assert.IsTrue(IsEmailAddressValid(emailaddy));
         }
@@ -274,7 +274,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void BooleanGenerator()
         {
             IGenerator<bool> booleangenerator = new BooleanGenerator();
-            var boolvalue = (bool) booleangenerator.Generate();
+            var boolvalue = booleangenerator.Generate();
             Assert.IsNotNull(boolvalue);
             Assert.IsInstanceOf<bool>(boolvalue);
             
@@ -284,7 +284,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void FedExTrackingNumberGenerator()
         {
             IGenerator<string> trackingnumbergenerator = new TrackingNumberGenerator("FedEx");
-            var tracknumber = (string) trackingnumbergenerator.Generate();
+            var tracknumber = trackingnumbergenerator.Generate();
             Assert.IsNotNull(tracknumber);
             Assert.IsTrue(tracknumber.Length == 15);
             
@@ -292,30 +292,30 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         }
 
         [Test]
-        public void UPSTrackingNumberGenerator()
+        public void UpsTrackingNumberGenerator()
         {
             IGenerator<string> trackingnumbergenerator = new TrackingNumberGenerator("UPS");
-            var tracknumber = (string) trackingnumbergenerator.Generate();
+            var tracknumber = trackingnumbergenerator.Generate();
             Assert.IsNotNull(tracknumber);
             Assert.IsTrue(tracknumber.Length == 20);
             Assert.That(tracknumber.StartsWith("1Z"));
         }
 
         [Test]
-        public void USPSTrackingNumberGenerator()
+        public void UspsTrackingNumberGenerator()
         {
             IGenerator<string> trackingnumbergenerator = new TrackingNumberGenerator("USPS");
-            var tracknumber = (string) trackingnumbergenerator.Generate();
+            var tracknumber = trackingnumbergenerator.Generate();
             Assert.IsNotNull(tracknumber);
             Assert.IsTrue(tracknumber.Length == 22);
             Assert.That(tracknumber.StartsWith("91"));
         }
 
         [Test]
-        public void CanGetDefaultCCVFromGenerator()
+        public void CanGetDefaultCcvFromGenerator()
         {
-            IGenerator<string> ccvGenerator = new CCVGenerator("");
-            var ccv = (string) ccvGenerator.Generate();
+            IGenerator<string> ccvGenerator = new CcvGenerator("");
+            var ccv = ccvGenerator.Generate();
             Assert.IsNotNull(ccv);
         }
 
@@ -323,7 +323,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void PasswordWithDefaultLengthGenerator()
         {
             IGenerator<string> pwGen = new PasswordGenerator();
-            var pw = (string) pwGen.Generate();
+            var pw = pwGen.Generate();
             Assert.IsNotNull(pw);
             Assert.IsTrue(pw.Length == 10);
         }
@@ -333,7 +333,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         {
             var length = 99;
             IGenerator<string> pwGen = new PasswordGenerator(length);
-            var pw = (string) pwGen.Generate();
+            var pw = pwGen.Generate();
             Assert.IsNotNull(pw);
             Assert.AreEqual(length, pw.Length);
         }
@@ -363,7 +363,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void UnitedKingdomCityGeneratorTest()
         {
             IGenerator<string> unitedKingdomCityGenerator = new UnitedKingdomCityGenerator();
-            var city = (string)unitedKingdomCityGenerator.Generate();
+            var city = unitedKingdomCityGenerator.Generate();
             Assert.IsNotNull(city);
         }
 
@@ -371,7 +371,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void UnitedKingdomCountyGeneratorTest()
         {
             IGenerator<string> unitedKingdomCountyGenerator = new UnitedKingdomCountyGenerator();
-            var county = (string)unitedKingdomCountyGenerator.Generate();
+            var county = unitedKingdomCountyGenerator.Generate();
             Assert.IsNotNull(county);
         }
 
@@ -379,7 +379,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void UnitedKingdomPostCodeGeneratorTest()
         {
             IGenerator<string> unitedKingdomCountyGenerator = new UnitedKingdomPostCodeGenerator();
-            var county = (string)unitedKingdomCountyGenerator.Generate();
+            var county = unitedKingdomCountyGenerator.Generate();
             Assert.IsNotNull(county);
         }
 
@@ -405,7 +405,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         public void UnitedKingdomPhoneGeneratorTest()
         {
             const string ndcPrefix = "6";
-            var expectedPrefix = string.Format("0{0}", ndcPrefix);
+            var expectedPrefix = $"0{ndcPrefix}";
             var generator = new UnitedKingdomPhoneNumberGenerator(ndcPrefix);
 
             var result = generator.Generate();
@@ -421,9 +421,9 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             var cultureDisplayName = cultureDisplayNameGenerator.Generate();
             Assert.IsNotNull(cultureDisplayName);
 
-            IGenerator<int> cultureLCIDGenerator = new CulturesGenerator<int>(culture => culture.LCID);
-            var cultureLCID = cultureLCIDGenerator.Generate();
-            Assert.Greater(cultureLCID, 0);
+            IGenerator<int> cultureLcidGenerator = new CulturesGenerator<int>(culture => culture.LCID);
+            var cultureLcid = cultureLcidGenerator.Generate();
+            Assert.Greater(cultureLcid, 0);
 
         }
     }

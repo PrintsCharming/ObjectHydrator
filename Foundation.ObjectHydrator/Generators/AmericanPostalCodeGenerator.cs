@@ -3,30 +3,27 @@ using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class AmericanPostalCodeGenerator:IGenerator<string>
+    public class AmericanPostalCodeGenerator : IGenerator<string>
     {
-        Random random;
-        public int PercentageWithPlusFour { get; private set; }
+        private readonly Random _random;
 
         public AmericanPostalCodeGenerator(int percentageWithPlusFour)
         {
             PercentageWithPlusFour = percentageWithPlusFour;
 
-            random = RandomSingleton.Instance.Random;
+            _random = RandomSingleton.Instance.Random;
         }
 
-         public string Generate()
+        public int PercentageWithPlusFour { get; }
+
+        public string Generate()
         {
-            string plusFour = String.Empty;
+            var plusFour = string.Empty;
 
-            if (PercentageWithPlusFour > 0 && random.Next(0, 100) % (100 / PercentageWithPlusFour) == 0)
-            {
-                plusFour = String.Format("-{0:0000}", random.Next(1, 9999));
-            }
+            if (PercentageWithPlusFour > 0 && _random.Next(0, 100) % (100 / PercentageWithPlusFour) == 0)
+                plusFour = $"-{_random.Next(1, 9999):0000}";
 
-            return String.Format("{0:00000}{1}",
-                random.Next(501, 99950),
-                plusFour).ToString();
+            return $"{_random.Next(501, 99950):00000}{plusFour}";
         }
     }
 }

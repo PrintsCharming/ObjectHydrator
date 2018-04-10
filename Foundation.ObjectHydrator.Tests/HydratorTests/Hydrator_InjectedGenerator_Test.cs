@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Foundation.ObjectHydrator.Tests.HydratorTests
 {
     [TestFixture]
-    class Hydrator_InjectedGenerator_Test
+    class HydratorInjectedGeneratorTest
     {
         [Test]
         public void SimpleTest()

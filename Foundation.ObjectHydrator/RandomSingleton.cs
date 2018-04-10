@@ -4,30 +4,28 @@ namespace Foundation.ObjectHydrator
 {
     public sealed class RandomSingleton
     {
-        private static readonly object SyncRoot = new Object();
-        private static volatile RandomSingleton instance;
-
-        public Random Random { get; private set; }
+        private static readonly object SyncRoot = new object();
+        private static volatile RandomSingleton _instance;
 
         private RandomSingleton()
         {
             Random = new Random();
         }
 
+        public Random Random { get; }
+
         public static RandomSingleton Instance
         {
             get
             {
-                if (instance == null)
-                {
+                if (_instance == null)
                     lock (SyncRoot)
                     {
-                        if (instance == null)
-                            instance = new RandomSingleton();
+                        if (_instance == null)
+                            _instance = new RandomSingleton();
                     }
-                }
 
-                return instance;
+                return _instance;
             }
         }
     }

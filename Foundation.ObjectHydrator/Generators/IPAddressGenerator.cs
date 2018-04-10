@@ -4,28 +4,28 @@ using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class IPAddressGenerator:IGenerator<string>
+    public class IpAddressGenerator : IGenerator<string>
     {
-        Random random;
+        private readonly Random _random;
 
-        public IPAddressGenerator()
+        public IpAddressGenerator()
         {
-            random = RandomSingleton.Instance.Random;
+            _random = RandomSingleton.Instance.Random;
         }
 
         public string Generate()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(random.Next(1, 255));
+            var sb = new StringBuilder();
+            sb.Append(_random.Next(1, 255));
             sb.Append(".");
 
-            sb.Append(random.Next(0, 255));
+            sb.Append(_random.Next(0, 255));
             sb.Append(".");
 
-            sb.Append(random.Next(0, 255));
+            sb.Append(_random.Next(0, 255));
             sb.Append(".");
 
-            sb.Append(random.Next(0, 255));
+            sb.Append(_random.Next(0, 255));
             return sb.ToString();
         }
     }

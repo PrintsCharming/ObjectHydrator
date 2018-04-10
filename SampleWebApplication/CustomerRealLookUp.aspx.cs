@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Web.UI;
 
 namespace SampleWebApplication
 {
-    public partial class CustomerRealLookUp : System.Web.UI.Page
+    public partial class CustomerRealLookUp : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

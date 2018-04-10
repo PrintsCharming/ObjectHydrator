@@ -15,9 +15,14 @@ namespace Foundation.ObjectHydrator.Generators
             LoadCityNames();
         }
 
+        public string Generate()
+        {
+            return _citynames[_random.Next(0, _citynames.Count)];
+        }
+
         private void LoadCityNames()
         {
-            _citynames = new List<string>()
+            _citynames = new List<string>
             {
                 "Aberaeron",
                 "Aberdare",
@@ -1012,11 +1017,6 @@ namespace Foundation.ObjectHydrator.Generators
                 "Yeovil",
                 "York"
             };
-        }
-
-        public string Generate()
-        {
-            return _citynames[_random.Next(0, _citynames.Count)];
         }
     }
 }

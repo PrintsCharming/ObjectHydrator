@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Foundation.ObjectHydrator.Tests.HydratorTests
 {
     [TestFixture]
-    public class Hydrator_SimpleAddress_Tests
+    public class HydratorSimpleAddressTests
     {
         [Test]
         public void SimpleTest()

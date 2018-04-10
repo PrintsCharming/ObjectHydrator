@@ -1,57 +1,67 @@
 ﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
-	<head>
-		<title></title>
-	</head>
-	<body>
-	
-	    <p>
-            Object Hydrator</p>
-        <p>
-            Version 0.6<br />
-            10/28/2009</p>
-        <p>
-            Introduction:<br />
-            Object Hydrator is a tool to ease the &quot;Model First&quot; development style and 
-            testing scenarios, by generating objects with pre-filled data.&nbsp; Doing so 
-            allows you the freedom of working in your application with &#39;realistic&#39; data at 
-            the same time giving you the flexibility to make changes to your model on the 
-            fly.</p>
-        <p>
-            Using convention over configuration, Object Hydrator will pick an appropriate 
-            data type based on the type in the model and/or the name of the property and 
-            generate the data for you automatically.&nbsp; With a fluent interface you can 
-            override these conventions easily and smoothly.</p>
-        <p>
-            A very simple example is as follows:<br />
-            Given this class</p>
-        <p>
-            public class Customer<br />
-            {<br />
-&nbsp;&nbsp;&nbsp; public string FirstName {get;set;}<br />
-            }<br />
-            <br />
-            You can populate an instance of this class with a random real-world first name 
-            by first creating an instance of the Hydrator like so...<br />
-            <br />
-            Hydrator&lt;Customer&gt; hydrator=new Hydrator&lt;Customer&gt;();<br />
-            <br />
-            And then call the GetSingle method assigning it to a new customer object like 
-            this....<br />
-            <br />
-            Customer mynewcustomer=hydrator.GetSingle();</p>
-        <p>
-            You can also inject your own generators at instantiation time, as long as the implement the IGenerator interface. See Hydrator_InjectedGenerator_Test.cs
-        </p>
-        <p>
-            For more detailed examples please see the unit tests in 
-            Hydrator_SimpleCustomerTests.cs or the SampleWebApplication</p>
-        <p>
-            Please see <a href="http://objecthydrator.codeplex.com">
-            http://objecthydrator.codeplex.com</a> for samples and documentation.</p>
-        <p>
-            Special Thanks for his excellent code to:<br />
-            Scott Monnig</p>
-	
-	</body>
+<head>
+    <title></title>
+</head>
+<body>
+
+<p>
+    Object Hydrator
+</p>
+<p>
+    Version 0.6<br/>
+    10/28/2009
+</p>
+<p>
+    Introduction:<br/>
+    Object Hydrator is a tool to ease the &quot;Model First&quot; development style and
+    testing scenarios, by generating objects with pre-filled data.&nbsp; Doing so
+    allows you the freedom of working in your application with &#39;realistic&#39; data at
+    the same time giving you the flexibility to make changes to your model on the
+    fly.
+</p>
+<p>
+    Using convention over configuration, Object Hydrator will pick an appropriate
+    data type based on the type in the model and/or the name of the property and
+    generate the data for you automatically.&nbsp; With a fluent interface you can
+    override these conventions easily and smoothly.
+</p>
+<p>
+    A very simple example is as follows:<br/>
+    Given this class
+</p>
+<p>
+    public class Customer<br/>
+    {<br/>
+    &nbsp;&nbsp;&nbsp; public string FirstName {get;set;}<br/>
+    }<br/>
+    <br/>
+    You can populate an instance of this class with a random real-world first name
+    by first creating an instance of the Hydrator like so...<br/>
+    <br/>
+    Hydrator&lt;Customer&gt; hydrator=new Hydrator&lt;Customer&gt;();<br/>
+    <br/>
+    And then call the GetSingle method assigning it to a new customer object like
+    this....<br/>
+    <br/>
+    Customer mynewcustomer=hydrator.GetSingle();
+</p>
+<p>
+    You can also inject your own generators at instantiation time, as long as the implement the IGenerator interface. See Hydrator_InjectedGenerator_Test.cs
+</p>
+<p>
+    For more detailed examples please see the unit tests in
+    Hydrator_SimpleCustomerTests.cs or the SampleWebApplication
+</p>
+<p>
+    Please see <a href="http://objecthydrator.codeplex.com">
+        http://objecthydrator.codeplex.com
+    </a> for samples and documentation.
+</p>
+<p>
+    Special Thanks for his excellent code to:<br/>
+    Scott Monnig
+</p>
+
+</body>
 </html>

@@ -4,31 +4,29 @@ using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class WebsiteGenerator:IGenerator<string>
+    public class WebsiteGenerator : IGenerator<string>
     {
-        Random random;
+        private readonly Random _random;
 
         public WebsiteGenerator()
         {
-            random = RandomSingleton.Instance.Random;
+            _random = RandomSingleton.Instance.Random;
         }
 
         public string Generate()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("http://www.");
             IGenerator<string> companyname = new CompanyNameGenerator();
-            string bizname = (string)companyname.Generate();
+            var bizname = companyname.Generate();
             bizname = bizname.Replace(".", "");
             bizname = bizname.Replace(" ", "");
             bizname = bizname.Replace(",", "");
             sb.Append(bizname);
-            string[] suffix = new string[4] { ".com", ".net", ".org", ".info" };
-            int num = random.Next(0, suffix.Length - 1);
+            var suffix = new string[4] {".com", ".net", ".org", ".info"};
+            var num = _random.Next(0, suffix.Length - 1);
             sb.Append(suffix[num]);
             return sb.ToString().ToLower();
-
-
         }
     }
 }

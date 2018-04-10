@@ -1,43 +1,41 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using Foundation.ObjectHydrator.Generators;
 using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator
 {
-    public class Mapping<T>:IMapping
+    public class Mapping<T> : IMapping
     {
         public Mapping(PropertyInfo propertyInfo, IGenerator<T> generator)
         {
             PropertyName = propertyInfo.Name;
             PropertyInfo = propertyInfo;
-            object[] a = propertyInfo.GetCustomAttributes(false);
+            var a = propertyInfo.GetCustomAttributes(false);
             foreach (var item in a)
-            {
                 try
                 {
-                    System.Attribute attr = (System.Attribute)item;
+                    var attr = (Attribute) item;
                     //TODO: Refactor this out to be more flexible and support more annotations
-                    if (attr.GetType()==typeof(System.ComponentModel.DataAnnotations.StringLengthAttribute))
+                    if (attr.GetType() == typeof(StringLengthAttribute))
                     {
-                        System.ComponentModel.DataAnnotations.StringLengthAttribute sla = (System.ComponentModel.DataAnnotations.StringLengthAttribute)attr;
-                        if (generator.GetType()==typeof(Generators.TextGenerator))
-                        {
-                            generator = (IGenerator<T>)new Generators.TextGenerator(sla.MaximumLength);
-                        }
+                        var sla = (StringLengthAttribute) attr;
+                        if (generator.GetType() == typeof(TextGenerator))
+                            generator = (IGenerator<T>) new TextGenerator(sla.MaximumLength);
                     }
                 }
                 catch (Exception)
                 {
-                    
                     throw;
                 }
-            }
             Generator = generator;
         }
 
-        public string PropertyName { get; private set; }
-        public PropertyInfo PropertyInfo { get; private set; }
-        public IGenerator<T> Generator { get; private set; }
+        public IGenerator<T> Generator { get; }
+
+        public string PropertyName { get; }
+        public PropertyInfo PropertyInfo { get; }
 
         public object Generate()
         {
@@ -54,9 +52,10 @@ namespace Foundation.ObjectHydrator
             Generator = generator;
         }
 
-        public string PropertyName { get; private set; }
-        public PropertyInfo PropertyInfo { get; private set; }
-        public IGenerator Generator { get; private set; }
+        public IGenerator Generator { get; }
+
+        public string PropertyName { get; }
+        public PropertyInfo PropertyInfo { get; }
 
         public object Generate()
         {

@@ -1,23 +1,23 @@
-﻿using Foundation.ObjectHydrator.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Tests.HydratorTests
 {
     class InjectedGenerator:IGenerator<string>
     {
-         private readonly Random random;
-        private IList<string> states = new List<string>();
+         private readonly Random _random;
+        private IList<string> _states = new List<string>();
 
         public InjectedGenerator()
         {
-            random = RandomSingleton.Instance.Random;
+            _random = RandomSingleton.Instance.Random;
             LoadStates();
         }
 
         private void LoadStates()
         {
-            states = new List<string>
+            _states = new List<string>
                          {
                              "AK",                           
                              "CA"
@@ -26,7 +26,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         }
         public string Generate()
         {
-            return states[random.Next(0, states.Count)];
+            return _states[_random.Next(0, _states.Count)];
         }
     }
 }
