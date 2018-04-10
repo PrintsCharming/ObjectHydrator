@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
@@ -8,16 +7,29 @@ namespace Foundation.ObjectHydrator.Generators
     public class FromListGetSingleGenerator<T> : IGenerator<T>
     {
         private readonly Random _random = RandomSingleton.Instance.Random;
-        private readonly List<T> _list;
+        private readonly FrequencyList<T> _list;
 
+        public FromListGetSingleGenerator() : this(null) { }
         public FromListGetSingleGenerator(IEnumerable<T> list)
         {
-            this._list = list.ToList();
+            this._list = new FrequencyList<T>();
+            if (list != null)
+            {
+                foreach (var item in list)
+                {
+                    this._list.Add(item);
+                }
+            }
         }
 
         public void Add(T value, int frequency)
         {
+            this._list.Add(value, frequency);
+        }
 
+        public void Add(T value)
+        {
+            this._list.Add(value);
         }
 
         public T Generate()
