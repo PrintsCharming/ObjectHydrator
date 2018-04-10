@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Linq;
 
 namespace Foundation.ObjectHydrator.Generators
 {
@@ -56,14 +58,50 @@ namespace Foundation.ObjectHydrator.Generators
         /// Gets an enumerator for the collection
         /// </summary>
         /// <returns>an enumerator</returns>
+        [Pure]
         public IEnumerator<T> GetEnumerator()
         {
             return new FrequencyEnumerator(_data);
         }
 
+        [Pure]
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        [Pure]
+        public T this[int index]
+        {
+            get
+            {
+                if (index >= this.Count)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+
+                var value = default(T);
+                for (int i = 0; i < _data.Count; i++)
+                {
+                    var item = _data[i];
+                    if (index >= item.Frequency)
+                    {
+                        index -= item.Frequency;
+                    }
+                    else
+                    {
+                        value = item.Value;
+                        break;
+                    }
+                }
+                return value;
+            }
+        }
+
+        [Pure]
+        public int Count
+        {
+            get { return _data.Sum(d => d.Frequency); }
         }
 
         private class FrequencyEnumerator : IEnumerator<T>

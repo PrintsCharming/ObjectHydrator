@@ -96,6 +96,7 @@
     <Compile Include="Generators\FrequencyList.cs" />
     <Compile Include="Generators\FromListGetListGenerator.cs" />
     <Compile Include="Generators\FromListGetSingleGenerator.cs" />
+    <Compile Include="Generators\GeneratedItemFrequencyDefinition.cs" />
     <Compile Include="Generators\Generator.cs" />
     <Compile Include="Generators\IEnumGeneratorOptionsBuilder.cs" />
     <Compile Include="Generators\PasswordGenerator.cs" />
