@@ -31,27 +31,27 @@ namespace Foundation.ObjectHydrator.Generators
     public class EnumGenerator<TEnum> : IGenerator<TEnum>
         where TEnum : struct, IConvertible // attempt to restrict to enums only
     {
-        private readonly FromListGetSingleGenerator<TEnum> _values;
+        private readonly FromListGetSingleGenerator<TEnum> _generator;
 
-        public EnumGenerator(
-            Func<IEnumGeneratorOptionsBuilder<TEnum>, IEnumGeneratorOptionsBuilder<TEnum>> optionBuilder = null)
+        public EnumGenerator(Func<IEnumGeneratorOptionsBuilder<TEnum>, IEnumGeneratorOptionsBuilder<TEnum>> optionBuilder = null)
         {
             var options = new EnumGeneratorOptionsBuilder<TEnum>();
             optionBuilder?.Invoke(options);
 
             var values = GetAllValuesForEnum();
+            var generator = new FromListGetSingleGenerator<TEnum>();
 
-            var valuesToSelectFrom = new List<TEnum>();
             foreach (var value in values.Where(e => options.ShouldInclude(e)))
-                for (var i = 0; i < options.ValueFrequency(value); i++)
-                    valuesToSelectFrom.Add(value);
+            {
+                generator.Add(value, options.ValueFrequency(value));
+            }
 
-            _values = new FromListGetSingleGenerator<TEnum>(valuesToSelectFrom.ToArray());
+            _generator = generator;
         }
 
         public TEnum Generate()
         {
-            return _values.Generate();
+            return _generator.Generate();
         }
 
         private static List<TEnum> GetAllValuesForEnum()
