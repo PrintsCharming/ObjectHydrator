@@ -61,9 +61,9 @@ namespace Foundation.ObjectHydrator.Generators
             {
                 var enumValue = (TEnum) value;
                 values.Add(enumValue);
-            }
+        }
 
             return values;
-        }
+    }
     }
 }

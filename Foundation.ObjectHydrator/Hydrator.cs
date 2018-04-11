@@ -469,6 +469,13 @@ namespace Foundation.ObjectHydrator
             return this;
         }
 
+        public Hydrator<T> WithJobTitle(Expression<Func<T, string>> expression)
+        {
+            var gen = new JobTitleGenerator();
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+
         public Hydrator<T> WithEmailAddress<TProperty>(Expression<Func<T, TProperty>> expression)
         {
             var gen = (IGenerator<TProperty>) new EmailAddressGenerator();
