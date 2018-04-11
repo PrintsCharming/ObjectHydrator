@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class FromListGetSingleGenerator<T> : IGenerator<T>
+    public class FromListGetSingleGenerator<T> : IGenerator<T>, IEnumerable<T>
     {
         private readonly Random _random = RandomSingleton.Instance.Random;
         private readonly FrequencyList<T> _list;
@@ -36,5 +37,19 @@ namespace Foundation.ObjectHydrator.Generators
         {
             return _list[_random.Next(0, _list.Count)];
         }
+
+        #region IEnumerable implementation
+
+        IEnumerator<T> IEnumerable<T>.GetEnumerator()
+        {
+            return _list.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ((IEnumerable) _list).GetEnumerator();
+        }
+
+        #endregion
     }
 }

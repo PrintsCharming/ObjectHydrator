@@ -483,6 +483,13 @@ namespace Foundation.ObjectHydrator
             return this;
         }
 
+        public Hydrator<T> WithTitle(Expression<Func<T, string>> expression, Func<ITitleOptionsBuilder, ITitleOptionsBuilder> optionBuilder = null)
+        {
+            var gen = new TitleGenerator(optionBuilder);
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+
         public Hydrator<T> WithFirstName<TProperty>(Expression<Func<T, TProperty>> expression)
         {
             var gen = (IGenerator<TProperty>) new FirstNameGenerator();

@@ -90,6 +90,8 @@
     <Compile Include="Generators\BooleanGenerator.cs" />
     <Compile Include="Generators\ByteArrayGenerator.cs" />
     <Compile Include="Generators\CCVGenerator.cs" />
+    <Compile Include="Generators\ITitleOptionsBuilder.cs" />
+    <Compile Include="Generators\TitleGenerator.cs" />
     <Compile Include="Generators\CompanyNameGenerator.cs" />
     <Compile Include="Generators\CulturesGenerator.cs" />
     <Compile Include="Generators\EnumGeneratorOptionsBuilder.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="Generators\JobTitleGenerator.cs" />
     <Compile Include="Generators\JobTitleGeneratorOptions.cs" />
     <Compile Include="Generators\PasswordGenerator.cs" />
+    <Compile Include="Generators\TitleOptions.cs" />
     <Compile Include="Generators\TrackingNumberGenerator.cs" />
     <Compile Include="Generators\CountryCodeGenerator.cs" />
     <Compile Include="Generators\CreditCardNumberGenerator.cs" />
