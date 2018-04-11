@@ -99,6 +99,10 @@
     <Compile Include="Generators\GeneratedItemFrequencyDefinition.cs" />
     <Compile Include="Generators\Generator.cs" />
     <Compile Include="Generators\IEnumGeneratorOptionsBuilder.cs" />
+    <Compile Include="Generators\IJobTitleGeneratorOptionsBuilder.cs" />
+    <Compile Include="Generators\JobLevel.cs" />
+    <Compile Include="Generators\JobTitleGenerator.cs" />
+    <Compile Include="Generators\JobTitleGeneratorOptions.cs" />
     <Compile Include="Generators\PasswordGenerator.cs" />
     <Compile Include="Generators\TrackingNumberGenerator.cs" />
     <Compile Include="Generators\CountryCodeGenerator.cs" />
