@@ -367,5 +367,77 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
         }
 
         #endregion
+
+        #region Concat Tests
+
+        [Test]
+        public void Concat_MustBeGivenValue()
+        {
+            var target = new FrequencyList<string>();
+
+            Assert.Throws<ArgumentNullException>(() => target.Concat(null));
+        }
+
+        [Test]
+        public void Concat_MustReturnCopy()
+        {
+            var target = new FrequencyList<string>();
+            var other = new FrequencyList<string>();
+
+            var actual = target.Concat(other);
+
+            Assert.AreNotSame(target, actual, "A new instance should be created");
+            Assert.AreNotSame(other, actual, "A new instance should be created");
+
+            Assert.AreEqual(0, actual.Count, "the result should be empty as the original lists are empty");
+
+            target.Add("Item");
+            other.Add("Other Item");
+            Assert.AreEqual(0, actual.Count, "the result should be unaffected by changes to the original");
+        }
+
+        [Test]
+        public void Concat_ShouldMergeLists()
+        {
+            var target = new FrequencyList<string>()
+            {
+                "A"
+            };
+            var other = new FrequencyList<string>()
+            {
+                "B"
+            };
+
+            var actual = target.Concat(other);
+
+            Assert.AreEqual(2, actual.Count);
+            Assert.IsTrue(actual.Any(a => a == "A"));
+            Assert.IsTrue(actual.Any(a => a == "B"));
+        }
+
+        [Test]
+        public void Concat_ShouldMergeListsWithSimilarItems()
+        {
+            var target = new FrequencyList<string>()
+            {
+                "A"
+            };
+            var other = new FrequencyList<string>()
+            {
+                "A",
+                "B"
+            };
+
+            var actual = target.Concat(other);
+
+            Assert.AreEqual(3, actual.Count);
+            Assert.IsTrue(actual.Any(a => a == "A"));
+            Assert.IsTrue(actual.Any(a => a == "B"));
+            Assert.AreEqual(2, actual.Count(a => a == "A"));
+            Assert.AreEqual(1, actual.Count(a => a == "B"));
+        }
+
+
+        #endregion
     }
 }

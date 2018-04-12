@@ -28,12 +28,28 @@ namespace Foundation.ObjectHydrator.Generators
     /// <typeparam name="T"></typeparam>
     public class FrequencyList<T> : IEnumerable<T>
     {
-        private readonly List<GeneratedItemFrequencyDefinition<T>> _data = new List<GeneratedItemFrequencyDefinition<T>>();
+        private readonly List<GeneratedItemFrequencyDefinition<T>> _data;
 
+        #region Constructors
         public FrequencyList()
         {
-            
+            _data = new List<GeneratedItemFrequencyDefinition<T>>();
         }
+
+        /// <summary>
+        /// Makes a copy of the frequency list
+        /// </summary>
+        /// <param name="data"></param>
+        public FrequencyList(FrequencyList<T> data)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+            _data = new List<GeneratedItemFrequencyDefinition<T>>(data._data);
+        }
+
+        #endregion
 
         /// <summary>
         /// Adds an item with a frequency of 1
@@ -102,6 +118,20 @@ namespace Foundation.ObjectHydrator.Generators
         public int Count
         {
             get { return _data.Sum(d => d.Frequency); }
+        }
+
+        [Pure]
+        public FrequencyList<T> Concat(FrequencyList<T> other)
+        {
+            if (other == null)
+            {
+                throw new ArgumentNullException(nameof(other));
+            }
+
+            var result = new FrequencyList<T>(this);
+            result._data.AddRange(other._data);
+
+            return result;
         }
 
         private class FrequencyEnumerator : IEnumerator<T>
