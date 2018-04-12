@@ -131,6 +131,7 @@
     <Compile Include="Generators\UnitedKingdomNationalInsuranceGenerator.cs" />
     <Compile Include="Generators\UnitedKingdomPostcodeGenerator.cs" />
     <Compile Include="Generators\UnitedKingdomPhoneNumberGenerator.cs" />
+    <Compile Include="Generators\UnitedKingdonAddressGenerator.cs" />
     <Compile Include="Generators\WebsiteGenerator.cs" />
     <Compile Include="Hydrator.cs" />
     <Compile Include="Interfaces\IMap.cs" />

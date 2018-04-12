@@ -180,6 +180,23 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             Assert.IsNotNull(address);
         }
 
+        [Test]
+        public void UnitedKingdomAddressGeneratorTest()
+        {
+            
+            var target = new UnitedKingdonAddressGenerator();
+
+            var actual  = target.Generate();
+
+            Assert.IsNotNull(actual);
+            Assert.IsNotEmpty(actual);
+
+            for (int i = 0; i < 100; i++)
+            {
+                actual = target.Generate();
+            }
+        }
+
 
         [Test]
         public void AmericanCityGeneratorTest()
