@@ -391,6 +391,14 @@ namespace Foundation.ObjectHydrator
             return this;
         }
 
+        public Hydrator<T> WithUnitedKingdomAddress(Expression<Func<T, string>> expression)
+        {
+            var gen = new UnitedKingdonAddressGenerator();
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+
+
         public Hydrator<T> WithUnitedKingdomCity<TProperty>(Expression<Func<T, TProperty>> expression)
         {
             var gen = (IGenerator<TProperty>) new UnitedKingdomCityGenerator();
