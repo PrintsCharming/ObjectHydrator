@@ -13,24 +13,24 @@ namespace Foundation.ObjectHydrator.Generators
         public FromListGetSingleGenerator() : this(null) { }
         public FromListGetSingleGenerator(IEnumerable<T> list)
         {
-            this._list = new FrequencyList<T>();
+            _list = new FrequencyList<T>();
             if (list != null)
             {
                 foreach (var item in list)
                 {
-                    this._list.Add(item);
+                    _list.Add(item);
                 }
             }
         }
 
         public void Add(T value, int frequency)
         {
-            this._list.Add(value, frequency);
+            _list.Add(value, frequency);
         }
 
         public void Add(T value)
         {
-            this._list.Add(value);
+            _list.Add(value);
         }
 
         public T Generate()

@@ -136,15 +136,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
                 Assert.IsNotNull(customer);
                 Assert.IsNotNull(customer.Title, "The value should have been set in the Do method");
 
-                IEnumerable<string> allowedTitles;
-                if (customer.Gender.StartsWith("M", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    allowedTitles = expectedMaleTitles;
-                }
-                else
-                {
-                    allowedTitles = expectedFemaleTitles;
-                }
+                IEnumerable<string> allowedTitles = customer.Gender.StartsWith("M", StringComparison.CurrentCultureIgnoreCase) ? expectedMaleTitles : expectedFemaleTitles;
                 CollectionAssert.Contains(allowedTitles, customer.Title);
             }
         }

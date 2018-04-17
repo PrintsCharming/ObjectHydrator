@@ -28,10 +28,10 @@ namespace Foundation.ObjectHydrator.Generators
         {
             get
             {
-                var valuesAtFrequency = new List<T>(this.Frequency);
-                for (int i = 0; i < this.Frequency; i++)
+                var valuesAtFrequency = new List<T>(Frequency);
+                for (int i = 0; i < Frequency; i++)
                 {
-                    valuesAtFrequency.Add(this.Value);
+                    valuesAtFrequency.Add(Value);
                 }
 
                 return valuesAtFrequency;
@@ -40,7 +40,7 @@ namespace Foundation.ObjectHydrator.Generators
 
         public override string ToString()
         {
-            return string.Format("{0} x {1}", Value == null ? "null": Value.ToString(), Frequency);
+            return $"{(Value == null ? "null" : Value.ToString())} x {Frequency}";
         }
     }
 }

@@ -193,7 +193,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
 
             for (int i = 0; i < 100; i++)
             {
-                actual = target.Generate();
+                target.Generate();
             }
         }
 

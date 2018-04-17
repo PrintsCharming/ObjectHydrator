@@ -57,7 +57,7 @@ namespace Foundation.ObjectHydrator.Generators
         /// <param name="item">the item to add</param>
         public void Add(T item)
         {
-            this.Add(item, 1);
+            Add(item, 1);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Foundation.ObjectHydrator.Generators
         /// <param name="frequency">The number of occurences</param>
         public void Add(T item, int frequency)
         {
-            this._data.Add(new GeneratedItemFrequencyDefinition<T>(item, frequency));
+            _data.Add(new GeneratedItemFrequencyDefinition<T>(item, frequency));
         }
 
         /// <summary>
@@ -91,15 +91,14 @@ namespace Foundation.ObjectHydrator.Generators
         {
             get
             {
-                if (index >= this.Count)
+                if (index >= Count)
                 {
                     throw new IndexOutOfRangeException();
                 }
 
                 var value = default(T);
-                for (int i = 0; i < _data.Count; i++)
+                foreach (var item in _data)
                 {
-                    var item = _data[i];
                     if (index >= item.Frequency)
                     {
                         index -= item.Frequency;
@@ -137,18 +136,13 @@ namespace Foundation.ObjectHydrator.Generators
         private class FrequencyEnumerator : IEnumerator<T>
         {
             private readonly List<GeneratedItemFrequencyDefinition<T>> _data;
-            private int _dataIdx = 0;
-            private int _itemIdx = 0;
-            private T _current = default(T);
+            private int _dataIdx;
+            private int _itemIdx;
+            private T _current;
 
             public FrequencyEnumerator(List<GeneratedItemFrequencyDefinition<T>> data)
             {
-                if (data == null)
-                {
-                    throw new ArgumentNullException(nameof(data));
-                }
-
-                _data = data;
+                _data = data ?? throw new ArgumentNullException(nameof(data));
             }
 
             public void Dispose() { }
@@ -179,20 +173,14 @@ namespace Foundation.ObjectHydrator.Generators
 
             public void Reset()
             {
-                this._dataIdx = 0;
-                this._itemIdx = 0;
-                this._current = default(T);
+                _dataIdx = 0;
+                _itemIdx = 0;
+                _current = default(T);
             }
 
-            public T Current
-            {
-                get { return _current; }
-            }
+            public T Current => _current;
 
-            object IEnumerator.Current
-            {
-                get { return Current; }
-            }   
+            object IEnumerator.Current => Current;
         }
     }
 }

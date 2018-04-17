@@ -13,13 +13,13 @@
 
         ITitleOptionsBuilder ITitleOptionsBuilder.ExcludingMaleTitles()
         {
-            this.IncludeMaleTitles = false;
+            IncludeMaleTitles = false;
             return this;
         }
 
         ITitleOptionsBuilder ITitleOptionsBuilder.ExcludingFemaleTitles()
         {
-            this.IncludeFemaleTitles = false;
+            IncludeFemaleTitles = false;
             return this;
         }
     }

@@ -23,7 +23,7 @@ namespace Foundation.ObjectHydrator.Generators
             bizname = bizname.Replace(" ", "");
             bizname = bizname.Replace(",", "");
             sb.Append(bizname);
-            var suffix = new string[4] {".com", ".net", ".org", ".info"};
+            var suffix = new string[] {".com", ".net", ".org", ".info"};
             var num = _random.Next(0, suffix.Length - 1);
             sb.Append(suffix[num]);
             return sb.ToString().ToLower();

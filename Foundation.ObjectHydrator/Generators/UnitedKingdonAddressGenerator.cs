@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using Foundation.ObjectHydrator.Interfaces;
 
@@ -11,12 +10,12 @@ namespace Foundation.ObjectHydrator.Generators
     /// </summary>
     public class UnitedKingdonAddressGenerator : IGenerator<string>
     {
-        private static readonly Random _randomiser = RandomSingleton.Instance.Random;
+        private static readonly Random Randomiser = RandomSingleton.Instance.Random;
 
         /// <summary>
         ///     Local var for holding streetnames
         /// </summary>
-        private readonly FromListGetSingleGenerator<string> _streetnames = new FromListGetSingleGenerator<string>()
+        private readonly FromListGetSingleGenerator<string> _streetnames = new FromListGetSingleGenerator<string>
         {
             { "High", 200 },
             { "Church", 180 },
@@ -70,11 +69,11 @@ namespace Foundation.ObjectHydrator.Generators
             { "Hill", 35 },
             { "Market", 35 },
             { "Water", 25 },
-            { "Main", 25 },
+            { "Main", 25 }
         };
 
         // taken from https://en.wikipedia.org/wiki/Street_suffix
-        private readonly FromListGetSingleGenerator<string> _suffixes = new FromListGetSingleGenerator<string>()
+        private readonly FromListGetSingleGenerator<string> _suffixes = new FromListGetSingleGenerator<string>
         {
             { "Road", 100 },
             { "Street", 100 },
@@ -93,15 +92,8 @@ namespace Foundation.ObjectHydrator.Generators
             { "Mews", 5 },
             { "Vale", 2 },
             { "Row", 5 },
-            { "Wharf", 2 },
+            { "Wharf", 2 }
         };
-
-        /// <summary>
-        ///     Initializes a new instance of the AmericanAddressGenerator class.
-        /// </summary>
-        public UnitedKingdonAddressGenerator()
-        {
-        }
 
         /// <summary>
         ///     Generates the Address string
@@ -110,7 +102,7 @@ namespace Foundation.ObjectHydrator.Generators
         public string Generate()
         {
             var sb = new StringBuilder();
-            var numericPortion = _randomiser.Next(1, 125);
+            var numericPortion = Randomiser.Next(1, 125);
             sb.Append(numericPortion);
             sb.Append(" ");
 

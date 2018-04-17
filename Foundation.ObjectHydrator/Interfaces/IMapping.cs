@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Foundation.ObjectHydrator
+namespace Foundation.ObjectHydrator.Interfaces
 {
     public interface IMapping
     {

@@ -22,10 +22,7 @@ namespace Foundation.ObjectHydrator.Generators
             _suffixes = new FromListGetSingleGenerator<string>(Suffix);
 
             var options = new JobTitleGeneratorOptions();
-            if (optionsBuilder != null)
-            {
-                optionsBuilder(options);
-            }
+            optionsBuilder?.Invoke(options);
 
             var jobLevels = new List<JobLevel>();
 
@@ -64,12 +61,11 @@ namespace Foundation.ObjectHydrator.Generators
             }
 
             return levelToGenerate == JobLevel.High
-                ? string.Format("{0} for {1}", level, type)
-                : string.Format("{0} {1} {2}", level, type, suffix);
+                ? $"{level} for {type}"
+                : $"{level} {type} {suffix}";
         }
 
-        private static readonly string[] AreaList =  new[]
-        {
+        private static readonly string[] AreaList =  {
             "Solutions",
             "Program",
             "Brand",
@@ -126,11 +122,10 @@ namespace Foundation.ObjectHydrator.Generators
             "Cultural Transformation",
             "Arts",
             "Rural Affairs",
-            "Waste Management",
+            "Waste Management"
         };
         
-        private static readonly string[] HighLevelList = new[]
-        {
+        private static readonly string[] HighLevelList = {
             "Chief Executive",
             "President",
             "Vice-President",
@@ -144,11 +139,10 @@ namespace Foundation.ObjectHydrator.Generators
             "Chairman",
             "Vice Chairman",
             "Executive Vice Chairman",
-            "Non-Executive Vice Chairman",
+            "Non-Executive Vice Chairman"
         };
         
-        private static readonly string[] MiddleLevelList = new[]
-        {
+        private static readonly string[] MiddleLevelList = {
             "Lead",
             "Senior",
             "Chief",
@@ -156,11 +150,10 @@ namespace Foundation.ObjectHydrator.Generators
             "Global",
             "International",
             "Corporate",
-            "Regional",
+            "Regional"
         };
 
-        private static readonly string[] RegularLevelList = new[]
-        {
+        private static readonly string[] RegularLevelList = {
             "Trainee",
             "Junior",
             "Graduate",
@@ -179,11 +172,10 @@ namespace Foundation.ObjectHydrator.Generators
             "Forward",
             "Interactive",
             "Internal",
-            "Human",
+            "Human"
         };
 
-        private static readonly string[] Suffix = new[]
-        {
+        private static readonly string[] Suffix = {
             "Supervisor",
             "Associate",
             "Executive",
@@ -209,7 +201,7 @@ namespace Foundation.ObjectHydrator.Generators
             "Facilitator",
             "Agent",
             "Representative",
-            "Strategist",
+            "Strategist"
         };
     }
 }

@@ -10,15 +10,12 @@ namespace Foundation.ObjectHydrator.Generators
         public TitleGenerator(Func<ITitleOptionsBuilder, ITitleOptionsBuilder> optionBuilder = null)
         {
             var options = new TitleOptions();
-            if (optionBuilder != null)
-            {
-                optionBuilder(options);
-            }
+            optionBuilder?.Invoke(options);
 
             var maleFactor = options.IncludeMaleTitles ? 1 : 0;
             var femaleFactor = options.IncludeFemaleTitles ? 1 : 0;
 
-            _candidates = new FromListGetSingleGenerator<string>()
+            _candidates = new FromListGetSingleGenerator<string>
             {
                 { "Mr", 120 * maleFactor },
                 { "Mrs", 110 * femaleFactor},
@@ -27,7 +24,7 @@ namespace Foundation.ObjectHydrator.Generators
                 { "Sir", maleFactor},
                 { "Reverand", maleFactor+ femaleFactor},
                 { "Lady", femaleFactor},
-                { "Lord", maleFactor},
+                { "Lord", maleFactor}
             };
 
 

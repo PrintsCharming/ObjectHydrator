@@ -14,21 +14,16 @@ namespace Foundation.ObjectHydrator
             PropertyInfo = propertyInfo;
             var a = propertyInfo.GetCustomAttributes(false);
             foreach (var item in a)
-                try
+            {
+                var attr = (Attribute) item;
+                //TODO: Refactor this out to be more flexible and support more annotations
+                if (attr.GetType() == typeof(StringLengthAttribute))
                 {
-                    var attr = (Attribute) item;
-                    //TODO: Refactor this out to be more flexible and support more annotations
-                    if (attr.GetType() == typeof(StringLengthAttribute))
-                    {
-                        var sla = (StringLengthAttribute) attr;
-                        if (generator.GetType() == typeof(TextGenerator))
-                            generator = (IGenerator<T>) new TextGenerator(sla.MaximumLength);
-                    }
+                    var sla = (StringLengthAttribute) attr;
+                    if (generator.GetType() == typeof(TextGenerator))
+                        generator = (IGenerator<T>) new TextGenerator(sla.MaximumLength);
                 }
-                catch (Exception)
-                {
-                    throw;
-                }
+            }
             Generator = generator;
         }
 

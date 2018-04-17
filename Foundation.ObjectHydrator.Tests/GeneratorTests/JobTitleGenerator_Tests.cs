@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace Foundation.ObjectHydrator.Tests.GeneratorTests
 {
     [TestFixture]
-    public class JobTitleGenerator_Tests
+    public class JobTitleGeneratorTests
     {
         [Test]
         public void ShouldGenerateAValue()

@@ -652,13 +652,6 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             Assert.IsNotEmpty(customer.Placeholderstring);
             Assert.IsTrue(customer.Placeholderstring.StartsWith("07"));
         }
-        private void DumpCustomers(IList<SimpleCustomer> customers)
-        {
-            foreach (SimpleCustomer customer in customers)
-            {
-                DumpSimpleCustomer(customer);
-            }
-        }
 
         private void DumpSimpleCustomer(Object theObject)
         {

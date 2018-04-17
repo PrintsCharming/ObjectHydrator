@@ -4,11 +4,11 @@ namespace Foundation.ObjectHydrator.Generators
 {
     public class JobTitleGeneratorOptions : IJobTitleGeneratorOptionsBuilder
     {
-        private readonly Dictionary<JobLevel, int> _jobLevels = new Dictionary<JobLevel, int>()
+        private readonly Dictionary<JobLevel, int> _jobLevels = new Dictionary<JobLevel, int>
         {
             {JobLevel.High, 1 },
             {JobLevel.Middle, 1 },
-            {JobLevel.Regular, 1 },
+            {JobLevel.Regular, 1 }
         };
 
         public IJobTitleGeneratorOptionsBuilder WithLevel(JobLevel level, int frequency = 1)
