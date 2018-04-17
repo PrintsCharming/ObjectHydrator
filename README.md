@@ -45,6 +45,8 @@ Hydrator<Customer> _customerHydrator = new Hydrator<Customer>()
 
 Version 1.4.0 Pre
 * Enhanced Enum generator, thanks to rikrak
+* FrequencyList, weight values in a list to influence occurance frequency, thanks to rikrak
+* Added new generators, TitleGenerator ("Ms","Mrs","Mr" etc...), JobTitleGenerator (With options for complexity), UKAddressGenerator thanks to rikrak
 * Clean up and new language version usages
 
 Version 1.3.0
