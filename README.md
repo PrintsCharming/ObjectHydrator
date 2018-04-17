@@ -111,5 +111,8 @@ UnitedKingdomPhoneNumberGenerator | Returns a UK Phone | Thanks to rikrak
 UnitedKingdomInsuranceNumberGenerator | Returns a UK Ins Number | Thanks to rikrak
 AlphaNumericGenerator | Returns an string with alpha chars of n length | Thanks to fuzzy-afterlife
 CulturesGenerator | Returns a Culture Info property | Thanks to ushenkodmitry
+TitleGenerator | Returns a title (Mr, Mrs, Dr etc..) | Thanks to rikrak
+JobTitleGenerator | Returns a job title | Thanks to rikrak
+UKAddressGenerator | Returns addresses that have a UK style | Thanks to rikrak
 
 All values can be overridden so you can do things like fake search results etc...
