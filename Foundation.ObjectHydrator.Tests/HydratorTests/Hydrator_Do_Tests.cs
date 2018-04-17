@@ -1,4 +1,6 @@
-﻿using Foundation.ObjectHydrator.Generators;
+﻿using System;
+using System.Collections.Generic;
+using Foundation.ObjectHydrator.Generators;
 using Foundation.ObjectHydrator.Tests.POCOs;
 using NUnit.Framework;
 
@@ -107,6 +109,44 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             Assert.IsNotNull(customer);
             Assert.IsNotNull(customer.Country, "The value should have been set in the Do method");
             Assert.IsNotEmpty(customer.Country, "The value should have been set in the Do method");
+        }
+
+        [Test]
+        public void CanUseGenerator3()
+        {
+            const int sampleSize = 500;
+            var maleTitles = new TitleGenerator(o => o.ExcludingFemaleTitles());
+            var femaleTitles = new TitleGenerator(o => o.ExcludingMaleTitles());
+
+            var hydrator = new Hydrator<SimpleCustomer>()
+                .WithGender(x => x.Gender)
+                .Do(x =>
+                {
+                    x.Title = x.Gender.StartsWith("M", StringComparison.CurrentCultureIgnoreCase)
+                        ? maleTitles.Generate()
+                        : femaleTitles.Generate();
+                });
+
+            var expectedMaleTitles = new[] {"Mr", "Sir", "Lord", "Dr", "Reverand"};
+            var expectedFemaleTitles = new[] {"Mrs", "Miss", "Lady", "Dr", "Reverand"};
+            for (int i = 0; i < sampleSize; i++)
+            {
+                var customer = hydrator.GetSingle();
+
+                Assert.IsNotNull(customer);
+                Assert.IsNotNull(customer.Title, "The value should have been set in the Do method");
+
+                IEnumerable<string> allowedTitles;
+                if (customer.Gender.StartsWith("M", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    allowedTitles = expectedMaleTitles;
+                }
+                else
+                {
+                    allowedTitles = expectedFemaleTitles;
+                }
+                CollectionAssert.Contains(allowedTitles, customer.Title);
+            }
         }
 
         [Test]

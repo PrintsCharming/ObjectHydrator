@@ -391,6 +391,14 @@ namespace Foundation.ObjectHydrator
             return this;
         }
 
+        public Hydrator<T> WithUnitedKingdomAddress(Expression<Func<T, string>> expression)
+        {
+            var gen = new UnitedKingdonAddressGenerator();
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+
+
         public Hydrator<T> WithUnitedKingdomCity<TProperty>(Expression<Func<T, TProperty>> expression)
         {
             var gen = (IGenerator<TProperty>) new UnitedKingdomCityGenerator();
@@ -469,9 +477,23 @@ namespace Foundation.ObjectHydrator
             return this;
         }
 
+        public Hydrator<T> WithJobTitle(Expression<Func<T, string>> expression)
+        {
+            var gen = new JobTitleGenerator();
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+
         public Hydrator<T> WithEmailAddress<TProperty>(Expression<Func<T, TProperty>> expression)
         {
             var gen = (IGenerator<TProperty>) new EmailAddressGenerator();
+            SetPropertyMap(expression, gen);
+            return this;
+        }
+
+        public Hydrator<T> WithTitle(Expression<Func<T, string>> expression, Func<ITitleOptionsBuilder, ITitleOptionsBuilder> optionBuilder = null)
+        {
+            var gen = new TitleGenerator(optionBuilder);
             SetPropertyMap(expression, gen);
             return this;
         }
