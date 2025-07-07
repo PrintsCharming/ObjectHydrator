@@ -391,7 +391,6 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         {
             var hydrator = new Hydrator<SimpleCustomer>();
             var customer = hydrator.GetSingle();
-            Assert.That(customer.IsActive, Is.Not.Null, "Customer Homepage should not be null.");
             Assert.That(customer.IsActive, Is.TypeOf<bool>());
             
             DumpSimpleCustomer(customer);

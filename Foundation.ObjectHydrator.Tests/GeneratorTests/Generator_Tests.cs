@@ -5,6 +5,7 @@ using Foundation.ObjectHydrator.Generators;
 using Foundation.ObjectHydrator.Interfaces;
 using NUnit.Framework;
 
+
 namespace Foundation.ObjectHydrator.Tests.GeneratorTests
 {
     [TestFixture]
@@ -411,7 +412,7 @@ namespace Foundation.ObjectHydrator.Tests.GeneratorTests
             var result = generator.Generate();
 
             Assert.That(result, Is.Not.Empty);
-            Assert.That(result.StartsWith(expectedPrefix), "The phone number should start with \"{0}\"", expectedPrefix);
+            Assert.That(result.StartsWith(expectedPrefix), $"The phone number should start with \"{expectedPrefix}\"" );
         }
 
         [Test]

@@ -26,7 +26,7 @@ namespace Foundation.ObjectHydrator.Tests.POCOs
                 _emailAddress = value;
             }
         }
-        private bool _isActive;
+        private bool _isActive=true;
         public bool IsActive
         {
             get { return _isActive; }
