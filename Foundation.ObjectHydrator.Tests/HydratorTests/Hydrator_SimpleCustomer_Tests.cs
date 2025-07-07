@@ -18,7 +18,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>();
             var customer = hydrator.GetSingle();
 
-            Assert.IsTrue(!String.IsNullOrEmpty(customer.Description), "Customer Description should exist.");
+            Assert.That(!string.IsNullOrEmpty(customer.Description), Is.True, "Customer Description should exist.");
 
             DumpSimpleCustomer(customer);
         }
@@ -29,11 +29,10 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<RestrictedDescriptionCustomer>();
             var customer = hydrator.GetSingle();
 
-            Assert.IsTrue(!String.IsNullOrEmpty(customer.Description), "Customer Description should exist.");
-            Assert.IsTrue(customer.Description.Length <= 5,"Length not restricted");
+            Assert.That(!string.IsNullOrEmpty(customer.Description), Is.True, "Customer Description should exist.");
+            Assert.That(customer.Description.Length <= 5, Is.True, "Length not restricted");
             DumpSimpleCustomer(customer);
         }
-
 
         [Test]
         public void CanGetList()
@@ -42,7 +41,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>();
             var customers = hydrator.GetList(listCount);
 
-            Assert.IsTrue(customers.Count == listCount, "Customer count is wrong.");
+            Assert.That(customers.Count == listCount, Is.True, "Customer count is wrong.");
 
             //DumpCustomers(customers);
         }
@@ -53,7 +52,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>();
             var customer = hydrator.GetSingle();
 
-            Assert.IsTrue(!String.IsNullOrEmpty(customer.Description), "Customer Description should exist.");
+            Assert.That(!string.IsNullOrEmpty(customer.Description), Is.True, "Customer Description should exist.");
 
             DumpSimpleCustomer(customer);
         }
@@ -65,9 +64,9 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
                 .WithInteger(x => x.Locations, 5, 10);
 
             var customer = hydrator.GetSingle();
-
-            Assert.IsTrue(customer.Locations >= 5 && customer.Locations <= 10,
-                String.Format("Customer Locations [{0}] is outside expected range.", customer.Locations));
+            Assert.That(customer.Locations, Is.InRange(5, 10), 
+                String.Format("Customer Locations [{0}] is outside expected range [5,10].", customer.Locations));
+            
 
             DumpSimpleCustomer(customer);
         }
@@ -83,7 +82,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsTrue(defaultValue == customer.Description, String.Format("Default value is not as expected[{0}]", defaultValue));
+            Assert.That(defaultValue == customer.Description, String.Format("Default value is not as expected[{0}]", defaultValue));
 
             DumpSimpleCustomer(customer);
         }
@@ -95,8 +94,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
                 .With(x => x.FirstName, "Bob");
             var customer = hydrator.GetSingle();
 
-            Assert.IsNotNull(customer);
-            Assert.IsTrue(customer.FirstName == "Bob");
+            Assert.That(customer,Is.Not.Null);
+            Assert.That(customer.FirstName == "Bob");
         }
 
         [Test]
@@ -106,7 +105,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsTrue(customer.Locations >= 0, String.Format("Customer Locations is expected."));
+            Assert.That(customer.Locations >= 0, String.Format("Customer Locations is expected."));
 
             DumpSimpleCustomer(customer);
         }
@@ -118,7 +117,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsTrue(customer.Revenue >= 0, String.Format("Customer Revenue is expected."));
+            Assert.That(customer.Revenue >= 0, String.Format("Customer Revenue is expected."));
 
             DumpSimpleCustomer(customer);
         }
@@ -133,7 +132,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var customer = hydrator.GetSingle();
 
             var decimalPart = customer.Revenue - (int) customer.Revenue;
-            Assert.IsTrue(decimalPart >= 0, String.Format("Customer Revenue decimal part is expected."));
+            Assert.That(decimalPart >= 0, String.Format("Customer Revenue decimal part is expected."));
 
             DumpSimpleCustomer(customer);
         }
@@ -166,7 +165,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var decimalPart = customer.Revenue - (int) customer.Revenue;
 
             Assert.That(customer.Revenue, Is.InRange(minimum, maximum));
-            Assert.IsTrue(decimalPart >= 0, String.Format("Customer Revenue decimal part is expected."));
+            Assert.That(decimalPart >= 0, String.Format("Customer Revenue decimal part is expected."));
 
             DumpSimpleCustomer(customer);
         }
@@ -181,7 +180,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsTrue(defaultValue == customer.Locations, String.Format("Default value is not as expected[{0}]", defaultValue));
+            Assert.That(defaultValue == customer.Locations, String.Format("Default value is not as expected[{0}]", defaultValue));
 
             DumpSimpleCustomer(customer);
         }
@@ -197,7 +196,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsTrue(defaultValue == customer.IncorporatedOn, String.Format("Default value is not as expected[{0}]", defaultValue));
+            Assert.That(defaultValue == customer.IncorporatedOn, String.Format("Default value is not as expected[{0}]", defaultValue));
 
             DumpSimpleCustomer(customer);
         }
@@ -215,7 +214,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsTrue(defaultValue == customer.Description, String.Format("Default value is not as expected[{0}]", defaultValue));
+            Assert.That(defaultValue == customer.Description, String.Format("Default value is not as expected[{0}]", defaultValue));
 
             Assert.That(customer.Locations, Is.InRange(minimumValue, maximumValue),
                 String.Format("Customer Locations [{0}] is outside expected range [{1},{2}].", customer.Locations, minimumValue,
@@ -268,7 +267,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsTrue(customer.Version.Length == length, String.Format("Customer Version Length is expected to be {0}.", length));
+            Assert.That(customer.Version.Length == length, String.Format("Customer Version Length is expected to be {0}.", length));
 
             DumpSimpleCustomer(customer);
         }
@@ -283,8 +282,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsNotEmpty(customer.CreditCardNumber, String.Format("Credit Card Number is expected."));
-            Assert.IsTrue(customer.CreditCardNumber.Length == length,
+            Assert.That(customer.CreditCardNumber, Is.Not.Empty, String.Format("Credit Card Number is expected."));
+            Assert.That(customer.CreditCardNumber.Length == length,
                 String.Format("Credit Card Number [{0}] should be {1} long.", customer.CreditCardNumber,
                     length));
 
@@ -302,8 +301,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         {
             var hydrator = new Hydrator<SimpleCustomer>();
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.homepage);
-            Assert.IsTrue(IsWebsiteAddressValid(customer.homepage));
+            Assert.That(customer.homepage,Is.Not.Null,"Customer Homepage should not be null.");
+            Assert.That(IsWebsiteAddressValid(customer.homepage));
         }
 
         public bool IsValidIPAddress(string ipaddress)
@@ -319,8 +318,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         {
             var hydrator = new Hydrator<SimpleCustomer>();
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.ipaddress);
-            Assert.IsTrue(IsValidIPAddress(customer.ipaddress));
+            Assert.That(customer.ipaddress,Is.Not.Null, "Customer Homepage should not be null.");
+            Assert.That(IsValidIPAddress(customer.ipaddress),"IP address should be valid.");
         }
 
         [Test]
@@ -329,8 +328,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithIPAddress(x => x.placeholderstring);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
-            Assert.IsTrue(IsValidIPAddress(customer.placeholderstring));
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
+            Assert.That(IsValidIPAddress(customer.placeholderstring));
         }
 
         [Test]
@@ -338,7 +337,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         {
             var hydrator = new Hydrator<SimpleCustomer>();
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.gender);
+            Assert.That(customer.gender, Is.Not.Null, "Customer Homepage should not be null.");
         }
 
         [Test]
@@ -348,8 +347,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
                 .WithGender(x => x.placeholderstring);
 
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
-            Assert.IsTrue(customer.placeholderstring.ToLower().Contains("male") ||
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
+            Assert.That(customer.placeholderstring.ToLower().Contains("male") ||
                           customer.placeholderstring.ToLower().Contains("female"));
         }
 
@@ -358,7 +357,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         {
             var hydrator = new Hydrator<SimpleCustomer>();
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.creditcardtype);
+            Assert.That(customer.creditcardtype, Is.Not.Null, "Customer Homepage should not be null.");
         }
 
         [Test]
@@ -366,8 +365,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         {
             var hydrator = new Hydrator<SimpleCustomer>();
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.Country);
-            Assert.IsTrue(customer.Country.Length == 2);
+            Assert.That(customer.Country, Is.Not.Null, "Customer Homepage should not be null.");
+            Assert.That(customer.Country.Length == 2);
         }
 
         private bool IsEmailAddressValid(string emailaddress)
@@ -383,8 +382,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         {
             var hydrator = new Hydrator<SimpleCustomer>();
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.EmailAddress);
-            Assert.IsTrue(IsEmailAddressValid(customer.EmailAddress));
+            Assert.That(customer.EmailAddress, Is.Not.Null, "Customer Homepage should not be null.");
+            Assert.That(IsEmailAddressValid(customer.EmailAddress));
         }
 
         [Test]
@@ -392,8 +391,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         {
             var hydrator = new Hydrator<SimpleCustomer>();
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.IsActive);
-            Assert.IsInstanceOf<bool>(customer.IsActive);
+            Assert.That(customer.IsActive, Is.Not.Null, "Customer Homepage should not be null.");
+            Assert.That(customer.IsActive, Is.TypeOf<bool>());
             
             DumpSimpleCustomer(customer);
         }
@@ -403,7 +402,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         {
             var hydrator = new Hydrator<SimpleCustomer>();
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.TrackingNumber);
+            Assert.That(customer.TrackingNumber, Is.Not.Null, "Customer Homepage should not be null.");
         }
 
         [Test]
@@ -412,7 +411,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithTrackingNumber(x => x.TrackingNumber, "usps");
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.TrackingNumber);
+            Assert.That(customer.TrackingNumber, Is.Not.Null, "Customer Homepage should not be null.");
         }
 
         [Test]
@@ -421,8 +420,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithCCV(x => x.CCV, "visa");
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.CCV);
-            Assert.IsTrue(customer.CCV.Length == 3);
+            Assert.That(customer.CCV, Is.Not.Null, "Customer Homepage should not be null.");
+            Assert.That(customer.CCV.Length == 3);
         }
 
         private bool CheckPhone(string phonetocheck)
@@ -440,8 +439,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithAmericanPhone(x => x.placeholderstring);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
-            Assert.IsTrue(CheckPhone(customer.placeholderstring));
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
+            Assert.That(CheckPhone(customer.placeholderstring));
         }
 
         private bool IsAmericanPostalCodeValid(string postalcode)
@@ -456,8 +455,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithAmericanPostalCode(x => x.placeholderstring, 1);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
-            Assert.IsTrue(IsAmericanPostalCodeValid(customer.placeholderstring));
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
+            Assert.That(IsAmericanPostalCodeValid(customer.placeholderstring));
         }
 
         [Test]
@@ -467,8 +466,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .FromList(x => x.placeholderstring, mylist);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
-            Assert.IsTrue(mylist.Contains(customer.placeholderstring));
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
+            Assert.That(mylist.Contains(customer.placeholderstring));
         }
 
         [Test]
@@ -477,7 +476,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithAmericanAddress(x => x.placeholderstring);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
         }
 
         [Test]
@@ -486,7 +485,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithAmericanCity(x => x.placeholderstring);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
         }
 
         [Test]
@@ -495,7 +494,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithAmericanState(x => x.placeholderstring);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
         }
 
         [Test]
@@ -504,7 +503,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithCompanyName(x => x.placeholderstring);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
         }
 
         [Test]
@@ -513,7 +512,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithCreditCardType(x => x.placeholderstring);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
         }
 
         [Test]
@@ -522,7 +521,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithEmailAddress(x => x.placeholderstring);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
         }
 
         [Test]
@@ -531,7 +530,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithFirstName(x => x.placeholderstring);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
         }
 
         [Test]
@@ -540,7 +539,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithLastName(x => x.placeholderstring);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
         }
 
         [Test]
@@ -549,7 +548,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithWebsite(x => x.placeholderstring);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
         }
 
         [Test]
@@ -557,8 +556,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
         {
             var hydrator = new Hydrator<SimpleCustomer>();
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.Password);
-            Assert.AreEqual(10, customer.Password.Length);
+            Assert.That(customer.Password, Is.Not.Null, "Customer Homepage should not be null.");
+            Assert.That(customer.Password.Length==10);
         }
 
         [Test]
@@ -567,8 +566,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithPassword(x => x.placeholderstring);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
-            Assert.AreEqual(10, customer.placeholderstring.Length);
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
+            Assert.That(customer.placeholderstring.Length == 10);
         }
 
         [Test]
@@ -578,8 +577,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithPassword(x => x.placeholderstring, pwlen);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
-            Assert.AreEqual(pwlen, customer.placeholderstring.Length);
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
+            Assert.That(customer.placeholderstring.Length == pwlen);
         }
 
         [Test]
@@ -588,8 +587,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithAlphaNumeric(x => x.placeholderstring, 10);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
-            Assert.AreEqual(10, customer.placeholderstring.Length);
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
+            Assert.That(customer.placeholderstring.Length == 10);
         }
 
         [Test]
@@ -600,8 +599,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsNotNull(customer.placeholderstring);
-            Assert.IsNotEmpty(customer.placeholderstring);
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
+            Assert.That(customer.placeholderstring, Is.Not.Empty);
         }
 
         [Test]
@@ -610,7 +609,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithUnitedKingdomCity(x => x.placeholderstring);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
         }
 
         [Test]
@@ -619,7 +618,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithUnitedKingdomCounty(x => x.placeholderstring);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
         }
 
         [Test]
@@ -628,7 +627,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<SimpleCustomer>()
                 .WithUnitedKingdomPostCode(x => x.placeholderstring);
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer.placeholderstring);
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
         }
 
         [Test]
@@ -639,9 +638,9 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsNotNull(customer.placeholderstring);
-            Assert.IsNotEmpty(customer.placeholderstring);
-            Assert.IsTrue(customer.placeholderstring.StartsWith("01"));
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
+            Assert.That(customer.placeholderstring, Is.Not.Empty);
+            Assert.That(customer.placeholderstring.StartsWith("01"));
         }
 
         [Test]
@@ -652,9 +651,9 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsNotNull(customer.placeholderstring);
-            Assert.IsNotEmpty(customer.placeholderstring);
-            Assert.IsTrue(customer.placeholderstring.StartsWith("07"));
+            Assert.That(customer.placeholderstring, Is.Not.Null, "Customer Homepage should not be null.");
+            Assert.That(customer.placeholderstring, Is.Not.Empty);
+            Assert.That(customer.placeholderstring.StartsWith("07"));
         }
         private void DumpCustomers(IList<SimpleCustomer> customers)
         {

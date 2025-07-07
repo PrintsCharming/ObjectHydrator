@@ -12,7 +12,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<Address>().WithCustomGenerator(x=>x.State, new InjectedGenerator());
 
             var checkme = hydrator.GetSingle();
-            Assert.IsNotNull(checkme);
+            Assert.That(checkme,Is.Not.Null);
         }
     }
 }
