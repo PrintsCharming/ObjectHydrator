@@ -1,5 +1,5 @@
-﻿using System;
-using Foundation.ObjectHydrator.Interfaces;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
 
 namespace Foundation.ObjectHydrator.Generators
 {

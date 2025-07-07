@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
 using System.Collections.Generic;
-using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {

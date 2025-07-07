@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Foundation.ObjectHydrator.Generators;
 using Foundation.ObjectHydrator.Interfaces;
+using System;
 using System.Reflection;
-using Foundation.ObjectHydrator.Generators;
 
 namespace Foundation.ObjectHydrator
 {
-    public class EnumMap:IMap
+    public class EnumMap : IMap
     {
 
         #region IMap Members

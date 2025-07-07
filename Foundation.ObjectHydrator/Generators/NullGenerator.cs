@@ -2,7 +2,7 @@
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class NullGenerator:IGenerator<object>
+    public class NullGenerator : IGenerator<object>
     {
         public object Generate()
         {

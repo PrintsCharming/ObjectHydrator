@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-using Foundation.ObjectHydrator.Interfaces;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System.Collections.Generic;
 
 namespace Foundation.ObjectHydrator.Generators
 {
     public class CountryCodeGenerator : IGenerator<string>
     {
-        
+
         private IList<string> countrycodes = new List<string>();
 
         public CountryCodeGenerator()
         {
-            
+
             LoadCountryCodes();
         }
 

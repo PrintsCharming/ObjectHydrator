@@ -1,9 +1,9 @@
-﻿using System;
-using Foundation.ObjectHydrator.Interfaces;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class CCVGenerator:IGenerator<string>
+    public class CCVGenerator : IGenerator<string>
     {
         Random random;
         public string CCVType { get; set; }

@@ -1,12 +1,12 @@
-﻿using System;
-using Foundation.ObjectHydrator.Interfaces;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class EmailAddressGenerator:IGenerator<string>
+    public class EmailAddressGenerator : IGenerator<string>
     {
         Random random;
-        
+
         public EmailAddressGenerator()
         {
             random = RandomSingleton.Instance.Random;
@@ -36,7 +36,7 @@ namespace Foundation.ObjectHydrator.Generators
         }
         public string Generate()
         {
-           
+
             IGenerator<string> fng = new FirstNameGenerator();
             IGenerator<string> lng = new LastNameGenerator();
             IGenerator<string> cng = new CompanyNameGenerator();

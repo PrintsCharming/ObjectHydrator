@@ -17,8 +17,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<ComplexCustomer>()
                 .With(x => x.HomeAddress, new TypeGenerator<Address>());
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer);
-            Assert.IsNotNull(customer.HomeAddress, "CustomerAddress is null");
+            Assert.That(customer, Is.Not.Null);
+            Assert.That(customer.HomeAddress,Is.Not.Null, "CustomerAddress is null");
         }
 
         [Test]
@@ -29,9 +29,9 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<ComplexCustomer>()
                 .With(x => x.HomeAddress, new TypeGenerator<Address>());
             var customerlist = hydrator.GetList(10);
-            Assert.IsNotNull(customerlist);
-            Assert.IsTrue(customerlist.Count == 10);
-            Assert.IsNotNull(customerlist[1].HomeAddress, "CustomerAddress is null");
+            
+            Assert.That(customerlist.Count == 10);
+            Assert.That(customerlist[1].HomeAddress, Is.Not.Null, "CustomerAddress is null");
         }
 
 
@@ -47,8 +47,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
                 .GetSingle();
 
 
-            Assert.IsNotNull(customer);
-            Assert.IsTrue(customer.Addresses.Count == listSize,
+            
+            Assert.That(customer.Addresses.Count == listSize,
                 string.Format("Customer.Address.Count [{0}] is not expected value of [{1}].",
                     customer.Addresses.Count, listSize));
 
@@ -71,8 +71,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
                 .GetSingle();
 
 
-            Assert.IsNotNull(customer);
-            Assert.IsTrue(customer.PhoneNumbers.Length == listSize,
+            Assert.That(customer, Is.Not.Null);
+            Assert.That(customer.PhoneNumbers.Length == listSize,
                   string.Format("customer.PhoneNumbers.Length [{0}] is not expected value of [{1}].",
                   customer.PhoneNumbers.Length, listSize));
 
@@ -91,8 +91,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
                 .With(x => x.Addresses, ListGenerator<Address>.RandomLength());
 
             var customer = hydrator.GetSingle();
-            Assert.IsNotNull(customer);
-            Assert.IsTrue(customer.Addresses.Count > 0);
+            Assert.That(customer, Is.Not.Null);
+            Assert.That(customer.Addresses.Count > 0);
 
             Trace.WriteLine("Addresses Generated...");
             foreach (Address address in customer.Addresses)
@@ -111,7 +111,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
                 .For<string>(new Map<string>().Matching(info => info.Name.ToLower() == "lastname").Using(lastNameDefault))
                 .GetSingle();
 
-            Assert.AreEqual(lastNameDefault, hy.LastName);
+            Assert.That(lastNameDefault== hy.LastName);
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
@@ -3132,7 +3132,7 @@ namespace Foundation.ObjectHydrator.Generators
         private char GetLetter()
         {
             var num = _random.Next(0, 26); // Zero to 25
-            var let = (char) ('a' + num);
+            var let = (char)('a' + num);
             return let;
         }
     }

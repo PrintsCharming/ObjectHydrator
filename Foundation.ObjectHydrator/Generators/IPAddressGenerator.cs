@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
 using System.Text;
-using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class IPAddressGenerator:IGenerator<string>
+    public class IPAddressGenerator : IGenerator<string>
     {
         Random random;
 

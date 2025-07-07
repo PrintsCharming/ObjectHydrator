@@ -20,8 +20,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsNotNull(customer);
-            Assert.AreEqual(customer.Locations, expected, "The value should have been set in the Do method");
+            Assert.That(customer, Is.Not.Null);
+            Assert.That(customer.Locations== expected, "The value should have been set in the Do method");
         }
 
         [Test]
@@ -38,9 +38,9 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsNotNull(customer);
-            Assert.AreEqual(customer.Description, expected, "The value should have been set in the Do method");
-            Assert.AreEqual(customer.Password, expected, "The value should have been set in the Do method");
+            Assert.That(customer, Is.Not.Null);
+            Assert.That(customer.Description == expected, "The value should have been set in the Do method");
+            Assert.That(customer.Password == expected, "The value should have been set in the Do method");
         }
 
         [Test]
@@ -56,8 +56,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsNotNull(customer);
-            Assert.AreEqual(customer.FirstName, expected, "The value should have been set in the Do method");
+            Assert.That(customer, Is.Not.Null);
+            Assert.That(customer.FirstName == expected, "The value should have been set in the Do method");
         }
 
         [Test]
@@ -71,8 +71,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsNotNull(customer);
-            Assert.AreEqual(customer.FirstName, expected, "The value should have been set in the Do method");
+            Assert.That(customer, Is.Not.Null);
+            Assert.That(customer.FirstName ==    expected, "The value should have been set in the Do method");
         }
 
         [Test]
@@ -86,9 +86,9 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsNotNull(customer);
-            Assert.IsNotNull(customer.Country, "The value should have been set in the Do method");
-            Assert.IsNotEmpty(customer.Country, "The value should have been set in the Do method");
+            Assert.That(customer, Is.Not.Null);
+            Assert.That(customer.Country ,Is.Not.Null, "The value should have been set in the Do method");
+            Assert.That(customer.Country,Is.Not.Empty, "The value should have been set in the Do method");
         }
 
         [Test]
@@ -104,9 +104,9 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsNotNull(customer);
-            Assert.IsNotNull(customer.Country, "The value should have been set in the Do method");
-            Assert.IsNotEmpty(customer.Country, "The value should have been set in the Do method");
+            Assert.That(customer, Is.Not.Null);
+            Assert.That(customer.Country, Is.Not.Null, "The value should have been set in the Do method");
+            Assert.That(customer.Country, Is.Not.Empty, "The value should have been set in the Do method");
         }
 
         [Test]
@@ -120,8 +120,8 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
 
             var customer = hydrator.GetSingle();
 
-            Assert.IsNotNull(customer);
-            Assert.AreEqual(customer.EmailAddress, string.Format("{0}.{1}@{2}.com", customer.FirstName, customer.LastName, customer.Company), "The value should have been set in the Do method");
+            Assert.That(customer, Is.Not.Null);
+            Assert.That(customer.EmailAddress== string.Format("{0}.{1}@{2}.com", customer.FirstName, customer.LastName, customer.Company), "The value should have been set in the Do method");
         }
     }
 }

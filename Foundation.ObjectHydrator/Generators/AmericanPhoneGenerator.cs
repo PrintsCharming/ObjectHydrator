@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
 using System.Text;
-using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class AmericanPhoneGenerator:IGenerator<string>
+    public class AmericanPhoneGenerator : IGenerator<string>
     {
         Random random;
 
@@ -43,6 +43,6 @@ namespace Foundation.ObjectHydrator.Generators
             sb.Append(suffix.ToString());
             return sb.ToString();
         }
-        
+
     }
 }

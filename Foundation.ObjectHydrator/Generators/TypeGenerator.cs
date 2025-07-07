@@ -2,7 +2,7 @@
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class TypeGenerator<T>:IGenerator<T>
+    public class TypeGenerator<T> : IGenerator<T>
     {
         public T Generate()
         {

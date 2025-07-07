@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Foundation.ObjectHydrator.Generators;
+using Foundation.ObjectHydrator.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
-using Foundation.ObjectHydrator.Generators;
-using Foundation.ObjectHydrator.Interfaces;
 using System.Linq.Expressions;
+using System.Reflection;
 
 
 namespace Foundation.ObjectHydrator
 {
-    public class Hydrator<T>:IGenerator<T>
+    public class Hydrator<T> : IGenerator<T>
     {
         readonly Type typeOfT = null;
         readonly IDictionary<string, IMapping> propertyMap;
@@ -79,9 +79,9 @@ namespace Foundation.ObjectHydrator
         public IList<T> GetList()
         {
             int length;
-            
+
             length = Random.Next(1, 10);
-            
+
             return GetList(length);
         }
 
@@ -167,7 +167,7 @@ namespace Foundation.ObjectHydrator
             return this;
         }
 
-        public Hydrator<T> WithCustomGenerator<TProperty>(Expression<Func<T,TProperty>> expression, IGenerator<TProperty> customgenerator)
+        public Hydrator<T> WithCustomGenerator<TProperty>(Expression<Func<T, TProperty>> expression, IGenerator<TProperty> customgenerator)
         {
             SetPropertyMap(expression, customgenerator);
             return this;
@@ -383,7 +383,7 @@ namespace Foundation.ObjectHydrator
             SetPropertyMap(expression, gen);
             return this;
         }
-        
+
 
 
         /// <summary>
@@ -497,7 +497,7 @@ namespace Foundation.ObjectHydrator
         }
 
         #endregion
-        
+
         /// <summary>
         /// Applies a random selection from the passed list to the provided Property Name.
         /// </summary>
@@ -555,7 +555,7 @@ namespace Foundation.ObjectHydrator
             foreach (IMapping mapping in propertyMap.Values)
             {
                 PropertyInfo propertyInfo = instance.GetType().GetProperty(mapping.PropertyName, BindingFlags.Public | BindingFlags.Instance);
-               
+
                 if (propertyInfo != null)
                 {
                     propertyInfo.SetValue(instance, mapping.Generate(), null);
@@ -604,7 +604,7 @@ namespace Foundation.ObjectHydrator
 
         public Hydrator<T> Do(Action<T> action)
         {
-            if(actions == null) { actions = new List<Action<T>>();}
+            if (actions == null) { actions = new List<Action<T>>(); }
             actions.Add(action);
             return this;
         }

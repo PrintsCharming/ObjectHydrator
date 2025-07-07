@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
 using System.Text;
-using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
@@ -74,7 +74,7 @@ namespace Foundation.ObjectHydrator.Generators
 
     public class UnitedKingdomMobileGenerator : UnitedKingdomPhoneNumberGenerator
     {
-        public UnitedKingdomMobileGenerator():base("7") { }
+        public UnitedKingdomMobileGenerator() : base("7") { }
     }
 
     public class UnitedKingdomLandlineGenerator : UnitedKingdomPhoneNumberGenerator

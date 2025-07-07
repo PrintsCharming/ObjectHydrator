@@ -12,7 +12,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<Address>();
 
             var checkme = hydrator.GetSingle();
-            Assert.IsNotNull(checkme);
+            Assert.That(checkme,Is.Not.Null);
         }
 
         [Test]
@@ -21,7 +21,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<Address>();
 
             var checkme = hydrator.GetSingle();
-            Assert.IsNotNull(checkme);
+            Assert.That(checkme, Is.Not.Null);
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace Foundation.ObjectHydrator.Tests.HydratorTests
             var hydrator = new Hydrator<Address>();
 
             var checkme = hydrator.GetSingle();
-            Assert.IsNotNull(checkme);
+            Assert.That(checkme, Is.Not.Null);
         }
     }
 }
