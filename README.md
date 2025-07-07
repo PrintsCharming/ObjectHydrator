@@ -64,7 +64,7 @@ Version 0.7.0
 
     Install-Package objecthydrator
 
-This version is for Visual Studio 2010 .Net 4. I'll switch to a newer version and use 2013 if there is interest.
+This version is for Visual Studio 2022 .Net 10. 
 
 ## Summary
 
