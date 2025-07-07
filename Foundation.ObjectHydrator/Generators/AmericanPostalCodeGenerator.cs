@@ -1,9 +1,9 @@
-﻿using System;
-using Foundation.ObjectHydrator.Interfaces;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class AmericanPostalCodeGenerator:IGenerator<string>
+    public class AmericanPostalCodeGenerator : IGenerator<string>
     {
         Random random;
         public int PercentageWithPlusFour { get; private set; }
@@ -15,7 +15,7 @@ namespace Foundation.ObjectHydrator.Generators
             random = RandomSingleton.Instance.Random;
         }
 
-         public string Generate()
+        public string Generate()
         {
             string plusFour = String.Empty;
 

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Foundation.ObjectHydrator.Generators;
 using Foundation.ObjectHydrator.Interfaces;
-using Foundation.ObjectHydrator.Generators;
+using System;
 using System.Reflection;
 
 namespace Foundation.ObjectHydrator
 {
-    public class Map<T>:IMap
+    public class Map<T> : IMap
     {
         private Func<PropertyInfo, bool> _func;
         private IGenerator<T> _generator;

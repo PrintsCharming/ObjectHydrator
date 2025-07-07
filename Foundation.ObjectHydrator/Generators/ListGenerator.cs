@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-using Foundation.ObjectHydrator.Interfaces;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System.Collections.Generic;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class ListGenerator<T>:IGenerator<IList<T>>
+    public class ListGenerator<T> : IGenerator<IList<T>>
     {
         private readonly int listLength;
         private readonly IGenerator<T> elementGenerator;
 
         public ListGenerator(int length, IGenerator<T> elementGenerator = null)
         {
-            this.elementGenerator =  elementGenerator ?? new TypeGenerator<T>();
+            this.elementGenerator = elementGenerator ?? new TypeGenerator<T>();
             listLength = length;
         }
 

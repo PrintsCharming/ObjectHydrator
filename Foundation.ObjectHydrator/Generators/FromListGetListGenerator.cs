@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
-using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class FromListGetListGenerator<T>:IGenerator<IList<T>>
+    public class FromListGetListGenerator<T> : IGenerator<IList<T>>
     {
         private readonly int listLength;
         public IEnumerable<T> list = new List<T>();
@@ -26,6 +26,6 @@ namespace Foundation.ObjectHydrator.Generators
             }
             return newList;
         }
-        
+
     }
 }

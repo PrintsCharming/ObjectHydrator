@@ -1,9 +1,9 @@
-﻿using System.Text;
-using Foundation.ObjectHydrator.Interfaces;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System.Text;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class PasswordGenerator:IGenerator<string>
+    public class PasswordGenerator : IGenerator<string>
     {
         private char[] legalchars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()".ToCharArray();
         int length;

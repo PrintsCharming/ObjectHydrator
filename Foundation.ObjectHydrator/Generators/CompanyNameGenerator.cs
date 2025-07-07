@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
 using System.Collections.Generic;
-using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class CompanyNameGenerator:IGenerator<string>
+    public class CompanyNameGenerator : IGenerator<string>
     {
         Random random;
         IList<string> companynames = new List<string>();
@@ -22,7 +22,7 @@ namespace Foundation.ObjectHydrator.Generators
 
         private void LoadNames()
         {
-            companynames = new List<String> { 
+            companynames = new List<String> {
                 "Acme, inc.",
                 "Widget Corp",
                 "123 Warehousing",

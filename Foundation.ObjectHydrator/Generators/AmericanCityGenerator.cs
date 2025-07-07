@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
 using System.Collections.Generic;
-using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
     /// <summary>
     /// Produces a random American City
     /// </summary>
-    public class AmericanCityGenerator:IGenerator<string>
+    public class AmericanCityGenerator : IGenerator<string>
     {
         /// <summary>
         /// Instance of Random Singleton

@@ -1,9 +1,9 @@
-﻿using System;
-using Foundation.ObjectHydrator.Interfaces;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class IntegerGenerator:IGenerator<int>
+    public class IntegerGenerator : IGenerator<int>
     {
         Random random;
 

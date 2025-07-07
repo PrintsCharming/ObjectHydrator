@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
 using System.Text;
-using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class TrackingNumberGenerator:IGenerator<string>
+    public class TrackingNumberGenerator : IGenerator<string>
     {
         Random random;
-        public string Carrier {get;set;}
+        public string Carrier { get; set; }
 
         public TrackingNumberGenerator(string carrier)
         {
@@ -19,10 +19,10 @@ namespace Foundation.ObjectHydrator.Generators
         {
             StringBuilder sb = new StringBuilder();
             char[] chararray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".ToCharArray();
-            int sizeofcharray=chararray.Length-1;
+            int sizeofcharray = chararray.Length - 1;
             switch (Carrier.ToLower())
             {
-                
+
                 default:
                 case "ups":
                     sb.Append("1Z");

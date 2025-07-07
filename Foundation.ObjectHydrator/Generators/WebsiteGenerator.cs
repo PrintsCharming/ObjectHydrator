@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
 using System.Text;
-using Foundation.ObjectHydrator.Interfaces;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class WebsiteGenerator:IGenerator<string>
+    public class WebsiteGenerator : IGenerator<string>
     {
         Random random;
 

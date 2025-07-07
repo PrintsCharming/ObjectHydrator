@@ -1,9 +1,9 @@
-﻿using System;
-using Foundation.ObjectHydrator.Interfaces;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class DateTimeGenerator:IGenerator<DateTime>
+    public class DateTimeGenerator : IGenerator<DateTime>
     {
         Random random;
         public DateTime MinimumValue { get; private set; }
@@ -16,10 +16,10 @@ namespace Foundation.ObjectHydrator.Generators
 
         public DateTimeGenerator(DateTime minimumValue, DateTime maximumValue)
         {
-            MinimumValue=minimumValue;
-            MaximumValue=maximumValue;
+            MinimumValue = minimumValue;
+            MaximumValue = maximumValue;
 
-            random=RandomSingleton.Instance.Random;
+            random = RandomSingleton.Instance.Random;
         }
 
         public DateTime Generate()

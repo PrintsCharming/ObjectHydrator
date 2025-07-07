@@ -1,13 +1,13 @@
-﻿    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using Foundation.ObjectHydrator.Interfaces;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace Foundation.ObjectHydrator.Generators
 {
 
-    
+
 
     /// <summary>
     /// Produces a random American style Street Address

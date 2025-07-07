@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Foundation.ObjectHydrator.Generators;
 using Foundation.ObjectHydrator.Interfaces;
-using Foundation.ObjectHydrator.Generators;
+using System;
+using System.Collections.Generic;
 
 namespace Foundation.ObjectHydrator
 {
-    public class DefaultTypeMap:List<IMap>
+    public class DefaultTypeMap : List<IMap>
     {
         public DefaultTypeMap()
         {

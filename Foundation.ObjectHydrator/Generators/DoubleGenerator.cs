@@ -1,9 +1,9 @@
-﻿using System;
-using Foundation.ObjectHydrator.Interfaces;
+﻿using Foundation.ObjectHydrator.Interfaces;
+using System;
 
 namespace Foundation.ObjectHydrator.Generators
 {
-    public class DoubleGenerator:IGenerator<double>
+    public class DoubleGenerator : IGenerator<double>
     {
         Random random;
 
@@ -15,7 +15,7 @@ namespace Foundation.ObjectHydrator.Generators
             : this(0.0, 100)
         { }
 
-        public DoubleGenerator(int decimalPlaces):this(0.0,100.00,decimalPlaces)
+        public DoubleGenerator(int decimalPlaces) : this(0.0, 100.00, decimalPlaces)
         {
 
         }
