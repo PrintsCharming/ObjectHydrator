@@ -31,7 +31,18 @@ namespace Foundation.ObjectHydrator.Generators
 
         public string Generate()
         {
-            return sampleText.Substring(0, random.Next(1, Length - 1)).Trim();
+            // Ensure we have a valid length to work with
+            int maxLength = Math.Min(Length, sampleText.Length);
+            
+            if (maxLength <= 0)
+                return string.Empty;
+            
+            if (maxLength == 1)
+                return sampleText.Substring(0, 1).Trim();
+            
+            // For lengths 2 and above, generate a random length between 1 and maxLength (inclusive)
+            int randomLength = random.Next(1, maxLength + 1);
+            return sampleText.Substring(0, randomLength).Trim();
         }
 
         #endregion
